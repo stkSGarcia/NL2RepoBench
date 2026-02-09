@@ -1,24 +1,22 @@
-## Introduction and Objectives of the Python-pytest-cases Project
+## Introduction and Goals of the More-Itertools Project
 
-Python-pytest-cases is a Python library **designed for separate management of test cases**. It can separate test code from test data and provides powerful parameterized testing capabilities. This tool performs exceptionally well in large-scale test projects, enabling "optimal test organization structure and maximum maintainability". Its core functions include: separation of test cases (automatically collecting test data from independent case files), **enhanced parameterized testing** (supporting multiple data sources, tag filtering, dynamic generation, etc.), and intelligent management of advanced features such as fixtures, markers, and filtering. In short, Python-pytest-cases aims to provide a powerful test case management framework for building maintainable and extensible test suites (for example, separating test functions from test data through the `@parametrize_with_cases` decorator and providing test data through `case_*` functions).
+More-Itertools is a Python library **aimed at enhancing Python iterators**. It extends the standard library's `itertools` module and provides over 100 powerful iterator utility functions. This tool performs excellently in scenarios such as data processing, algorithm implementation, and stream processing, achieving "the highest memory efficiency and optimal performance." Its core functions include: grouping and chunking iterators (automatically splitting large datasets into manageable chunks), **lookahead and lookbehind capabilities** (supporting iterator preview and backtracking), and intelligent handling of special functions such as sliding windows, data augmentation, combinatorial mathematics, and mathematical operations. In short, More-Itertools is dedicated to providing a powerful iterator tool system to enhance Python's iterator processing capabilities (e.g., chunking large datasets using `chunked()`, previewing iterators using `peekable()`, etc.).
 
 ## Natural Language Instruction (Prompt)
 
-Please create a Python project named Python-pytest-cases to implement a library for separate management of test cases. The project should include the following functions:
+Please create a Python project named More-Itertools to implement an iterator enhancement library. The project should include the following functions:
 
-1. **Test Case Separator**: It should be able to collect and manage test cases from independent files, supporting multiple naming conventions (such as `case_*`, `data_*`, `user_*`, etc.). The separator should automatically discover test case files (such as `test_foo_cases.py` or `cases_foo.py`) and separate test data from test logic.
+1. Grouping and Chunking Functions: Capable of dividing an iterable object into fixed-size chunks, supporting strict mode and lazy chunking, including functions such as `chunked()`, `ichunked()`, `sliced()`, and `split_at()`. The chunking results should be lists or generators, supporting data segmentation of different sizes.
 
-2. **Enhanced Parameterized Testing**: Implement the `@parametrize_with_cases` decorator, which can replace the standard `@pytest.mark.parametrize` and provide more powerful parameterized functions. It should support multiple data sources (modules, classes, function lists), tag filtering, regular expression matching, and dynamic test case generation.
+2. Lookahead and Lookbehind Functions: Implement functions to preview iterator elements without consuming the iterator, supporting operations such as `peekable()`, `seekable()`, and `spy()`. Advanced iterator operations such as peek preview, prepend, and seek backtracking should be supported.
 
-3. **Advanced Filtering and Marking System**: Perform intelligent filtering and marking of test cases, supporting a tag system (`@case(tags=...)`), regular expression matching, custom filtering functions, etc. It should provide filtering mechanisms such as `has_tag`, `id_match_regex`, and `CaseFilter`.
+3. Window and Sliding Functions: Special handling of sliding windows, adjacent element pairs, triples, etc., such as generating sliding windows using `windowed()`, generating adjacent pairs using `pairwise()`, and generating triples using `triplewise()`.
 
-4. **Enhanced Fixture Functionality**: Implement enhanced fixture functionality, including fixture unions, lazy values, fixture parametrization, etc. It should support the use of test cases in fixtures and manage complex dependencies between fixtures.
+4. Interface Design: Design independent function interfaces for each functional module (e.g., grouping, lookahead, window, enhancement, combination, summary, selection, combinatorial mathematics, wrapping, mathematical operations, etc.), supporting chaining calls and combined use. Each module should define clear input and output formats.
 
-5. **Interface Design**: Design independent interfaces for each functional module (such as case collection, parametrization, filtering, fixture enhancement, etc.), supporting command-line calls and programming interfaces. Each module should define clear input and output formats and provide complete type annotations.
+5. Examples and Evaluation Scripts: Provide example code and test cases to demonstrate how to use the `chunked()` and `windowed()` functions for data chunking and sliding window processing (e.g., `chunked('ABCDEF', 3)` should return `[['A', 'B', 'C'], ['D', 'E', 'F']]`). The above functions need to be combined to build a complete iterator enhancement toolkit. The final project should include modules such as grouping, lookahead, window, enhancement, combination, summary, selection, combinatorial mathematics, wrapping, and mathematical operations, along with typical test cases, forming a reproducible enhancement process.
 
-6. **Examples and Test Scripts**: Provide example code and test cases to demonstrate how to use `@parametrize_with_cases` for test case separation (for example, the `@parametrize_with_cases("a,b")` decorator combined with the `case_two_positive_ints()` function should be able to automatically run tests). The above functions need to be combined to build a complete test case management toolkit.
-
-7. **Core File Requirements**: The project must include a well-configured `pyproject.toml` file. This file should not only configure the project as an installable package (supporting `pip install`) but also declare a complete list of dependencies (including core libraries such as `pytest>=6.0`, `makefun>=1.15.1`, `decopatch`, `packaging`, etc.). The `pyproject.toml` file can verify whether all functional modules work properly. At the same time, it is necessary to provide `src/pytest_cases/__init__.py` as a unified API entry, importing core functions and classes from each module and exporting core functions such as `parametrize_with_cases`, `case`, and `current_cases`. Among them, `parametrize_with_cases` is a decorator used to parametrize test functions or fixtures, which can automatically collect and filter test cases; the `case` decorator is used to customize the ID, tags, and markers of test cases; the `current_cases` function (or fixture) is used to obtain information about all case parameters of the current test. Users can access all major functions through a simple `from pytest_cases import parametrize_with_cases, case` statement. In the core module, there needs to be a `get_current_cases()` function to obtain detailed information about the current test case, as well as a `CaseFilter` class to implement complex filtering logic.
+6. Core File Requirements: The project must include a complete `pyproject.toml` file, which should not only configure the project as an installable package (supporting `pip install`) but also declare a complete list of dependencies (including core libraries such as `Python >= 3.9` and `flit_core >= 3.12`). `pyproject.toml` should be able to verify whether all functional modules are working properly. Additionally, `more_itertools/__init__.py` should be provided as a unified API entry, importing and exporting core functions, classes, etc. from the `more` and `recipes` modules, and providing version information, allowing users to access all major functions through simple statements such as `from more_itertools import xxx` or `import more_itertools`. In `more.py`, functions such as `chunked()` and `windowed()` should be provided to offer various iterator enhancement functions.
 
 ## Environment Configuration
 
@@ -28,7391 +26,5732 @@ The Python version used in the current project is: Python 3.12.4
 ### Core Dependency Library Versions
 
 ```Plain
-# Core testing framework
-pytest>=6.0                      # Foundation for unit testing framework
-makefun>=1.15.1                  # Library for dynamic function generation
-decopatch                         # Decorator patch library
+# Python version requirements
+Python >= 3.9                    # Supports Python 3.9, 3.10, 3.11, 3.12, 3.13
 
-# Data processing library  
-packaging                         # Python package management tool
-setuptools_scm                   # Version management tool
+# Build system dependencies
+flit_core >= 3.12, < 4            # Build backend
+flit >= 3.12.0                  # Package management tool
 
-# Development tool library
-nox                               # Multi-environment testing tool
-mkdocs-material                   # Documentation generation framework
-pymdown-extensions               # Markdown extensions
+# Development dependencies
+coverage >= 7.10.3              # Code coverage
+mypy >= 1.17.1                  # Type checking
+ruff >= 0.12.8                  # Code formatting and checking
+sphinx >= 8.2.3                 # Documentation generation
+furo >= 2025.7.19               # Sphinx theme
+twine >= 6.1.0                  # Package upload
+wheel >= 0.41.2                 # Package building
 
-# Code quality tool
-flake8                           # Code style checker
-pytest-steps                     # Test step management
-pytest-harvest                   # Test result collection
-pytest-asyncio                   # Asynchronous testing support
+# Testing framework
+unittest                      # Built-in Python testing framework
+tox                          # Multi-environment testing management
 ```
 
-## Architecture of the Python-pytest-cases Project
+## More-Itertools Project Architecture
 
 ### Project Directory Structure
 
 ```Plain
 workspace/
-├── .gitignore         
-├── .zenodo.json       
+├── .gitattributes
+├── .gitignore
+├── .readthedocs.yaml
 ├── LICENSE
-├── README.md
-├── ci_tools
-│   ├── .pylintrc
-│   ├── check_python_version.py
-│   ├── flake8-requirements.txt
-│   ├── github_release.py
-│   └── nox_utils.py
+├── MANIFEST.in
+├── Makefile
+├── README.rst
 ├── docs
-│   ├── api_reference.md
-│   ├── changelog.md
-│   ├── examples.md
-│   ├── imgs
-│   │   ├── 0_bench_plots_example.png
-│   │   ├── 0_bench_plots_example2.png
-│   │   ├── 0_bench_plots_example3.png
-│   │   ├── 0_bench_plots_example4.png
-│   │   ├── 0_dummy_bench_results.png
-│   │   ├── 1_files_overview.png
-│   │   ├── 2_class_overview.png
-│   │   ├── 3_fixture_graph_pytest.png
-│   │   ├── 4_fixture_graph_pytest_closure.png
-│   │   ├── 5_fixture_graph_union.png
-│   │   ├── 6_fixture_graph_union_closures.png
-│   │   └── source.pptx
-│   ├── index.md
-│   ├── long_description.md
-│   ├── pytest_goodies.md
-│   └── unions_theory.md
-├── mkdocs.yml
-├── noxfile-requirements.txt
-├── noxfile.py
+│   ├── Makefile
+│   ├── _static
+│   │   ├── theme_overrides.css
+│   ├── api.rst
+│   ├── conf.py
+│   ├── index.rst
+│   ├── license.rst
+│   ├── make.bat
+│   ├── requirements.txt
+│   ├── testing.rst
+│   ├── toctree.rst
+│   ├── versions.rst
+├── more_itertools
+│   ├── __init__.py
+│   ├── __init__.pyi
+│   ├── more.py
+│   ├── more.pyi
+│   ├── py.typed
+│   ├── recipes.py
+│   ├── recipes.pyi
 ├── pyproject.toml
-└── src
-    └──pytest_cases
-        ├── __init__.py
-        ├── case_funcs.py
-        ├── case_parametrizer_new.py
-        ├── common_mini_six.py
-        ├── common_others.py
-        ├── common_pytest.py
-        ├── common_pytest_lazy_values.py
-        ├── common_pytest_marks.py
-        ├── filters.py
-        ├── fixture__creation.py
-        ├── fixture_core1_unions.py
-        ├── fixture_core2.py
-        ├── fixture_parametrize_plus.py
-        ├── pep380.py
-        ├── pep492.py
-        ├── pep525.py
-        ├── plugin.py
-        └── py.typed
+└── tox.ini
+
 ```
 
 ## API Usage Guide
 
 ### Core API
 
-#### 1. `Folders` - Directory Structure Management
+#### 1. Module Import
 
-**Description**:
-Directory path management class for the project's build system, providing organized access to various project directories.
-
-**Import Statement**:
 ```python
-from noxfile import Folders
+import more_itertools as mi
+from more_itertools import recipes
 ```
 
-**Class Signature**:
+#### 2. `chunked()` Function - Data Chunking
+
+**Functionality**: Divide an iterable object into fixed-size chunks.
+
+**Function Signature**:
 ```python
-class Folders:
-    root = Path(__file__).parent
-    ci_tools = root / "ci_tools"
-    runlogs = root / Path(nox.options.envdir or ".nox") / "_runlogs"
-    runlogs.mkdir(parents=True, exist_ok=True)
-    dist = root / "dist"
-    site = root / "site"
-    site_reports = site / "reports"
-    reports_root = root / "docs" / "reports"
-    test_reports = reports_root / "junit"
-    test_xml = test_reports / "junit.xml"
-    test_html = test_reports / "report.html"
-    test_badge = test_reports / "junit-badge.svg"
-    coverage_reports = reports_root / "coverage"
-    coverage_xml = coverage_reports / "coverage.xml"
-    coverage_intermediate_file = root / ".coverage"
-    coverage_badge = coverage_reports / "coverage-badge.svg"
-    flake8_reports = reports_root / "flake8"
-    flake8_intermediate_file = root / "flake8stats.txt"
-    flake8_badge = flake8_reports / "flake8-badge.svg"
-```
-
-#### 2. `CaseParamValue` - Case Parameter Value Base Class
-
-**Description**:
-Abstract base class for case parameter values in test case parametrization.
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import CaseParamValue
-```
-
-**Class Signature**:
-```python
-class CaseParamValue(object):
-    """Common class for lazy values and fixture refs created from cases"""
-    __slots__ = ()
-
-    def get_case_id(self):
-        raise NotImplementedError()
-
-    def get_case_function(self, request):
-        raise NotImplementedError()
-```
-
-**Function Description**:
-- `get_case_id()`: Returns the case identifier string.
-- `get_case_function(request)`: Retrieves the case function for the given request.
-
-**Parameter Description**:
-- `self`: The instance of the case parameter value.
-- `request`: The pytest request object containing context for fixture resolution.
-
-#### 3. `_LazyValueCaseParamValue` - Lazy Value Case Parameter Value
-
-**Description**:
-Case parameter value implementation using lazy value mechanism.
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _LazyValueCaseParamValue
-```
-
-**Class Signature**:
-```python
-class _LazyValueCaseParamValue(LazyValue, CaseParamValue):
-    """A case that does not require any fixture is transformed into a `lazy_value` parameter
-    when passed to @parametrize.
-
-    We subclass it so that we can easily find back all parameter values that are cases
-    """
-    def get_case_id(self): ...
-    def get_case_function(self, request): ...
-    def as_lazy_tuple(self, nb_params): ...
-```
-
-**Function Description**:
-- `get_case_id()`: Returns the unique case identifier.
-- `get_case_function(request)`: Retrieves the case function for the given request object.
-- `as_lazy_tuple(nb_params)`: Converts the lazy value case parameter to a lazy tuple.
-
-**Parameter Description**:
-- `self`: The instance of the lazy value case parameter value.
-- `request`: The pytest request object for fixture resolution.
-- `nb_params`: Number of parameters in the lazy tuple.
-
-#### 4. `_LazyTupleCaseParamValue` - Lazy Tuple Case Parameter Value
-
-**Description**:
-Case parameter value implementation using lazy tuple mechanism.
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _LazyTupleCaseParamValue
-```
-
-**Class Signature**:
-```python
-class _LazyTupleCaseParamValue(LazyTuple, CaseParamValue):
-    """A case representing a tuple"""
-    def get_case_id(self): ...
-    def get_case_function(self, request): ...
-   
-```
-
-**Function Description**:
-- `get_case_id()`: Returns the unique case identifier.
-- `get_case_function(request)`: Retrieves the case function for the given request object.
-
-**Parameter Description**:
-- `self`: The instance of the lazy tuple case parameter value.
-- `request`: The pytest request object for fixture resolution.
-
-#### 5. `_FixtureRefCaseParamValue` - Fixture Reference Case Parameter Value
-
-**Description**:
-Case parameter value implementation for fixture references.
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _FixtureRefCaseParamValue
-```
-
-**Class Signature**:
-```python
-class _FixtureRefCaseParamValue(fixture_ref, CaseParamValue):
-    """A case that requires at least a fixture is transformed into a `fixture_ref` parameter when passed to @parametrize"""
-
-    def get_case_id(self): ...
-    def get_case_function(self, request): ...
-```
-
-**Function Description**:
-- `get_case_id()`: Returns the unique case identifier.
-- `get_case_function(request)`: Retrieves the case function for the given request object.
-
-**Parameter Description**:
-- `self`: The instance of the fixture reference case parameter value.
-- `request`: The pytest request object for fixture resolution.
-
-#### 6. `CasesCollectionWarning` - Cases Collection Warning
-
-**Description**:
-Warning raised during test case collection.
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import CasesCollectionWarning
-```
-
-**Class Signature**:
-```python
-class CasesCollectionWarning(UserWarning):
-    """
-    Warning emitted when pytest cases is not able to collect a file or symbol in a module.
-    """
-    # Note: if we change this, then the symbol MUST be present in __init__ for import, see GH#249
-    __module__ = "pytest_cases"
-```
-
-#### 7. `ExceptionCheckingError` - Exception Checking Error
-
-**Description**:
-Error class for exception checking during test execution.
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import ExceptionCheckingError
-```
-
-**Class Signature**:
-```python
-class ExceptionCheckingError(AssertionError):
-    pass
-```
-
-#### 8. `AssertException` - Assert Exception Context Manager
-
-**Description**:
-Context manager for asserting exceptions in tests.
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import AssertException
-```
-
-**Class Signature**:
-```python
-class AssertException(object):
-    """ An implementation of the `assert_exception` context manager"""
-
-    __slots__ = ('expected_exception', 'err_type', 'err_ptrn', 'err_inst', 'err_checker')
-
-    def __init__(self, expected_exception): ...
-    def __enter__(self): ...
-    def __exit__(self, exc_type, exc_val, exc_tb): ...
-```
-
-**Function Description**:
-- `__init__(expected_exception)`: Initializes the assertion context manager with the expected exception type.
-- `__enter__(self)`: Enters the context manager context.
-- `__exit__(exc_type, exc_val, exc_tb)`: Exits the context manager and checks if the expected exception was raised.
-
-**Parameter Description**:
-- `self`: The instance of the assertion context manager.
-- `expected_exception`: The exception type that is expected to be raised.
-- `exc_type`: The type of the exception raised, if any.
-- `exc_val`: The exception value raised, if any.
-- `exc_tb`: The exception traceback raised, if any.
-
-#### 9. `HostNotConstructedYet` - Host Not Constructed Yet
-
-**Description**:
-Exception raised when test host module is not yet constructed.
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import HostNotConstructedYet
-```
-
-**Class Signature**:
-```python
-class HostNotConstructedYet(Exception):
-    """Raised by `get_class_that_defined_method` in the situation where the host class is not in the host module yet."""
-    pass
-```
-
-#### 10. `FakeSession` - Fake Session
-
-**Description**:
-Mock session object for testing purposes.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import FakeSession
-```
-
-**Class Signature**:
-```python
-class FakeSession(object):
-      __slots__ = ('_fixturemanager',)
-
-    def __init__(self):
-        self._fixturemanager = None
-```
-
-**Function Description**:
-- `__init__(self)`: Initializes a fake session object for testing.
-
-**Parameter Description**:
-- `self`: The instance of the fake session.
-
-#### 11. `MiniFuncDef` - Mini Function Definition
-
-**Description**:
-Minimal function definition object for test metadata.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import MiniFuncDef
-```
-
-**Class Signature**:
-```python
-class MiniFuncDef(object):
-    __slots__ = ('nodeid', 'session')
-
-    def __init__(self, nodeid):
-        self.nodeid = nodeid
-        if PYTEST8_OR_GREATER:
-            self.session = FakeSession()
-```
-
-**Function Description**:
-- `__init__(nodeid)`: Initializes a mini function definition with a node identifier.
-
-**Parameter Description**:
-- `self`: The instance of the mini function definition.
-- `nodeid`: The pytest node identifier for the function.
-
-#### 12. `MiniMetafunc` - Mini Metafunc
-
-**Description**:
-Minimal metafunc object for test parametrization.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import MiniMetafunc
-```
-
-**Class Signature**:
-```python
-class MiniMetafunc(Metafunc):
-    """
-    A class to know what pytest *would* do for a given function in terms of callspec.
-    It is ONLY used in function `case_to_argvalues` and only the following are read:
-
-    - is_parametrized (bool)
-    - requires_fixtures (bool)
-    - fixturenames_not_in_sig (declared used fixtures with @pytest.mark.usefixtures)
-
-    Computation of the latter requires
-
-    """
-    def __init__(self, func): ...
-    @property
-    def is_parametrized(self): ...
-    @property
-    def requires_fixtures(self): ...
-    def update_callspecs(self): ...
-```
-
-**Function Description**:
-- `__init__(func)`: Initializes a mini metafunc object with a function.
-- `is_parametrized()`: Checks if the function is parametrized.
-- `requires_fixtures`: Returns whether the function requires fixtures.
-- `update_callspecs`: Updates the call specifications for the function.
-
-**Parameter Description**:
-- `self`: The instance of the mini metafunc.
-- `func`: The function object to wrap.
-
-#### 13. `Lazy` - Lazy Value Case Parameter Value
-
-**Description**:
-Case parameter value implementation using lazy value mechanism.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_lazy_values import Lazy
-```
-
-**Class Signature**:
-```python
-class Lazy(object):
-    """
-    All lazy items should inherit from this for good pytest compliance (ids, marks, etc.)
-    """
-    __slots__ = ()
-
-    _field_names = ()
-    """Subclasses should fill this variable to get an automatic __eq__ and __repr__."""
-
-    def get_id(self): ...
-    def get(self, request_or_item): ...
-    def __str__(self): ...
-    def __eq__(self, other): ...
-    def __repr__(self): ...
-    @property
-    def __name__(self): ...
-    @classmethod
-    def copy_from(cls, obj): ...
-    def clone(self): ...
-```
-
-**Function Description**:
-- `get_id()`: Returns the identifier for this lazy value.
-- `get(request_or_item)`: Resolves and returns the concrete value in the given context.
-- `__str__()`: Returns a readable string representation.
-- `__eq__(other)`: Compares two lazy values for equality.
-- `__repr__()`: Returns the unambiguous representation used for debugging.
-- `__name__()`: Returns a display name for the lazy value.
-- `copy_from(cls, obj)`: Creates a new lazy wrapper copied from an existing object.
-- `clone()`: Returns a clone of this lazy value.
-
-**Parameter Description**:
-- `self`: The current lazy value instance.
-- `request_or_item`: Pytest request/item context used to resolve the value.
-- `other`: The object to compare for equality.
-- `obj`: The source object used to create a copy.
-
-#### 14. `_LazyValue` - Lazy Value Case Parameter Value
-
-**Description**:
-Case parameter value implementation using lazy value mechanism.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_lazy_values import _LazyValue
-```
-
-**Class Signature**:
-```python
-class _LazyValue(Lazy):
-    """
-    A reference to a value getter, to be used in `parametrize`.
-
-    A `lazy_value` is the same thing than a function-scoped fixture, except that the value getter function is not a
-    fixture and therefore can neither be parametrized nor depend on fixtures. It should have no mandatory argument.
-
-    The `self.get(request)` method can be used to get the value for the current pytest context. This value will
-    be cached so that plugins can call it several time without triggering new calls to the underlying function.
-    So the underlying function will be called exactly once per test node.
-
-    See https://github.com/smarie/python-pytest-cases/issues/149
-    and https://github.com/smarie/python-pytest-cases/issues/143
-    """
-    if PYTEST53_OR_GREATER:
-        __slots__ = 'valuegetter', '_id', '_marks', 'cached_value_context', 'cached_value'
-        _field_names = __slots__
+from functools import partial
+from more_itertools import take
+
+
+def chunked(iterable, n, strict=False):
+    """Divide an iterable object into fixed-size chunks."""
+    iterator = iter(partial(take, n, iter(iterable)), [])
+    if strict:
+        if n is None:
+            raise ValueError('n must not be None when using strict mode.')
+
+        def ret():
+            for chunk in iterator:
+                if len(chunk) != n:
+                    raise ValueError('iterable is not divisible by n.')
+                yield chunk
+
+        return ret()
     else:
-        # we can not define __slots__ since we'll extend int in a subclass
-        # see https://docs.python.org/3/reference/datamodel.html?highlight=__slots__#notes-on-using-slots
-        _field_names = 'valuegetter', '_id', '_marks', 'cached_value_context', 'cached_value'
-    @classmethod
-    def copy_from(cls,
-                  obj  # type: _LazyValue
-                  ): ...
-    def __init__(self,
-                 valuegetter,  # type: Callable[[], Any]
-                 id=None,      # type: str  # noqa
-                 marks=None,   # type: Union[MarkDecorator, Iterable[MarkDecorator]]
-                 ): ...
-    def __hash__(self): ...
-    def get_marks(self,
-                  as_decorators=False  # type: bool
-                  ): ...
-    def get_id(self): ...
-    def get(self, request_or_item): ...
-    def has_cached_value(self, request_or_item = None, node = None, raise_if_no_context = True): ...
-    def as_lazy_tuple(self, nb_params): ...
-    def as_lazy_items_list(self, nb_params): ...
+        return iterator
 ```
-
-**Function Description**:
-- `copy_from(cls, obj)`: Creates a new `_LazyValue` copied from an object.
-- `__init__(valuegetter, id = None, marks = None)`: Builds a lazy value from a getter with optional id and marks.
-- `__hash__()`: Returns the hash for dictionary/set usage.
-- `get_marks(as_decorators = False)`: Returns the associated pytest marks.
-- `get_id()`: Returns the identifier string.
-- `get(request_or_item)`: Resolves and returns the concrete value.
-- `has_cached_value(request_or_item = None, node = None, raise_if_no_context = True)`: Indicates whether a cached value exists.
-- `as_lazy_tuple(nb_params)`: Converts to a lazy tuple of length `nb_params`.
-- `as_lazy_items_list(nb_params)`: Converts to a list of lazy items.
 
 **Parameter Description**:
-- `self`: The `_LazyValue` instance.
-- `obj`: Source object for copying.
-- `valuegetter`: Callable used to compute the value lazily.
-- `id`: Optional explicit identifier.
-- `marks`: Optional pytest marks.
-- `as_decorators`: If True, returns marks as decorators.
-- `request_or_item`: Pytest context used to resolve the value.
-- `node`: Optional pytest node.
-- `raise_if_no_context`: If True, raises if no context is available.
-- `nb_params`: Number of parameters/size for conversions.
+- `iterable`: The iterable object to be chunked.
+- `n`: The size of each chunk.
+- `strict`: Whether to use strict mode, default is `False`.
 
-#### 15. `_LazyTupleItem` - Lazy Value Base Class
+**Return Value**: A generator that yields lists of size `n`.
 
-**Description**:
-Base class for lazy loading of values.
+#### 3. `windowed()` Function - Sliding Window
 
-**Import Statement**:
+**Functionality**: Generate a sliding window, supporting custom step size and fill value.
+
+**Function Signature**:
 ```python
-from pytest_cases.common_pytest_lazy_values import _LazyTupleItem
-```
+from itertools import chain
+from itertools import islice
 
-**Class Signature**:
-```python
-class _LazyTupleItem(Lazy):
-    """
-    An item in a Lazy Tuple
-    """
-    if PYTEST53_OR_GREATER:
-        __slots__ = 'host', 'item'
-        _field_names = __slots__
-    else:
-        # we can not define __slots__ since we'll extend int in a subclass
-        # see https://docs.python.org/3/reference/datamodel.html?highlight=__slots__#notes-on-using-slots
-        _field_names = 'host', 'item'
-    @classmethod
-    def copy_from(cls,
-                  obj  # type: _LazyTupleItem
-                  ): ...
-    def __init__(self,
-                 host,  # type: LazyTuple
-                 item   # type: int
-                 ): ...
-    def __hash__(self): ...
-    def __repr__(self): ...
-    def get_id(self): ...
-    def get(self, request_or_item): ...
-```
+from collections import deque
+from itertools import chain, islice
 
-**Function Description**:
-- `copy_from(cls, obj)`: Creates a new `_LazyTupleItem` copied from an object.
-- `__init__(host, item)`: Initializes a lazy tuple item with host and item.
-- `__hash__()`: Hash support.
-- `__repr__()`: Debug representation.
-- `get_id()`: Returns the identifier.
-- `get(request_or_item)`: Resolves the concrete value.
+def windowed(seq, n, fillvalue=None, step=1):
+    """Return a sliding window of width *n* over the given iterable.
+
+        >>> all_windows = windowed([1, 2, 3, 4, 5], 3)
+        >>> list(all_windows)
+        [(1, 2, 3), (2, 3, 4), (3, 4, 5)]
+
+    When the window is larger than the iterable, *fillvalue* is used in place
+    of missing values:
+
+        >>> list(windowed([1, 2, 3], 4))
+        [(1, 2, 3, None)]
+
+    Each window will advance in increments of *step*:
+
+        >>> list(windowed([1, 2, 3, 4, 5, 6], 3, fillvalue='!', step=2))
+        [(1, 2, 3), (3, 4, 5), (5, 6, '!')]
+
+    To slide into the iterable's items, use :func:`chain` to add filler items
+    to the left:
+
+        >>> iterable = [1, 2, 3, 4]
+        >>> n = 3
+        >>> padding = [None] * (n - 1)
+        >>> list(windowed(chain(padding, iterable), 3))
+        [(None, None, 1), (None, 1, 2), (1, 2, 3), (2, 3, 4)]
+    """
+```
 
 **Parameter Description**:
-- `self`: The `_LazyTupleItem` instance.
-- `obj`: Source object for copying.
-- `host`: The tuple host.
-- `item`: The tuple element.
-- `request_or_item`: Pytest context for resolution.
+- `seq`: The input sequence.
+- `n`: The window size.
+- `fillvalue`: The fill value, default is `None`.
+- `step`: The step size, default is `1`.
 
-#### 16. `LazyTuple` - Lazy Tuple Case Parameter Value
+**Return Value**: A generator that yields window tuples.
 
-**Description**:
-Case parameter value implementation using lazy tuple mechanism.
+#### 4. `peekable` Class - Previewable Iterator
 
-**Import Statement**:
+**Functionality**: Wrap an iterator to support operations such as `peek` and `prepend`.
+
+**Function Signature**:
 ```python
-from pytest_cases.common_pytest_lazy_values import LazyTuple
-```
+from collections import deque
 
-**Class Signature**:
-```python
-class LazyTuple(Lazy):
-    """
-    A wrapper representing a lazy_value used as a tuple = for several argvalues at once.
 
-    Its `.get()` method caches the tuple obtained from the value getter, so that it is not called several times (once
-    for each LazyTupleItem)
+    """Wrap an iterator to allow lookahead and prepending elements.
 
-    It is only used directly by pytest when a lazy_value is used in a @ parametrize to decorate a fixture.
-    Indeed in that case pytest does not unpack the tuple, we do it in our custom @fixture.
+    Call :meth:`peek` on the result to get the value that will be returned
+    by :func:`next`. This won't advance the iterator:
 
-    In all other cases (when @parametrize is used on a test function), pytest unpacks the tuple so it directly
-    manipulates the underlying LazyTupleItem instances.
-    """
-    __slots__ = '_lazyvalue', 'theoretical_size'
-    _field_names = __slots__
-    @classmethod
-    def copy_from(cls,
-                  obj  # type: LazyTuple
-                  ): ...
-    def __init__(self,
-                 valueref,         # type: _LazyValue
-                 theoretical_size  # type: int
-                 ): ...
-    def __hash__(self): ...
-    def __len__(self): ...
-    def get_id(self): ...
-    def get(self, request_or_item): ...
-    def has_cached_value(self, request_or_item = None, node = None, raise_if_no_context = True): ...
-    @property
-    def cached_value(self): ...
-    def __getitem__(self, item): ...
-    def force_getitem(self, item, request): ...
-```
+        >>> p = peekable(['a', 'b'])
+        >>> p.peek()
+        'a'
+        >>> next(p)
+        'a'
 
-**Function Description**:
-- `copy_from(cls, obj)`: Creates a new `LazyTuple` from an object.
-- `__init__(valueref, theoretical_size)`: Initializes with a value reference and expected size.
-- `__hash__()`: Hash support.
-- `__len__()`: Returns tuple length.
-- `get_id()`: Identifier for the lazy tuple.
-- `get(request_or_item)`: Resolves and returns the tuple value.
-- `has_cached_value(request_or_item = None, node = None, raise_if_no_context = True)`: Indicates if a cached value exists.
-- `cached_value()`: Returns the cached value when present.
-- `__getitem__(item)`: Returns the item at index (property form).
-- `force_getitem(item, request)`: Resolves and returns the item at index in the given request.
+    Pass :meth:`peek` a default value to return that instead of raising
+    ``StopIteration`` when the iterator is exhausted.
 
-**Parameter Description**:
-- `self`: The `LazyTuple` instance.
-- `obj`: Source object for copying.
-- `valueref`: Reference enabling lazy resolution of the tuple.
-- `theoretical_size`: Expected size for the tuple.
-- `request_or_item`: Pytest context for resolution.
-- `node`: Optional pytest node.
-- `raise_if_no_context`: If True, raises without context.
-- `item`: Index to access.
-- `request`: Pytest request used to force item resolution.
+        >>> p = peekable([])
+        >>> p.peek('hi')
+        'hi'
 
-#### 17. `_ParametrizationMark` - Parametrization Mark
+    peekables also offer a :meth:`prepend` method, which "inserts" items
+    at the head of the iterable:
 
-**Description**:
-Internal mark object for parametrization.
+        >>> p = peekable([1, 2, 3])
+        >>> p.prepend(10, 11, 12)
+        >>> next(p)
+        10
+        >>> p.peek()
+        11
+        >>> list(p)
+        [11, 12, 1, 2, 3]
 
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import _ParametrizationMark
-```
+    peekables can be indexed. Index 0 is the item that will be returned by
+    :func:`next`, index 1 is the item after that, and so on:
+    The values up to the given index will be cached.
 
-**Class Signature**:
-```python
-class _ParametrizationMark:
-    """
-    Container for the mark information that we grab from the fixtures (`@fixture`)
+        >>> p = peekable(['a', 'b', 'c', 'd'])
+        >>> p[0]
+        'a'
+        >>> p[1]
+        'b'
+        >>> next(p)
+        'a'
 
-    Represents the information required by `@fixture` to work.
-    """
-    __slots__ = "param_names", "param_values", "param_ids"
+    Negative indexes are supported, but be aware that they will cache the
+    remaining items in the source iterator, which may require significant
+    storage.
 
-    def __init__(self, mark)
-```
+    To check whether a peekable is exhausted, check its truth value:
 
-**Function Description**:
-- `__init__(mark)`: Initializes a parametrization mark wrapper.
-
-**Parameter Description**:
-- `self`: The `_ParametrizationMark` instance.
-- `mark`: The underlying pytest mark.
-
-#### 18. `_LegacyMark` - Legacy Mark
-
-**Description**:
-Legacy mark object for backward compatibility.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import _LegacyMark
-```
-
-**Class Signature**:
-```python
-class _LegacyMark:
-    __slots__ = "args", "kwargs"
-
-    def __init__(self, *args, **kwargs):
-        self.args = args
-        self.kwargs = kwargs
-```
-
-**Function Description**:
-- `__init__(*args, **kwargs)`: Initializes a legacy mark with arbitrary parameters.
-
-**Parameter Description**:
-- `self`: The `_LegacyMark` instance.
-- `*args`: Positional arguments passed to the legacy mark.
-- `**kwargs`: Keyword arguments passed to the legacy mark.
-
-#### 19. `_NotUsed` - Not Used Marker
-
-**Description**:
-Marker class for unused fixtures.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import _NotUsed
-```
-
-**Class Signature**:
-```python
-class _NotUsed:
-    def __repr__(self):
-        return "pytest_cases.NOT_USED"
-```
-
-**Function Description**:
-- `__repr__()`: Returns a compact representation for debugging.
-
-**Parameter Description**:
-- `self`: The `_NotUsed` instance.
-
-#### 20. `_Used` - Not Used Marker
-
-**Description**:
-Marker class for unused fixtures.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import _Used
-```
-
-**Class Signature**:
-```python
-class _Used:
-    def __repr__(self):
-        return "pytest_cases.USED"
-```
-
-**Function Description**:
-- `__repr__()`: Returns a compact representation for debugging.
-
-**Parameter Description**:
-- `self`: The `_Used` instance.
-
-#### 21. `UnionIdMakers` - Union ID Makers
-
-**Description**:
-ID generation strategies for union fixtures.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import UnionIdMakers
-```
-
-**Class Signature**:
-```python
-class UnionIdMakers(object):
+        >>> p = peekable(['a', 'b'])
+        >>> if p:  # peekable has items
+        ...     list(p)
+        ['a', 'b']
+        >>> if not p:  # peekable is exhausted
+        ...     list(p)
+        []
 
     """
-    The enum defining all possible id styles for union fixture parameters ("alternatives")
-    """
-    @classmethod
-    def nostyle(cls,
-                param  # type: UnionFixtureAlternative
-                ): ...
-    @classmethod
-    def compact(cls,
-                param  # type: UnionFixtureAlternative
-                ): ...
-    @classmethod
-    def explicit(cls,
-                 param  # type: UnionFixtureAlternative
-                 ): ...
-    @classmethod
-    def get(cls, style  # type: Union[str, Callable]
-            ): ...
-```
 
-**Function Description**:
-- `nostyle(param)`: Returns a neutral id string for `param`.
-- `compact(param)`: Returns a compact id string for `param`.
-- `explicit(param)`: Returns an explicit id string for `param`.
-- `get(style)`: Returns the id maker matching `style`.
+    def __init__(self, iterable: Iterable[_T]) -> None: ...
+    def __iter__(self) -> peekable[_T]: ...
+    def __bool__(self) -> bool: ...
+    @overload
+    def peek(self) -> _T: ...
+    @overload
+    def peek(self, default: _U) -> _T | _U: ...
+    def prepend(self, *items: _T) -> None: ...
+    def __next__(self) -> _T: ...
+    @overload
+    def __getitem__(self, index: int) -> _T: ...
+    @overload
+    def __getitem__(self, index: slice) -> list[_T]: ...
+```
 
 **Parameter Description**:
-- `cls`: The class (classmethod usage).
-- `param`: The parameter value to generate an id for.
-- `style`: The id style name.
+- `iterable`: The iterator to be wrapped.
 
-#### 22. `UnionFixtureAlternative` - Union Fixture Alternative
+**Return Value**: A `peekable` object.
 
-**Description**:
-Alternative implementation for union fixtures.
+#### 5. `spy()` Function - Iterator Preview
 
-**Import Statement**:
+**Functionality**: Preview the first few elements of an iterator without consuming the iterator.
+
+**Function Signature**:
 ```python
-from pytest_cases.fixture_core1_unions import UnionFixtureAlternative
+from itertools import tee
+
+from more_itertools import take
+
+
+def spy(iterable, n=1):
+    """Return a 2-tuple with a list containing the first *n* elements of
+    *iterable*, and an iterator with the same items as *iterable*.
+    This allows you to "look ahead" at the items in the iterable without
+    advancing it.
+
+    There is one item in the list by default:
+
+        >>> iterable = 'abcdefg'
+        >>> head, iterable = spy(iterable)
+        >>> head
+        ['a']
+        >>> list(iterable)
+        ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+    You may use unpacking to retrieve items instead of lists:
+
+        >>> (head,), iterable = spy('abcdefg')
+        >>> head
+        'a'
+        >>> (first, second), iterable = spy('abcdefg', 2)
+        >>> first
+        'a'
+        >>> second
+        'b'
+
+    The number of items requested can be larger than the number of items in
+    the iterable:
+
+        >>> iterable = [1, 2, 3, 4, 5]
+        >>> head, iterable = spy(iterable, 10)
+        >>> head
+        [1, 2, 3, 4, 5]
+        >>> list(iterable)
+        [1, 2, 3, 4, 5]
+"""
 ```
 
-**Class Signature**:
-```python
-class UnionFixtureAlternative(object):
-    """Defines an "alternative", used to parametrize a fixture union"""
-    __slots__ = 'union_name', 'alternative_name', 'alternative_index'
+**Parameter Description**:
+- `iterable`: The iterator to be previewed.
+- `n`: The number of elements to preview.
 
-    def __init__(self,
-                 union_name,        # type: str
-                 alternative_name,  # type: str
-                 alternative_index  # type: int
-                 ): ...
-    def get_union_id(self): ...
-    def get_alternative_idx(self): ...
-    def get_alternative_id(self): ...
-    def __str__(self): ...
-    def __repr__(self): ...
+**Return Value**: A tuple (`preview list`, `original iterator`).
+
+#### 6. `seekable` Class - Seekable Iterator
+
+**Functionality**: Wrap an iterator to allow for seeking backward and forward. This progressively caches the items in the source iterable so they can be re-visited.
+
+**Function Signature**:
+```python
+from itertools import count
+
+from collections.abc import Iterable, Iterator
+from typing import Generic, TypeVar, overload
+
+from more_itertools.more import SequenceView
+
+_T = TypeVar('_T')
+_U = TypeVar('_U')
+
+
+class seekable(Generic[_T], Iterator[_T]):
+        """Wrap an iterator to allow for seeking backward and forward. This
+    progressively caches the items in the source iterable so they can be
+    re-visited.
+
+    Call :meth:`seek` with an index to seek to that position in the source
+    iterable.
+
+    To "reset" an iterator, seek to ``0``:
+
+        >>> from itertools import count
+        >>> it = seekable((str(n) for n in count()))
+        >>> next(it), next(it), next(it)
+        ('0', '1', '2')
+        >>> it.seek(0)
+        >>> next(it), next(it), next(it)
+        ('0', '1', '2')
+
+    You can also seek forward:
+
+        >>> it = seekable((str(n) for n in range(20)))
+        >>> it.seek(10)
+        >>> next(it)
+        '10'
+        >>> it.seek(20)  # Seeking past the end of the source isn't a problem
+        >>> list(it)
+        []
+        >>> it.seek(0)  # Resetting works even after hitting the end
+        >>> next(it)
+        '0'
+
+    Call :meth:`relative_seek` to seek relative to the source iterator's
+    current position.
+
+        >>> it = seekable((str(n) for n in range(20)))
+        >>> next(it), next(it), next(it)
+        ('0', '1', '2')
+        >>> it.relative_seek(2)
+        >>> next(it)
+        '5'
+        >>> it.relative_seek(-3)  # Source is at '6', we move back to '3'
+        >>> next(it)
+        '3'
+        >>> it.relative_seek(-3)  # Source is at '4', we move back to '1'
+        >>> next(it)
+        '1'
+
+
+    Call :meth:`peek` to look ahead one item without advancing the iterator:
+
+        >>> it = seekable('1234')
+        >>> it.peek()
+        '1'
+        >>> list(it)
+        ['1', '2', '3', '4']
+        >>> it.peek(default='empty')
+        'empty'
+
+    Before the iterator is at its end, calling :func:`bool` on it will return
+    ``True``. After it will return ``False``:
+
+        >>> it = seekable('5678')
+        >>> bool(it)
+        True
+        >>> list(it)
+        ['5', '6', '7', '8']
+        >>> bool(it)
+        False
+
+    You may view the contents of the cache with the :meth:`elements` method.
+    That returns a :class:`SequenceView`, a view that updates automatically:
+
+        >>> it = seekable((str(n) for n in range(10)))
+        >>> next(it), next(it), next(it)
+        ('0', '1', '2')
+        >>> elements = it.elements()
+        >>> elements
+        SequenceView(['0', '1', '2'])
+        >>> next(it)
+        '3'
+        >>> elements
+        SequenceView(['0', '1', '2', '3'])
+
+    By default, the cache grows as the source iterable progresses, so beware of
+    wrapping very large or infinite iterables. Supply *maxlen* to limit the
+    size of the cache (this of course limits how far back you can seek).
+
+        >>> from itertools import count
+        >>> it = seekable((str(n) for n in count()), maxlen=2)
+        >>> next(it), next(it), next(it), next(it)
+        ('0', '1', '2', '3')
+        >>> list(it.elements())
+        ['2', '3']
+        >>> it.seek(0)
+        >>> next(it), next(it), next(it), next(it)
+        ('2', '3', '4', '5')
+        >>> next(it)
+        '6'
+
+    """
+
+    def __init__(self, iterable: Iterable[_T], maxlen: int | None = ...) -> None: ...
+    def __iter__(self) -> 'seekable[_T]': ...
+    def __next__(self) -> _T: ...
+    def __bool__(self) -> bool: ...
+    @overload
+    def peek(self) -> _T: ...
+    @overload
+    def peek(self, default: _U) -> _T | _U: ...
+    def elements(self) -> SequenceView[_T]: ...
+    def seek(self, index: int) -> None: ...
+    def relative_seek(self, count: int) -> None: ...
+```
+
+**Parameter Description**:
+- `iterable`: The iterator to be wrapped
+- `maxlen`: Optional maximum length for the cache (limits how far back you can seek)
+
+**Key Methods**:
+- `seek(index)`: Seek to an absolute position in the source iterable
+- `relative_seek(count)`: Seek relative to the current position
+- `peek(default=None)`: Look ahead one item without advancing
+- `elements()`: Return a view of cached elements
+
+**Usage Examples**:
+
+Basic seeking and reset:
+```python
+from itertools import count
+from more_itertools import seekable
+
+it = seekable((str(n) for n in count()))
+next(it), next(it), next(it)  # ('0', '1', '2')
+it.seek(0)  # Reset to beginning
+next(it), next(it), next(it)  # ('0', '1', '2')
+```
+
+Forward seeking:
+```python
+it = seekable((str(n) for n in range(20)))
+it.seek(10)
+next(it)  # '10'
+```
+
+Relative seeking:
+```python
+it = seekable((str(n) for n in range(20)))
+next(it), next(it), next(it)  # ('0', '1', '2')
+it.relative_seek(2)  # Move forward 2 positions
+next(it)  # '5'
+it.relative_seek(-3)  # Move back 3 positions
+next(it)  # '3'
+```
+
+Peek functionality:
+```python
+it = seekable('1234')
+it.peek()  # '1'
+list(it)  # ['1', '2', '3', '4']
+```
+
+Cache viewing:
+```python
+it = seekable((str(n) for n in range(10)))
+next(it), next(it), next(it)  # ('0', '1', '2')
+elements = it.elements()  # SequenceView(['0', '1', '2'])
+next(it)  # '3'
+list(elements)  # ['0', '1', '2', '3']
+```
+
+Memory management with maxlen:
+```python
+from itertools import count
+it = seekable((str(n) for n in count()), maxlen=2)
+next(it), next(it), next(it), next(it)  # ('0', '1', '2', '3')
+list(it.elements())  # ['2', '3'] - only last 2 cached
+```
+
+**Return Value**: A seekable iterator object that supports random access to previously seen elements
+
+**Notes**: 
+By default, the cache grows as the source iterable progresses. Use `maxlen` parameter to limit memory usage for large or infinite iterables.
+
+#### 7. `chunked` Function
+
+**Function Description**: 
+Divide an iterable object into chunks of a specified size.
+
+**Core Algorithm**: 
+Divide the input iterable object into multiple chunks, each with a size of `n`.
+
+**Input/Output Example**:
+```python
+from more import chunked
+
+def chunked(iterable, n, strict=False):
+    """Break *iterable* into lists of length *n*:
+
+        >>> list(chunked([1, 2, 3, 4, 5, 6], 3))
+        [[1, 2, 3], [4, 5, 6]]
+
+    By the default, the last yielded list will have fewer than *n* elements
+    if the length of *iterable* is not divisible by *n*:
+
+        >>> list(chunked([1, 2, 3, 4, 5, 6, 7, 8], 3))
+        [[1, 2, 3], [4, 5, 6], [7, 8]]
+
+    To use a fill-in value instead, see the :func:`grouper` recipe.
+
+    If the length of *iterable* is not divisible by *n* and *strict* is
+    ``True``, then ``ValueError`` will be raised before the last
+    list is yielded.
+
+    """
+```
+
+#### 8.: `first` Function
+
+**Function Description**: 
+Return the first element of an iterable object.
+
+**Core Algorithm**: 
+Get the first element of the iterable object. If it is empty, return a default value or raise an exception.
+
+**Input/Output Example**:
+```python
+from more import first
+def first(iterable, default=_marker):
+    """Return the first item of *iterable*, or *default* if *iterable* is
+    empty.
+
+        >>> first([0, 1, 2, 3])
+        0
+        >>> first([], 'some default')
+        'some default'
+
+    If *default* is not provided and there are no items in the iterable,
+    raise ``ValueError``.
+
+    :func:`first` is useful when you have a generator of expensive-to-retrieve
+    values and want any arbitrary one. It is marginally shorter than
+    ``next(iter(iterable), default)``.
+
+    """
+
+```
+
+#### 9.: `last` Function
+**Function Description**: 
+Return the last element of an iterable object.
+
+**Core Algorithm**: 
+Traverse the entire iterable object and return the last element.
+
+**Input/Output Example**:
+```python
+from more import last
+
+def last(iterable, default=_marker):
+    """Return the last item of *iterable*, or *default* if *iterable* is
+    empty.
+
+        >>> last([0, 1, 2, 3])
+        3
+        >>> last([], 'some default')
+        'some default'
+
+    If *default* is not provided and there are no items in the iterable,
+    raise ``ValueError``.
+    """
+```
+
+#### 10: `nth_or_last` Function
+
+**Function Description**: 
+Return the nth element of an iterable object. If there are not enough elements, return the last element.
+
+**Core Algorithm**: 
+Traverse the iterable object and return the nth element or the last element.
+
+**Input/Output Example**:
+```python
+from more import nth_or_last
+
+def nth_or_last(iterable, n, default=_marker):
+    """Return the nth or the last item of *iterable*,
+    or *default* if *iterable* is empty.
+
+        >>> nth_or_last([0, 1, 2, 3], 2)
+        2
+        >>> nth_or_last([0, 1], 2)
+        1
+        >>> nth_or_last([], 0, 'some default')
+        'some default'
+
+    If *default* is not provided and there are no items in the iterable,
+    raise ``ValueError``.
+    """
+```
+
+#### 11: `distinct_permutations` Function
+
+**Function Description**: 
+Generate distinct permutations.
+
+**Core Algorithm**: 
+Generate all unique permutations based on the input sequence, using the internal helpers `_full()` and `_partial()` to explore full-length and truncated permutations without duplicates.
+
+**Input/Output Example**:
+```python
+from more import distinct_permutations
+
+def distinct_permutations(iterable, r=None):
+    """Yield successive distinct permutations of the elements in *iterable*.
+
+        >>> sorted(distinct_permutations([1, 0, 1]))
+        [(0, 1, 1), (1, 0, 1), (1, 1, 0)]
+
+    Equivalent to yielding from ``set(permutations(iterable))``, except
+    duplicates are not generated and thrown away. For larger input sequences
+    this is much more efficient.
+
+    Duplicate permutations arise when there are duplicated elements in the
+    input iterable. The number of items returned is
+    `n! / (x_1! * x_2! * ... * x_n!)`, where `n` is the total number of
+    items input, and each `x_i` is the count of a distinct item in the input
+    sequence. The function :func:`multinomial` computes this directly.
+
+    If *r* is given, only the *r*-length permutations are yielded.
+
+        >>> sorted(distinct_permutations([1, 0, 1], r=2))
+        [(0, 1), (1, 0), (1, 1)]
+        >>> sorted(distinct_permutations(range(3), r=2))
+        [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]
+
+    *iterable* need not be sortable, but note that using equal (``x == y``)
+    but non-identical (``id(x) != id(y)``) elements may produce surprising
+    behavior. For example, ``1`` and ``True`` are equal but non-identical:
+
+        >>> list(distinct_permutations([1, True, '3']))  # doctest: +SKIP
+        [
+            (1, True, '3'),
+            (1, '3', True),
+            ('3', 1, True)
+        ]
+        >>> list(distinct_permutations([1, 2, '3']))  # doctest: +SKIP
+        [
+            (1, 2, '3'),
+            (1, '3', 2),
+            (2, 1, '3'),
+            (2, '3', 1),
+            ('3', 1, 2),
+            ('3', 2, 1)
+        ]
+    """
+```
+
+#### 12: `split_at` Function
+
+**Function Description**: 
+Split an iterable object at a specified position.
+
+**Core Algorithm**: 
+Split the iterable object at the matching position according to a conditional function.
+
+**Input/Output Example**:
+```python
+
+def split_at(iterable, pred, maxsplit=-1, keep_separator=False):
+    """Yield lists of items from *iterable*, where each list is delimited by
+    an item where callable *pred* returns ``True``.
+
+        >>> list(split_at('abcdcba', lambda x: x == 'b'))
+        [['a'], ['c', 'd', 'c'], ['a']]
+
+        >>> list(split_at(range(10), lambda n: n % 2 == 1))
+        [[0], [2], [4], [6], [8], []]
+
+    At most *maxsplit* splits are done. If *maxsplit* is not specified or -1,
+    then there is no limit on the number of splits:
+
+        >>> list(split_at(range(10), lambda n: n % 2 == 1, maxsplit=2))
+        [[0], [2], [4, 5, 6, 7, 8, 9]]
+
+    By default, the delimiting items are not included in the output.
+    To include them, set *keep_separator* to ``True``.
+
+        >>> list(split_at('abcdcba', lambda x: x == 'b', keep_separator=True))
+        [['a'], ['b'], ['c', 'd', 'c'], ['b'], ['a']]
+
+    """
+```
+
+#### 13: `split_before` Function
+
+**Function Description**: 
+Split before elements that meet a condition.
+
+**Core Algorithm**: 
+Split before each element that meets the condition.
+
+**Input/Output Example**:
+```python
+
+def split_before(iterable, pred, maxsplit=-1):
+    """Yield lists of items from *iterable*, where each list ends just before
+    an item for which callable *pred* returns ``True``:
+
+        >>> list(split_before('OneTwo', lambda s: s.isupper()))
+        [['O', 'n', 'e'], ['T', 'w', 'o']]
+
+        >>> list(split_before(range(10), lambda n: n % 3 == 0))
+        [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
+
+    At most *maxsplit* splits are done. If *maxsplit* is not specified or -1,
+    then there is no limit on the number of splits:
+
+        >>> list(split_before(range(10), lambda n: n % 3 == 0, maxsplit=2))
+        [[0, 1, 2], [3, 4, 5], [6, 7, 8, 9]]
+    """
+```
+
+#### 14: `split_after` Function
+
+**Function Description**: 
+Split after elements that meet a condition.
+
+**Core Algorithm**: 
+Split after each element that meets the condition.
+
+**Input/Output Example**:
+```python
+def split_after(iterable, pred, maxsplit=-1):
+    """Yield lists of items from *iterable*, where each list ends with an
+    item where callable *pred* returns ``True``:
+
+        >>> list(split_after('one1two2', lambda s: s.isdigit()))
+        [['o', 'n', 'e', '1'], ['t', 'w', 'o', '2']]
+
+        >>> list(split_after(range(10), lambda n: n % 3 == 0))
+        [[0], [1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+    At most *maxsplit* splits are done. If *maxsplit* is not specified or -1,
+    then there is no limit on the number of splits:
+
+        >>> list(split_after(range(10), lambda n: n % 3 == 0, maxsplit=2))
+        [[0], [1, 2, 3], [4, 5, 6, 7, 8, 9]]
+
+    """
+```
+
+#### 15: `split_into` Function
+
+**Function Description**: 
+Split an iterable object according to a specified size.
+
+**Core Algorithm**: 
+Split the iterable object into multiple parts based on a specified size list.
+
+**Input/Output Example**:
+```python
+
+def split_into(iterable, sizes):
+    """Yield a list of sequential items from *iterable* of length 'n' for each
+    integer 'n' in *sizes*.
+
+        >>> list(split_into([1,2,3,4,5,6], [1,2,3]))
+        [[1], [2, 3], [4, 5, 6]]
+
+    If the sum of *sizes* is smaller than the length of *iterable*, then the
+    remaining items of *iterable* will not be returned.
+
+        >>> list(split_into([1,2,3,4,5,6], [2,3]))
+        [[1, 2], [3, 4, 5]]
+
+    If the sum of *sizes* is larger than the length of *iterable*, fewer items
+    will be returned in the iteration that overruns the *iterable* and further
+    lists will be empty:
+
+        >>> list(split_into([1,2,3,4], [1,2,3,4]))
+        [[1], [2, 3], [4], []]
+
+    When a ``None`` object is encountered in *sizes*, the returned list will
+    contain items up to the end of *iterable* the same way that
+    :func:`itertools.slice` does:
+
+        >>> list(split_into([1,2,3,4,5,6,7,8,9,0], [2,3,None]))
+        [[1, 2], [3, 4, 5], [6, 7, 8, 9, 0]]
+
+    :func:`split_into` can be useful for grouping a series of items where the
+    sizes of the groups are not uniform. An example would be where in a row
+    from a table, multiple columns represent elements of the same feature
+    (e.g. a point represented by x,y,z) but, the format is not the same for
+    all columns.
+    """
+    # convert the iterable argument into an iterator so its contents can
+    # be consumed by islice in case it is a generator
+```
+
+#### 16: `padded` Function
+
+**Function Description**: 
+Pad an iterable object with a specified value to a specified length.
+
+**Core Algorithm**: 
+Add padding values to the end of the iterable object until it reaches the specified length.
+
+**Input/Output Example**:
+```python
+
+def padded(iterable, fillvalue=None, n=None, next_multiple=False):
+    """Yield the elements from *iterable*, followed by *fillvalue*, such that
+    at least *n* items are emitted.
+
+        >>> list(padded([1, 2, 3], '?', 5))
+        [1, 2, 3, '?', '?']
+
+    If *next_multiple* is ``True``, *fillvalue* will be emitted until the
+    number of items emitted is a multiple of *n*:
+
+        >>> list(padded([1, 2, 3, 4], n=3, next_multiple=True))
+        [1, 2, 3, 4, None, None]
+
+    If *n* is ``None``, *fillvalue* will be emitted indefinitely.
+
+    To create an *iterable* of exactly size *n*, you can truncate with
+    :func:`islice`.
+
+        >>> list(islice(padded([1, 2, 3], '?'), 5))
+        [1, 2, 3, '?', '?']
+        >>> list(islice(padded([1, 2, 3, 4, 5, 6, 7, 8], '?'), 5))
+        [1, 2, 3, 4, 5]
+
+    """
+```
+
+#### 17: `repeat_each` Function
+
+**Function Description**: 
+Repeat each element a specified number of times.
+
+**Core Algorithm**: 
+Repeat each element in the iterable object `n` times.
+
+**Input/Output Example**:
+```python
+def repeat_each(iterable, n=2):
+    """Repeat each element in *iterable* *n* times.
+
+    >>> list(repeat_each('ABC', 3))
+    ['A', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'C']
+    """
+```
+
+#### 18: `distribute` Function
+
+**Function Description**: 
+Distribute elements as evenly as possible into `n` containers.
+
+**Core Algorithm**: 
+Use a round-robin method to distribute elements to each container.
+
+**Input/Output Example**:
+```python
+
+def distribute(n, iterable):
+    """Distribute the items from *iterable* among *n* smaller iterables.
+
+        >>> group_1, group_2 = distribute(2, [1, 2, 3, 4, 5, 6])
+        >>> list(group_1)
+        [1, 3, 5]
+        >>> list(group_2)
+        [2, 4, 6]
+
+    If the length of *iterable* is not evenly divisible by *n*, then the
+    length of the returned iterables will not be identical:
+
+        >>> children = distribute(3, [1, 2, 3, 4, 5, 6, 7])
+        >>> [list(c) for c in children]
+        [[1, 4, 7], [2, 5], [3, 6]]
+
+    If the length of *iterable* is smaller than *n*, then the last returned
+    iterables will be empty:
+
+        >>> children = distribute(5, [1, 2, 3])
+        >>> [list(c) for c in children]
+        [[1], [2], [3], [], []]
+
+    This function uses :func:`itertools.tee` and may require significant
+    storage.
+
+    If you need the order items in the smaller iterables to match the
+    original iterable, see :func:`divide`.
+
+    """
+```
+
+#### 19: `stagger` Function
+
+**Function Description**: 
+Generate staggered sliding windows.
+
+**Core Algorithm**: 
+Generate staggered sequences with a specified offset.
+
+**Input/Output Example**:
+```python
+
+def stagger(iterable, offsets=(-1, 0, 1), longest=False, fillvalue=None):
+    """Yield tuples whose elements are offset from *iterable*.
+    The amount by which the `i`-th item in each tuple is offset is given by
+    the `i`-th item in *offsets*.
+
+        >>> list(stagger([0, 1, 2, 3]))
+        [(None, 0, 1), (0, 1, 2), (1, 2, 3)]
+        >>> list(stagger(range(8), offsets=(0, 2, 4)))
+        [(0, 2, 4), (1, 3, 5), (2, 4, 6), (3, 5, 7)]
+
+    By default, the sequence will end when the final element of a tuple is the
+    last item in the iterable. To continue until the first element of a tuple
+    is the last item in the iterable, set *longest* to ``True``::
+
+        >>> list(stagger([0, 1, 2, 3], longest=True))
+        [(None, 0, 1), (0, 1, 2), (1, 2, 3), (2, 3, None), (3, None, None)]
+
+    By default, ``None`` will be used to replace offsets beyond the end of the
+    sequence. Specify *fillvalue* to use some other value.
+
+    """
+```
+
+#### 20: `zip_offset` Function
+
+**Function Description**: 
+Perform a `zip` operation on iterable objects with an offset.
+
+**Core Algorithm**: 
+Apply an offset to the iterable objects and then perform a `zip` operation.
+
+**Input/Output Example**:
+```python
+
+def zip_offset(*iterables, offsets, longest=False, fillvalue=None):
+    """``zip`` the input *iterables* together, but offset the `i`-th iterable
+    by the `i`-th item in *offsets*.
+
+        >>> list(zip_offset('0123', 'abcdef', offsets=(0, 1)))
+        [('0', 'b'), ('1', 'c'), ('2', 'd'), ('3', 'e')]
+
+    This can be used as a lightweight alternative to SciPy or pandas to analyze
+    data sets in which some series have a lead or lag relationship.
+
+    By default, the sequence will end when the shortest iterable is exhausted.
+    To continue until the longest iterable is exhausted, set *longest* to
+    ``True``.
+
+        >>> list(zip_offset('0123', 'abcdef', offsets=(0, 1), longest=True))
+        [('0', 'b'), ('1', 'c'), ('2', 'd'), ('3', 'e'), (None, 'f')]
+
+    By default, ``None`` will be used to replace offsets beyond the end of the
+    sequence. Specify *fillvalue* to use some other value.
+
+    """
+```
+
+#### 21: `unzip` Function
+
+**Function Description**: 
+Unzip a zipped sequence back to the original sequences.
+
+**Core Algorithm**: 
+The inverse operation of `zip`, transpose a sequence of tuples back to the original sequences.
+
+**Input/Output Example**:
+```python
+
+def unzip(iterable):
+    """The inverse of :func:`zip`, this function disaggregates the elements
+    of the zipped *iterable*.
+
+    The ``i``-th iterable contains the ``i``-th element from each element
+    of the zipped iterable. The first element is used to determine the
+    length of the remaining elements.
+
+        >>> iterable = [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+        >>> letters, numbers = unzip(iterable)
+        >>> list(letters)
+        ['a', 'b', 'c', 'd']
+        >>> list(numbers)
+        [1, 2, 3, 4]
+
+    This is similar to using ``zip(*iterable)``, but it avoids reading
+    *iterable* into memory. Note, however, that this function uses
+    :func:`itertools.tee` and thus may require significant storage.
+
+    """
+```
+
+#### 22: `sort_together` Function
+
+**Function Description**: 
+Sort multiple iterable objects based on one or more keys.
+
+**Core Algorithm**: 
+Perform parallel sorting on multiple sequences using the specified keys.
+
+**Input/Output Example**:
+```python
+
+def sort_together(
+    iterables, key_list=(0,), key=None, reverse=False, strict=False
+):
+    """Return the input iterables sorted together, with *key_list* as the
+    priority for sorting. All iterables are trimmed to the length of the
+    shortest one.
+
+    This can be used like the sorting function in a spreadsheet. If each
+    iterable represents a column of data, the key list determines which
+    columns are used for sorting.
+
+    By default, all iterables are sorted using the ``0``-th iterable::
+
+        >>> iterables = [(4, 3, 2, 1), ('a', 'b', 'c', 'd')]
+        >>> sort_together(iterables)
+        [(1, 2, 3, 4), ('d', 'c', 'b', 'a')]
+
+    Set a different key list to sort according to another iterable.
+    Specifying multiple keys dictates how ties are broken::
+
+        >>> iterables = [(3, 1, 2), (0, 1, 0), ('c', 'b', 'a')]
+        >>> sort_together(iterables, key_list=(1, 2))
+        [(2, 3, 1), (0, 0, 1), ('a', 'c', 'b')]
+
+    To sort by a function of the elements of the iterable, pass a *key*
+    function. Its arguments are the elements of the iterables corresponding to
+    the key list::
+
+        >>> names = ('a', 'b', 'c')
+        >>> lengths = (1, 2, 3)
+        >>> widths = (5, 2, 1)
+        >>> def area(length, width):
+        ...     return length * width
+        >>> sort_together([names, lengths, widths], key_list=(1, 2), key=area)
+        [('c', 'b', 'a'), (3, 2, 1), (1, 2, 5)]
+
+    Set *reverse* to ``True`` to sort in descending order.
+
+        >>> sort_together([(1, 2, 3), ('c', 'b', 'a')], reverse=True)
+        [(3, 2, 1), ('a', 'b', 'c')]
+
+    If the *strict* keyword argument is ``True``, then
+    ``ValueError`` will be raised if any of the iterables have
+    different lengths.
+
+    """
+```
+
+#### 23: `always_iterable` Function
+
+**Function Description**: 
+Ensure that the return value is always iterable.
+
+**Core Algorithm**: 
+Convert non-iterable objects into single-element tuples.
+
+**Input/Output Example**:
+```python
+
+def always_iterable(obj, base_type=(str, bytes)):
+    """If *obj* is iterable, return an iterator over its items::
+
+        >>> obj = (1, 2, 3)
+        >>> list(always_iterable(obj))
+        [1, 2, 3]
+
+    If *obj* is not iterable, return a one-item iterable containing *obj*::
+
+        >>> obj = 1
+        >>> list(always_iterable(obj))
+        [1]
+
+    If *obj* is ``None``, return an empty iterable:
+
+        >>> obj = None
+        >>> list(always_iterable(None))
+        []
+
+    By default, binary and text strings are not considered iterable::
+
+        >>> obj = 'foo'
+        >>> list(always_iterable(obj))
+        ['foo']
+
+    If *base_type* is set, objects for which ``isinstance(obj, base_type)``
+    returns ``True`` won't be considered iterable.
+
+        >>> obj = {'a': 1}
+        >>> list(always_iterable(obj))  # Iterate over the dict's keys
+        ['a']
+        >>> list(always_iterable(obj, base_type=dict))  # Treat dicts as a unit
+        [{'a': 1}]
+
+    Set *base_type* to ``None`` to avoid any special handling and treat objects
+    Python considers iterable as iterable:
+
+        >>> obj = 'foo'
+        >>> list(always_iterable(obj, base_type=None))
+        ['f', 'o', 'o']
+    """
+```
+
+#### 24: `adjacent` Function
+
+**Function Description**: 
+Return adjacent elements and their context.
+
+**Core Algorithm**: 
+Generate a window containing adjacent elements for each element.
+
+**Input/Output Example**:
+```python
+
+def adjacent(predicate, iterable, distance=1):
+    """Return an iterable over `(bool, item)` tuples where the `item` is
+    drawn from *iterable* and the `bool` indicates whether
+    that item satisfies the *predicate* or is adjacent to an item that does.
+
+    For example, to find whether items are adjacent to a ``3``::
+
+        >>> list(adjacent(lambda x: x == 3, range(6)))
+        [(False, 0), (False, 1), (True, 2), (True, 3), (True, 4), (False, 5)]
+
+    Set *distance* to change what counts as adjacent. For example, to find
+    whether items are two places away from a ``3``:
+
+        >>> list(adjacent(lambda x: x == 3, range(6), distance=2))
+        [(False, 0), (True, 1), (True, 2), (True, 3), (True, 4), (True, 5)]
+
+    This is useful for contextualizing the results of a search function.
+    For example, a code comparison tool might want to identify lines that
+    have changed, but also surrounding lines to give the viewer of the diff
+    context.
+
+    The predicate function will only be called once for each item in the
+    iterable.
+
+    See also :func:`groupby_transform`, which can be used with this function
+    to group ranges of items with the same `bool` value.
+
+    """
+    # Allow distance=0 mainly for testing that it reproduces results with map()
+```
+
+#### 25: `groupby_transform` Function
+
+**Function Description**: 
+Transform elements before grouping.
+
+**Core Algorithm**: 
+Apply a transformation function to the elements first, and then group them by the transformed keys.
+
+**Input/Output Example**:
+```python
+
+def groupby_transform(iterable, keyfunc=None, valuefunc=None, reducefunc=None):
+    """An extension of :func:`itertools.groupby` that can apply transformations
+    to the grouped data.
+
+    * *keyfunc* is a function computing a key value for each item in *iterable*
+    * *valuefunc* is a function that transforms the individual items from
+      *iterable* after grouping
+    * *reducefunc* is a function that transforms each group of items
+
+    >>> iterable = 'aAAbBBcCC'
+    >>> keyfunc = lambda k: k.upper()
+    >>> valuefunc = lambda v: v.lower()
+    >>> reducefunc = lambda g: ''.join(g)
+    >>> list(groupby_transform(iterable, keyfunc, valuefunc, reducefunc))
+    [('A', 'aaa'), ('B', 'bbb'), ('C', 'ccc')]
+
+    Each optional argument defaults to an identity function if not specified.
+
+    :func:`groupby_transform` is useful when grouping elements of an iterable
+    using a separate iterable as the key. To do this, :func:`zip` the iterables
+    and pass a *keyfunc* that extracts the first element and a *valuefunc*
+    that extracts the second element::
+
+        >>> from operator import itemgetter
+        >>> keys = [0, 0, 1, 1, 1, 2, 2, 2, 3]
+        >>> values = 'abcdefghi'
+        >>> iterable = zip(keys, values)
+        >>> grouper = groupby_transform(iterable, itemgetter(0), itemgetter(1))
+        >>> [(k, ''.join(g)) for k, g in grouper]
+        [(0, 'ab'), (1, 'cde'), (2, 'fgh'), (3, 'i')]
+
+    Note that the order of items in the iterable is significant.
+    Only adjacent items are grouped together, so if you don't want any
+    duplicate groups, you should sort the iterable by the key function.
+
+    """
+```
+
+#### 26: `interleave` Function
+
+**Function Description**: 
+Interleave multiple iterable objects.
+
+**Core Algorithm**: 
+Take elements alternately from each iterable object.
+
+**Input/Output Example**:
+```python
+
+def interleave(*iterables):
+    """Return a new iterable yielding from each iterable in turn,
+    until the shortest is exhausted.
+
+        >>> list(interleave([1, 2, 3], [4, 5], [6, 7, 8]))
+        [1, 4, 6, 2, 5, 7]
+
+    For a version that doesn't terminate after the shortest iterable is
+    exhausted, see :func:`interleave_longest`.
+
+    """
+```
+
+#### 27: `interleave_longest` Function
+
+**Function Description**: 
+Interleave multiple iterable objects until the longest one is exhausted.
+
+**Core Algorithm**: 
+Take elements alternately from each iterable object, filling shorter ones with a fill value.
+
+**Input/Output Example**:
+```python
+
+def interleave_longest(*iterables):
+    """Return a new iterable yielding from each iterable in turn,
+    skipping any that are exhausted.
+
+        >>> list(interleave_longest([1, 2, 3], [4, 5], [6, 7, 8]))
+        [1, 4, 6, 2, 5, 7, 3, 8]
+
+    This function produces the same output as :func:`roundrobin`, but may
+    perform better for some inputs (in particular when the number of iterables
+    is large).
+
+    """
+```
+
+#### 28: `collapse` Function
+
+**Function Description**: 
+Flatten a nested iterable object.
+
+**Core Algorithm**: 
+Recursively expand nested iterable objects.
+
+**Input/Output Example**:
+```python
+
+def collapse(iterable, base_type=None, levels=None):
+    """Flatten an iterable with multiple levels of nesting (e.g., a list of
+    lists of tuples) into non-iterable types.
+
+        >>> iterable = [(1, 2), ([3, 4], [[5], [6]])]
+        >>> list(collapse(iterable))
+        [1, 2, 3, 4, 5, 6]
+
+    Binary and text strings are not considered iterable and
+    will not be collapsed.
+
+    To avoid collapsing other types, specify *base_type*:
+
+        >>> iterable = ['ab', ('cd', 'ef'), ['gh', 'ij']]
+        >>> list(collapse(iterable, base_type=tuple))
+        ['ab', ('cd', 'ef'), 'gh', 'ij']
+
+    Specify *levels* to stop flattening after a certain level:
+
+    >>> iterable = [('a', ['b']), ('c', ['d'])]
+    >>> list(collapse(iterable))  # Fully flattened
+    ['a', 'b', 'c', 'd']
+    >>> list(collapse(iterable, levels=1))  # Only one level flattened
+    ['a', ['b'], 'c', ['d']]
+
+    """
+```
+
+#### 29: `side_effect` Function
+
+**Function Description**: 
+Execute a side-effect function during iteration.
+
+**Core Algorithm**: 
+Call the side-effect function on each iteration and then yield the original element.
+
+**Input/Output Example**:
+```python
+
+def side_effect(func, iterable, chunk_size=None, before=None, after=None):
+    """Invoke *func* on each item in *iterable* (or on each *chunk_size* group
+    of items) before yielding the item.
+
+    `func` must be a function that takes a single argument. Its return value
+    will be discarded.
+
+    *before* and *after* are optional functions that take no arguments. They
+    will be executed before iteration starts and after it ends, respectively.
+
+    `side_effect` can be used for logging, updating progress bars, or anything
+    that is not functionally "pure."
+
+    Emitting a status message:
+
+        >>> from more_itertools import consume
+        >>> func = lambda item: print('Received {}'.format(item))
+        >>> consume(side_effect(func, range(2)))
+        Received 0
+        Received 1
+
+    Operating on chunks of items:
+
+        >>> pair_sums = []
+        >>> func = lambda chunk: pair_sums.append(sum(chunk))
+        >>> list(side_effect(func, [0, 1, 2, 3, 4, 5], 2))
+        [0, 1, 2, 3, 4, 5]
+        >>> list(pair_sums)
+        [1, 5, 9]
+
+    Writing to a file-like object:
+
+        >>> from io import StringIO
+        >>> from more_itertools import consume
+        >>> f = StringIO()
+        >>> func = lambda x: print(x, file=f)
+        >>> before = lambda: print(u'HEADER', file=f)
+        >>> after = f.close
+        >>> it = [u'a', u'b', u'c']
+        >>> consume(side_effect(func, it, before=before, after=after))
+        >>> f.closed
+        True
+
+    """
+```
+
+#### 30: `sliced` Function
+
+**Function Description**: 
+Divide a sequence into slices of a specified size.
+
+**Core Algorithm**: 
+Divide the sequence into multiple equal-length subsequences.
+
+**Input/Output Example**:
+```python
+
+def sliced(seq, n, strict=False):
+    """Yield slices of length *n* from the sequence *seq*.
+
+    >>> list(sliced((1, 2, 3, 4, 5, 6), 3))
+    [(1, 2, 3), (4, 5, 6)]
+
+    By the default, the last yielded slice will have fewer than *n* elements
+    if the length of *seq* is not divisible by *n*:
+
+    >>> list(sliced((1, 2, 3, 4, 5, 6, 7, 8), 3))
+    [(1, 2, 3), (4, 5, 6), (7, 8)]
+
+    If the length of *seq* is not divisible by *n* and *strict* is
+    ``True``, then ``ValueError`` will be raised before the last
+    slice is yielded.
+
+    This function will only work for iterables that support slicing.
+    For non-sliceable iterables, see :func:`chunked`.
+
+    """
+```
+
+#### 31: `unique_to_each` Function
+
+**Function Description**: 
+Return the unique elements in each iterable object.
+
+**Core Algorithm**: 
+Find the elements in each iterable object that are not included in other iterable objects.
+
+**Input/Output Example**:
+```python
+
+def unique_to_each(*iterables):
+    """Return the elements from each of the input iterables that aren't in the
+    other input iterables.
+
+    For example, suppose you have a set of packages, each with a set of
+    dependencies::
+
+        {'pkg_1': {'A', 'B'}, 'pkg_2': {'B', 'C'}, 'pkg_3': {'B', 'D'}}
+
+    If you remove one package, which dependencies can also be removed?
+
+    If ``pkg_1`` is removed, then ``A`` is no longer necessary - it is not
+    associated with ``pkg_2`` or ``pkg_3``. Similarly, ``C`` is only needed for
+    ``pkg_2``, and ``D`` is only needed for ``pkg_3``::
+
+        >>> unique_to_each({'A', 'B'}, {'B', 'C'}, {'B', 'D'})
+        [['A'], ['C'], ['D']]
+
+    If there are duplicates in one input iterable that aren't in the others
+    they will be duplicated in the output. Input order is preserved::
+
+        >>> unique_to_each("mississippi", "missouri")
+        [['p', 'p'], ['o', 'u', 'r']]
+
+    It is assumed that the elements of each iterable are hashable.
+
+    """
+```
+
+#### 32: substrings Function
+
+**Function Description**: 
+Generate all possible substrings
+
+**Core Algorithm**: 
+Generate all consecutive subsequences of the input sequence
+
+**Input and Output Examples**:
+```python
+
+def substrings(iterable):
+    """Yield all of the substrings of *iterable*.
+
+        >>> [''.join(s) for s in substrings('more')]
+        ['m', 'o', 'r', 'e', 'mo', 'or', 're', 'mor', 'ore', 'more']
+
+    Note that non-string iterables can also be subdivided.
+
+        >>> list(substrings([0, 1, 2]))
+        [(0,), (1,), (2,), (0, 1), (1, 2), (0, 1, 2)]
+
+    """
+```
+
+#### 33: substrings_indexes Function
+
+**Function Description**: 
+Generate all possible substrings and their indexes
+
+**Core Algorithm**: 
+Generate all consecutive subsequences of the input sequence and their positions in the original sequence
+
+**Input and Output Examples**:
+```python
+
+def substrings_indexes(seq, reverse=False):
+    """Yield all substrings and their positions in *seq*
+
+    The items yielded will be a tuple of the form ``(substr, i, j)``, where
+    ``substr == seq[i:j]``.
+
+    This function only works for iterables that support slicing, such as
+    ``str`` objects.
+
+    >>> for item in substrings_indexes('more'):
+    ...    print(item)
+    ('m', 0, 1)
+    ('o', 1, 2)
+    ('r', 2, 3)
+    ('e', 3, 4)
+    ('mo', 0, 2)
+    ('or', 1, 3)
+    ('re', 2, 4)
+    ('mor', 0, 3)
+    ('ore', 1, 4)
+    ('more', 0, 4)
+
+    Set *reverse* to ``True`` to yield the same items in the opposite order.
+
+
+    """
+```
+
+#### 34: bucket Class
+
+**Function Description**: 
+Group elements into buckets
+
+**Core Algorithm**: 
+Use a key function to assign elements to different buckets
+
+**Input and Output Examples**:
+```python
+from more import bucket
+
+class bucket:
+    """Wrap *iterable* and return an object that buckets the iterable into
+    child iterables based on a *key* function.
+
+        >>> iterable = ['a1', 'b1', 'c1', 'a2', 'b2', 'c2', 'b3']
+        >>> s = bucket(iterable, key=lambda x: x[0])  # Bucket by 1st character
+        >>> sorted(list(s))  # Get the keys
+        ['a', 'b', 'c']
+        >>> a_iterable = s['a']
+        >>> next(a_iterable)
+        'a1'
+        >>> next(a_iterable)
+        'a2'
+        >>> list(s['b'])
+        ['b1', 'b2', 'b3']
+
+    The original iterable will be advanced and its items will be cached until
+    they are used by the child iterables. This may require significant storage.
+
+    By default, attempting to select a bucket to which no items belong  will
+    exhaust the iterable and cache all values.
+    If you specify a *validator* function, selected buckets will instead be
+    checked against it.
+
+        >>> from itertools import count
+        >>> it = count(1, 2)  # Infinite sequence of odd numbers
+        >>> key = lambda x: x % 10  # Bucket by last digit
+        >>> validator = lambda x: x in {1, 3, 5, 7, 9}  # Odd digits only
+        >>> s = bucket(it, key=key, validator=validator)
+        >>> 2 in s
+        False
+        >>> list(s[2])
+        []
+
+    """
+    def __init__(
+        self,
+        iterable: Iterable[_T],
+        key: Callable[[_T], _U],
+        validator: Callable[[_U], object] | None = ...,
+    ) -> None: ...
+    def __contains__(self, value: object) -> bool: ...
+    def __iter__(self) -> Iterator[_U]: ...
+    def __getitem__(self, value: object) -> Iterator[_T]: ...
+```
+
+#### 35: spy Function
+
+**Function Description**: 
+Peek at the first few elements of an iterable without consuming it
+
+**Core Algorithm**: 
+Cache the first n elements so that they can be iterated over multiple times
+
+**Input and Output Examples**:
+```python
+
+def spy(iterable, n=1):
+    """Return a 2-tuple with a list containing the first *n* elements of
+    *iterable*, and an iterator with the same items as *iterable*.
+    This allows you to "look ahead" at the items in the iterable without
+    advancing it.
+
+    There is one item in the list by default:
+
+        >>> iterable = 'abcdefg'
+        >>> head, iterable = spy(iterable)
+        >>> head
+        ['a']
+        >>> list(iterable)
+        ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+    You may use unpacking to retrieve items instead of lists:
+
+        >>> (head,), iterable = spy('abcdefg')
+        >>> head
+        'a'
+        >>> (first, second), iterable = spy('abcdefg', 2)
+        >>> first
+        'a'
+        >>> second
+        'b'
+
+    The number of items requested can be larger than the number of items in
+    the iterable:
+
+        >>> iterable = [1, 2, 3, 4, 5]
+        >>> head, iterable = spy(iterable, 10)
+        >>> head
+        [1, 2, 3, 4, 5]
+        >>> list(iterable)
+        [1, 2, 3, 4, 5]
+
+    """
+```
+
+#### 36: interleave_evenly Function
+
+**Function Description**: 
+Interleave multiple iterables as evenly as possible
+
+**Core Algorithm**: 
+Allocate element positions according to the length ratio of the iterables
+
+**Input and Output Examples**:
+```python
+
+def interleave_evenly(iterables, lengths=None):
+    """
+    Interleave multiple iterables so that their elements are evenly distributed
+    throughout the output sequence.
+
+    >>> iterables = [1, 2, 3, 4, 5], ['a', 'b']
+    >>> list(interleave_evenly(iterables))
+    [1, 2, 'a', 3, 4, 'b', 5]
+
+    >>> iterables = [[1, 2, 3], [4, 5], [6, 7, 8]]
+    >>> list(interleave_evenly(iterables))
+    [1, 6, 4, 2, 7, 3, 8, 5]
+
+    This function requires iterables of known length. Iterables without
+    ``__len__()`` can be used by manually specifying lengths with *lengths*:
+
+    >>> from itertools import combinations, repeat
+    >>> iterables = [combinations(range(4), 2), ['a', 'b', 'c']]
+    >>> lengths = [4 * (4 - 1) // 2, 3]
+    >>> list(interleave_evenly(iterables, lengths=lengths))
+    [(0, 1), (0, 2), 'a', (0, 3), (1, 2), 'b', (1, 3), (2, 3), 'c']
+
+    Based on Bresenham's algorithm.
+    """
+```
+
+#### 37: repeat_last Function
+
+**Function Description**: 
+Repeat the last element infinitely
+
+**Core Algorithm**: 
+After iterating over all elements, repeat the last element infinitely
+
+**Input and Output Examples**:
+```python
+
+def repeat_last(iterable, default=None):
+    """After the *iterable* is exhausted, keep yielding its last element.
+
+        >>> list(islice(repeat_last(range(3)), 5))
+        [0, 1, 2, 2, 2]
+
+    If the iterable is empty, yield *default* forever::
+
+        >>> list(islice(repeat_last(range(0), 42), 5))
+        [42, 42, 42, 42, 42]
+
+    """
+```
+
+#### 38: minmax Function
+**Function Description**: 
+Find the minimum and maximum values simultaneously
+**Core Algorithm**: 
+Calculate the minimum and maximum values simultaneously in a single pass
+**Input and Output Examples**:
+```python
+
+def minmax(iterable_or_value, *others, key=None, default=_marker):
+    """Returns both the smallest and largest items from an iterable
+    or from two or more arguments.
+
+        >>> minmax([3, 1, 5])
+        (1, 5)
+
+        >>> minmax(4, 2, 6)
+        (2, 6)
+
+    If a *key* function is provided, it will be used to transform the input
+    items for comparison.
+
+        >>> minmax([5, 30], key=str)  # '30' sorts before '5'
+        (30, 5)
+
+    If a *default* value is provided, it will be returned if there are no
+    input items.
+
+        >>> minmax([], default=(0, 0))
+        (0, 0)
+
+    Otherwise ``ValueError`` is raised.
+
+    This function makes a single pass over the input elements and takes care to
+    minimize the number of comparisons made during processing.
+
+    Note that unlike the builtin ``max`` function, which always returns the first
+    item with the maximum value, this function may return another item when there are
+    ties.
+
+    This function is based on the
+    `recipe <https://code.activestate.com/recipes/577916-fast-minmax-function>`__ by
+    Raymond Hettinger.
+    """
+```
+
+#### 39: ilen Function
+
+**Function Description**: 
+Calculate the length of an iterable
+
+**Core Algorithm**: 
+Calculate the length of an iterable without converting it to a list
+
+**Input and Output Examples**:
+```python
+
+def ilen(iterable):
+    """Return the number of items in *iterable*.
+
+    For example, there are 168 prime numbers below 1,000:
+
+        >>> ilen(sieve(1000))
+        168
+
+    Equivalent to, but faster than::
+
+        def ilen(iterable):
+            count = 0
+            for _ in iterable:
+                count += 1
+            return count
+
+    This fully consumes the iterable, so handle with care.
+
+    """
+    # This is the "most beautiful of the fast variants" of this function.
+    # If you think you can improve on it, please ensure that your version
+    # is both 10x faster and 10x more beautiful.
+```
+
+#### 40: with_iter Function
+
+**Function Description**: 
+Create a context manager to manage an iterable
+
+**Core Algorithm**: 
+Automatically close the iterable when the context manager exits
+
+**Input and Output Examples**:
+```python
+
+def with_iter(context_manager):
+    """Wrap an iterable in a ``with`` statement, so it closes once exhausted.
+
+    For example, this will close the file when the iterator is exhausted::
+
+        upper_lines = (line.upper() for line in with_iter(open('foo')))
+
+    Any context manager which returns an iterable is a candidate for
+    ``with_iter``.
+
+    """
+```
+
+#### 41: one Function
+
+**Function Description**: 
+Return the only element in an iterable
+
+**Core Algorithm**: 
+Ensure that the iterable has only one element and return it 
+
+**Input and Output Examples**:
+```python
+
+def one(iterable, too_short=None, too_long=None):
+    """Return the first item from *iterable*, which is expected to contain only
+    that item. Raise an exception if *iterable* is empty or has more than one
+    item.
+
+    :func:`one` is useful for ensuring that an iterable contains only one item.
+    For example, it can be used to retrieve the result of a database query
+    that is expected to return a single row.
+
+    If *iterable* is empty, ``ValueError`` will be raised. You may specify a
+    different exception with the *too_short* keyword:
+
+        >>> it = []
+        >>> one(it)  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
+        ...
+        ValueError: too few items in iterable (expected 1)'
+        >>> too_short = IndexError('too few items')
+        >>> one(it, too_short=too_short)  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
+        ...
+        IndexError: too few items
+
+    Similarly, if *iterable* contains more than one item, ``ValueError`` will
+    be raised. You may specify a different exception with the *too_long*
+    keyword:
+
+        >>> it = ['too', 'many']
+        >>> one(it)  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
+        ...
+        ValueError: Expected exactly one item in iterable, but got 'too',
+        'many', and perhaps more.
+        >>> too_long = RuntimeError
+        >>> one(it, too_long=too_long)  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
+        ...
+        RuntimeError
+
+    Note that :func:`one` attempts to advance *iterable* twice to ensure there
+    is only one item. See :func:`spy` or :func:`peekable` to check iterable
+    contents less destructively.
+
+    """
+```
+
+#### 43 intersperse Function
+
+**Function Description**: 
+Insert a separator between elements
+
+**Core Algorithm**: 
+Insert a specified element between each pair of adjacent elements in an iterable
+
+**Input and Output Examples**:
+```python
+
+def intersperse(e, iterable, n=1):
+    """Intersperse filler element *e* among the items in *iterable*, leaving
+    *n* items between each filler element.
+
+        >>> list(intersperse('!', [1, 2, 3, 4, 5]))
+        [1, '!', 2, '!', 3, '!', 4, '!', 5]
+
+        >>> list(intersperse(None, [1, 2, 3, 4, 5], n=2))
+        [1, 2, None, 3, 4, None, 5]
+
+    """
+```
+
+#### 43: divide Function
+
+**Function Description**: 
+Divide an iterable into n parts as evenly as possible
+**Core Algorithm**: 
+Distribute elements to n containers in sequence, ensuring that the size difference does not exceed 1
+**Input and Output Examples**:
+```python
+
+def divide(n, iterable):
+    """Divide the elements from *iterable* into *n* parts, maintaining
+    order.
+
+        >>> group_1, group_2 = divide(2, [1, 2, 3, 4, 5, 6])
+        >>> list(group_1)
+        [1, 2, 3]
+        >>> list(group_2)
+        [4, 5, 6]
+
+    If the length of *iterable* is not evenly divisible by *n*, then the
+    length of the returned iterables will not be identical:
+
+        >>> children = divide(3, [1, 2, 3, 4, 5, 6, 7])
+        >>> [list(c) for c in children]
+        [[1, 2, 3], [4, 5], [6, 7]]
+
+    If the length of the iterable is smaller than n, then the last returned
+    iterables will be empty:
+
+        >>> children = divide(5, [1, 2, 3])
+        >>> [list(c) for c in children]
+        [[1], [2], [3], [], []]
+
+    This function will exhaust the iterable before returning.
+    If order is not important, see :func:`distribute`, which does not first
+    pull the iterable into memory.
+
+    """
+```
+
+#### 44: grouper Function
+
+**Function Description**: 
+Group an iterable into fixed-size chunks
+**Core Algorithm**: 
+Collect elements into fixed-size tuples, with an optional fill value
+**Input and Output Examples**:
+```python
+from more_itertools.recipes import grouper
+
+def grouper(iterable, n, incomplete='fill', fillvalue=None):
+    """Group elements from *iterable* into fixed-length groups of length *n*.
+
+    >>> list(grouper('ABCDEF', 3))
+    [('A', 'B', 'C'), ('D', 'E', 'F')]
+
+    The keyword arguments *incomplete* and *fillvalue* control what happens for
+    iterables whose length is not a multiple of *n*.
+
+    When *incomplete* is `'fill'`, the last group will contain instances of
+    *fillvalue*.
+
+    >>> list(grouper('ABCDEFG', 3, incomplete='fill', fillvalue='x'))
+    [('A', 'B', 'C'), ('D', 'E', 'F'), ('G', 'x', 'x')]
+
+    When *incomplete* is `'ignore'`, the last group will not be emitted.
+
+    >>> list(grouper('ABCDEFG', 3, incomplete='ignore', fillvalue='x'))
+    [('A', 'B', 'C'), ('D', 'E', 'F')]
+
+    When *incomplete* is `'strict'`, a `ValueError` will be raised.
+
+    >>> iterator = grouper('ABCDEFG', 3, incomplete='strict')
+    >>> list(iterator)  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+    ...
+    ValueError
+
+    """
+```
+
+#### 45: roundrobin Function
+
+**Function Description**: 
+Take elements from multiple iterables in turn
+**Core Algorithm**: 
+Iterate through each iterable cyclically until all elements are consumed
+**Input and Output Examples**:
+```python
+import more_itertools.recipes as roundrobin
+
+def roundrobin(*iterables):
+    """Visit input iterables in a cycle until each is exhausted.
+
+        >>> list(roundrobin('ABC', 'D', 'EF'))
+        ['A', 'D', 'E', 'B', 'F', 'C']
+
+    This function produces the same output as :func:`interleave_longest`, but
+    may perform better for some inputs (in particular when the number of
+    iterables is small).
+
+    """
+```
+
+#### 46: powerset Function
+
+**Function Description**: 
+Generate all possible subsets of a set
+**Core Algorithm**: 
+Generate all possible combinations from the empty set to the full set
+**Input and Output Examples**:
+```python
+
+def powerset(iterable):
+    """Yields all possible subsets of the iterable.
+
+        >>> list(powerset([1, 2, 3]))
+        [(), (1,), (2,), (3,), (1, 2), (1, 3), (2, 3), (1, 2, 3)]
+
+    :func:`powerset` will operate on iterables that aren't :class:`set`
+    instances, so repeated elements in the input will produce repeated elements
+    in the output.
+
+        >>> seq = [1, 1, 0]
+        >>> list(powerset(seq))
+        [(), (1,), (1,), (0,), (1, 1), (1, 0), (1, 0), (1, 1, 0)]
+
+    For a variant that efficiently yields actual :class:`set` instances, see
+    :func:`powerset_of_sets`.
+    """
+```
+
+#### 47: unique_everseen Function
+
+**Function Description**: 
+Remove duplicate elements while maintaining order
+**Core Algorithm**: 
+Keep track of seen elements and only keep the first occurrence of each element
+**Input and Output Examples**:
+```python
+
+def unique_everseen(iterable, key=None):
+    """
+    Yield unique elements, preserving order.
+
+        >>> list(unique_everseen('AAAABBBCCDAABBB'))
+        ['A', 'B', 'C', 'D']
+        >>> list(unique_everseen('ABBCcAD', str.lower))
+        ['A', 'B', 'C', 'D']
+
+    Sequences with a mix of hashable and unhashable items can be used.
+    The function will be slower (i.e., `O(n^2)`) for unhashable items.
+
+    Remember that ``list`` objects are unhashable - you can use the *key*
+    parameter to transform the list to a tuple (which is hashable) to
+    avoid a slowdown.
+
+        >>> iterable = ([1, 2], [2, 3], [1, 2])
+        >>> list(unique_everseen(iterable))  # Slow
+        [[1, 2], [2, 3]]
+        >>> list(unique_everseen(iterable, key=tuple))  # Faster
+        [[1, 2], [2, 3]]
+
+    Similarly, you may want to convert unhashable ``set`` objects with
+    ``key=frozenset``. For ``dict`` objects,
+    ``key=lambda x: frozenset(x.items())`` can be used.
+
+    """
+```
+
+#### 48: first_true Function
+
+**Function Description**: 
+Return the first element that makes a condition true
+**Core Algorithm**: 
+Iterate through the iterable and return the first element that satisfies the condition
+**Input and Output Examples**:
+```python
+
+def first_true(iterable, default=None, pred=None):
+    """
+    Returns the first true value in the iterable.
+
+    If no true value is found, returns *default*
+
+    If *pred* is not None, returns the first item for which
+    ``pred(item) == True`` .
+
+        >>> first_true(range(10))
+        1
+        >>> first_true(range(10), pred=lambda x: x > 5)
+        6
+        >>> first_true(range(10), default='missing', pred=lambda x: x > 9)
+        'missing'
+
+    """
+```
+
+#### 50 random_combination Function
+
+**Function Description**: 
+Randomly select r non-repeating elements from an iterable
+**Core Algorithm**: 
+Use random sampling to ensure non-repeating elements
+**Input and Output Examples**:
+```python
+
+def random_combination(iterable, r):
+    """Return a random *r* length subsequence of the elements in *iterable*.
+
+        >>> random_combination(range(5), 3)  # doctest:+SKIP
+        (2, 3, 4)
+
+    This equivalent to taking a random selection from
+    ``itertools.combinations(iterable, r)``.
+
+    """
+```
+
+#### 50: nth_combination Function
+
+**Function Description**: 
+Get the nth combination in lexicographical order
+**Core Algorithm**: 
+Calculate the combination at a specific position without generating all combinations 
+**Input and Output Examples**:
+```python
+from recipes import nth_combination
+def nth_combination(iterable, r, index):
+    """Equivalent to ``list(combinations(iterable, r))[index]``.
+
+    The subsequences of *iterable* that are of length *r* can be ordered
+    lexicographically. :func:`nth_combination` computes the subsequence at
+    sort position *index* directly, without computing the previous
+    subsequences.
+
+        >>> nth_combination(range(5), 3, 5)
+        (0, 3, 4)
+
+    ``ValueError`` will be raised If *r* is negative or greater than the length
+    of *iterable*.
+    ``IndexError`` will be raised if the given *index* is invalid.
+    """
+```
+
+#### 51: triplewise Function
+
+**Function Description**: 
+Return consecutive triples of elements 
+**Core Algorithm**: 
+Generate consecutive triples 
+**Input and Output Examples**:
+```python
+
+def triplewise(iterable):
+    """Return overlapping triplets from *iterable*.
+
+    >>> list(triplewise('ABCDE'))
+    [('A', 'B', 'C'), ('B', 'C', 'D'), ('C', 'D', 'E')]
+
+    """
+    # This deviates from the itertools documentation recipe - see
+
+```
+
+#### 52: sieve Function
+
+**Function Description**: 
+Generate prime numbers using the Sieve of Eratosthenes 
+**Core Algorithm**: 
+Use the sieve method to find all prime numbers less than n
+**Input and Output Examples**:
+```python
+
+def sieve(n):
+    """Yield the primes less than n.
+
+    >>> list(sieve(30))
+    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+
+    """
+    # This implementation comes from an older version of the itertools
+    # documentation.  The newer implementation is easier to read but is
+    # less lazy.
+```
+
+
+#### 53: `numeric_range` Class
+
+**Function Description**: 
+An extension of the built-in ``range()`` function whose arguments can be any orderable numeric type.
+
+**Core Algorithm**: 
+With only *stop* specified, *start* defaults to ``0`` and *step* defaults to ``1``. The output items will match the type of *stop*:
+
+**Input/Output Example**:
+```python
+
+class numeric_range(Sequence):
+    """An extension of the built-in ``range()`` function whose arguments can
+    be any orderable numeric type.
+
+    With only *stop* specified, *start* defaults to ``0`` and *step*
+    defaults to ``1``. The output items will match the type of *stop*:
+
+        >>> list(numeric_range(3.5))
+        [0.0, 1.0, 2.0, 3.0]
+
+    With only *start* and *stop* specified, *step* defaults to ``1``. The
+    output items will match the type of *start*:
+
+        >>> from decimal import Decimal
+        >>> start = Decimal('2.1')
+        >>> stop = Decimal('5.1')
+        >>> list(numeric_range(start, stop))
+        [Decimal('2.1'), Decimal('3.1'), Decimal('4.1')]
+
+    With *start*, *stop*, and *step*  specified the output items will match
+    the type of ``start + step``:
+
+        >>> from fractions import Fraction
+        >>> start = Fraction(1, 2)  # Start at 1/2
+        >>> stop = Fraction(5, 2)  # End at 5/2
+        >>> step = Fraction(1, 2)  # Count by 1/2
+        >>> list(numeric_range(start, stop, step))
+        [Fraction(1, 2), Fraction(1, 1), Fraction(3, 2), Fraction(2, 1)]
+
+    If *step* is zero, ``ValueError`` is raised. Negative steps are supported:
+
+        >>> list(numeric_range(3, -1, -1.0))
+        [3.0, 2.0, 1.0, 0.0]
+
+    Be aware of the limitations of floating-point numbers; the representation
+    of the yielded numbers may be surprising.
+
+    ``datetime.datetime`` objects can be used for *start* and *stop*, if *step*
+    is a ``datetime.timedelta`` object:
+
+        >>> import datetime
+        >>> start = datetime.datetime(2019, 1, 1)
+        >>> stop = datetime.datetime(2019, 1, 3)
+        >>> step = datetime.timedelta(days=1)
+        >>> items = iter(numeric_range(start, stop, step))
+        >>> next(items)
+        datetime.datetime(2019, 1, 1, 0, 0)
+        >>> next(items)
+        datetime.datetime(2019, 1, 2, 0, 0)
+
+    """
+    
+class numeric_range(Generic[_T, _U], Sequence[_T], Hashable, Reversible[_T]):
+    @overload
+    def __init__(self, __stop: _T) -> None: ...
+    @overload
+    def __init__(self, __start: _T, __stop: _T) -> None: ...
+    @overload
+    def __init__(self, __start: _T, __stop: _T, __step: _U) -> None: ...
+    def __bool__(self) -> bool: ...
+    def __contains__(self, elem: object) -> bool: ...
+    def __eq__(self, other: object) -> bool: ...
+    @overload
+    def __getitem__(self, key: int) -> _T: ...
+    @overload
+    def __getitem__(self, key: slice) -> numeric_range[_T, _U]: ...
+    def __hash__(self) -> int: ...
+    def __iter__(self) -> Iterator[_T]: ...
+    def __len__(self) -> int: ...
+    def __reduce__(
+        self,
+    ) -> tuple[type[numeric_range[_T, _U]], tuple[_T, _T, _U]]: ...
+    def __repr__(self) -> str: ...
+    def __reversed__(self) -> Iterator[_T]: ...
+    def count(self, value: _T) -> int: ...
+    def index(self, value: _T) -> int: ...  # type: ignore
+
+```
+
+#### 54: `islice_extended` Class
+
+**Function Description**: 
+An extension of :func:`itertools.islice` that supports negative values for *stop*, *start*, and *step*.
+
+**Core Algorithm**: 
+Slices with negative values require some caching of *iterable*, but this function takes care to minimize the amount of memory required.
+
+**Input/Output Example**:
+```python
+
+class islice_extended:
+    """An extension of :func:`itertools.islice` that supports negative values
+    for *stop*, *start*, and *step*.
+
+        >>> iterator = iter('abcdefgh')
+        >>> list(islice_extended(iterator, -4, -1))
+        ['e', 'f', 'g']
+
+    Slices with negative values require some caching of *iterable*, but this
+    function takes care to minimize the amount of memory required.
+
+    For example, you can use a negative step with an infinite iterator:
+
+        >>> from itertools import count
+        >>> list(islice_extended(count(), 110, 99, -2))
+        [110, 108, 106, 104, 102, 100]
+
+    You can also use slice notation directly:
+
+        >>> iterator = map(str, count())
+        >>> it = islice_extended(iterator)[10:20:2]
+        >>> list(it)
+        ['10', '12', '14', '16', '18']
+
+    """
+    
+class islice_extended(Generic[_T], Iterator[_T]):
+    def __init__(self, iterable: Iterable[_T], *args: int | None) -> None: ...
+    def __iter__(self) -> islice_extended[_T]: ...
+    def __next__(self) -> _T: ...
+    def __getitem__(self, index: slice) -> islice_extended[_T]: ...
+```
+
+#### 55: `run_length` Class
+
+**Function Description**: 
+:func:`run_length.encode` compresses an iterable with run-length encoding. It yields groups of repeated items with the count of how many times they were repeated:
+
+**Core Algorithm**: 
+:func:`run_length.decode` decompresses an iterable that was previously compressed with run-length encoding. It yields the items of the decompressed iterable:
+
+**Input/Output Example**:
+```python
+
+    """
+    :func:`run_length.encode` compresses an iterable with run-length encoding.
+    It yields groups of repeated items with the count of how many times they
+    were repeated:
+
+        >>> uncompressed = 'abbcccdddd'
+        >>> list(run_length.encode(uncompressed))
+        [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+
+    :func:`run_length.decode` decompresses an iterable that was previously
+    compressed with run-length encoding. It yields the items of the
+    decompressed iterable:
+
+        >>> compressed = [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+        >>> list(run_length.decode(compressed))
+        ['a', 'b', 'b', 'c', 'c', 'c', 'd', 'd', 'd', 'd']
+
+    """
+
+class run_length:
     @staticmethod
-    def to_list_of_fixture_names(alternatives_lst  # type: List[UnionFixtureAlternative]
-                                 ): ...
+    def encode(iterable: Iterable[_T]) -> Iterator[tuple[_T, int]]: ...
+    @staticmethod
+    def decode(iterable: Iterable[tuple[_T, int]]) -> Iterator[_T]: ...
 ```
 
-**Function Description**:
-- `__init__(union_name, alternative_name, alternative_index)`: Builds an alternative for a union fixture.
-- `get_union_id()`: Returns the id of the union.
-- `get_alternative_idx()`: Returns the index of this alternative.
-- `get_alternative_id()`: Returns the id of this alternative.
-- `__str__()`: Human-readable string.
-- `__repr__()`: Debug representation.
-- `to_list_of_fixture_names(alternatives_lst)`: Converts alternatives to a list of fixture names.
+#### 56: `time_limited` Class
 
-**Parameter Description**:
-- `self`: The `UnionFixtureAlternative` instance.
-- `union_name`: Name of the union fixture.
-- `alternative_name`: Name of the alternative.
-- `alternative_index`: Index within the union.
-- `alternatives_lst`: A list of alternatives.
+**Function Description**: 
+Yield items from *iterable* until *limit_seconds* have passed. If the time limit expires before all items have been yielded, the ``timed_out`` parameter will be set to ``True``.
 
-#### 23. `InvalidParamsList` - Invalid Parameters List
+**Core Algorithm**: 
+Note that the time is checked before each item is yielded, and iteration stops if the time elapsed is greater than *limit_seconds*. If your time limit is 1 second, but it takes 2 seconds to generate the first item from the iterable, the function will run for 2 seconds and not yield anything. As a special case, when *limit_seconds* is zero, the iterator never returns anything.
 
-**Description**:
-Exception raised when parameter list is invalid.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import InvalidParamsList
-```
-
-**Class Signature**:
-```python
-class InvalidParamsList(Exception):
-    """
-    Exception raised when users attempt to provide a non-iterable `argvalues` in pytest parametrize.
-    See https://docs.pytest.org/en/latest/reference.html#pytest-mark-parametrize-ref
-    """
-    __slots__ = 'params',
-
-    def __init__(self, params):
-        self.params = params
-
-    def __str__(self):
-        return "Invalid parameters list (`argvalues`) in pytest parametrize. `list(argvalues)` returned an error. " \
-               "Please make sure that `argvalues` is a list, tuple or iterable : %r" % self.params
-
-```
-
-**Function Description**:
-- `__init__(params)`: Initializes the error with invalid `params`.
-- `__str__()`: Returns the error message.
-
-**Parameter Description**:
-- `self`: The exception instance.
-- `params`: The invalid parameters.
-
-#### 24. `FixtureParam` - Fixture Parameter
-
-**Description**:
-Fixture parameter definition class.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core2 import FixtureParam
-```
-
-**Class Signature**:
-```python
-class FixtureParam(object):
-    __slots__ = 'argnames',
-
-    def __init__(self, argnames):
-        self.argnames = argnames
-
-    def __repr__(self):
-        return "FixtureParam(argnames=%s)" % self.argnames
-```
-
-**Function Description**:
-- `__init__(argnames)`: Declares a fixture parameter with argument names.
-- `__repr__()`: Debug representation of the parameter.
-
-**Parameter Description**:
-- `self`: The `FixtureParam` instance.
-- `argnames`: Parameter names string/tuple.
-
-#### 25. `CombinedFixtureParamValue` - Combined Fixture Parameter Value
-
-**Description**:
-Combined fixture parameter value implementation.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core2 import CombinedFixtureParamValue
-```
-
-**Class Signature**:
-```python
-class CombinedFixtureParamValue(object):
-     """Represents a parameter value created when @parametrize is used on a @fixture """
-    __slots__ = 'param_defs', 'argvalues',
-
-    def __init__(self,
-                 param_defs,  # type: Iterable[FixtureParam]
-                 argvalues): ...
-    def iterparams(self): ...
-    def __repr__(self): ...
-```
-
-**Function Description**:
-- `__init__(param_defs, argvalues)`: Initializes with parameter definitions and values.
-- `iterparams()`: Iterates underlying parameters.
-- `__repr__()`: Debug representation.
-
-**Parameter Description**:
-- `self`: The instance.
-- `param_defs`: Definitions of parameters.
-- `argvalues`: Parameter values.
-
-#### 26. `fixture_ref` - Fixture Reference
-
-**Description**:
-Reference to a fixture for lazy evaluation.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import fixture_ref
-```
-
-**Class Signature**:
-```python
-class fixture_ref(object):
-    """
-    A reference to a fixture, to be used in `@parametrize`.
-    You can create it from a fixture name or a fixture object (function).
-    """
-    __slots__ = 'fixture', 'theoretical_size', '_id'
-
-    def __init__(self,
-                 fixture,  # type: Union[str, Callable]
-                 id=None,  # type: str  # noqa
-                 ): ...
-    def get_name_for_id(self): ...
-    def __str__(self): ...
-    def __repr__(self): ...
-    def _check_iterable(self): ...
-    def __len__(self): ...
-    def __getitem__(self, item): ...
-```
-
-**Function Description**:
-- `__init__(fixture, id = None)`: Wraps a fixture reference, with optional explicit id.
-- `get_name_for_id()`: Returns the name used for id generation.
-- `__str__()`: Human-readable representation.
-- `__repr__()`: Debug representation.
-- `_check_iterable()`: Validates that the referenced value is iterable when needed.
-- `__len__()`: Returns the number of elements (if iterable).
-- `__getitem__(item)`: Indexing support when referencing sequences.
-
-**Parameter Description**:
-- `self`: The fixture reference wrapper.
-- `fixture`: The referenced fixture or fixture name.
-- `id`: Optional explicit id.
-- `item`: Item index to retrieve.
-
-#### 27. `FixtureRefItem` - Fixture Reference Item
-
-**Description**:
-Item in a fixture reference collection.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import FixtureRefItem
-```
-
-**Class Signature**:
-```python
-class FixtureRefItem(object):
-    """An item in a fixture_ref when this fixture_ref is used as a tuple."""
-    __slots__ = 'host', 'item'
-    def __init__(self,
-                 host,  # type: fixture_ref
-                 item   # type: int
-                 ): ...
-    def __repr__(self) :
-        return "FixtureRefItem(host=%s, item=%s)" % (self.host, self.item)
-```
-
-**Function Description**:
-- `__init__(host, item)`: Initializes a reference item with host and item.
-- `__repr__()`: Debug representation.
-
-**Parameter Description**:
-- `self`: The instance.
-- `host`: The collection/host object.
-- `item`: The referenced element.
-
-#### 28. `ParamAlternative` - Parameter Alternative
-
-**Description**:
-Base class for parameter alternatives.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import ParamAlternative
-```
-
-**Class Signature**:
-```python
-class ParamAlternative(UnionFixtureAlternative):
-    """Defines an "alternative", used to parametrize a fixture union in the context of parametrize
-
-    It is similar to a union fixture alternative, except that it also remembers the parameter argnames.
-    They are used to generate the test id corresponding to this alternative. See `_get_minimal_id` implementations.
-    `ParamIdMakers` overrides some of the idstyles in `UnionIdMakers` so as to adapt them to these `ParamAlternative`
-    objects.
-    """
-    __slots__ = ('argnames', 'decorated')
-
-    def __init__(self,
-                 union_name,        # type: str
-                 alternative_name,  # type: str
-                 param_index,       # type: int
-                 argnames,          # type: Sequence[str]
-                 decorated          # type: Callable
-                 ): ...
-    def get_union_id(self): ...
-    def get_alternative_idx(self): ...
-    def get_alternative_id(self): ...
-```
-
-**Function Description**:
-- `__init__(union_name, alternative_name, param_index, argnames, decorated)`: Defines a parameter alternative.
-- `get_union_id()`: Returns the union id this alternative belongs to.
-- `get_alternative_idx()`: Returns the alternative index.
-- `get_alternative_id()`: Returns the alternative id string.
-
-**Parameter Description**:
-- `self`: The `ParamAlternative` instance.
-- `union_name`: The union fixture name.
-- `alternative_name`: Alternative name.
-- `param_index`: Parameter index associated with the alternative.
-- `argnames`: Parameter argument names.
-- `decorated`: Whether this alternative is decorated.
-
-#### 29. `SingleParamAlternative` - Parameter Alternative
-
-**Description**:
-Base class for parameter alternatives.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import SingleParamAlternative
-```
-
-**Class Signature**:
-```python
-class SingleParamAlternative(ParamAlternative):
-    """alternative class for single parameter value"""
-    __slots__ = 'argval', 'id'
-
-    def __init__(self,
-                 union_name,        # type: str
-                 alternative_name,  # type: str
-                 param_index,       # type: int
-                 argnames,          # type: Sequence[str]
-                 argval,            # type: Any
-                 id,                # type: Optional[str]
-                 decorated          # type: Callable
-                 ): ...
-    def get_alternative_id(self): ...
-    @classmethod
-    def create(cls,
-               new_fixture_host,   # type: Union[Type, ModuleType]
-               test_func,          # type: Callable
-               param_union_name,   # type: str
-               argnames,           # type: Sequence[str]
-               i,                  # type: int
-               argvalue,           # type: Any
-               id,                 # type: Union[str, Callable]
-               scope=None,         # type: str
-               hook=None,          # type: Callable
-               debug=False         # type: bool
-               ): ...
-```
-
-**Function Description**:
-- `__init__(union_name, alternative_name, param_index, argnames, argval, id, decorated)`: Defines a single parameter alternative.
-- `get_alternative_id()`: Returns the unique id for this alternative.
-- `create(new_fixture_host, test_func, param_union_name, argnames, i, argvalue, id, scope = None, hook = None, debug = False)`: Factory method to build an alternative.
-
-**Parameter Description**:
-- `self`: The `SingleParamAlternative` instance.
-- `union_name`: Union fixture name.
-- `alternative_name`: Alternative name.
-- `param_index`: Parameter index.
-- `argnames`: Argument names.
-- `argval`: Argument value.
-- `id`: Explicit id.
-- `decorated`: Decoration flag.
-- `new_fixture_host`: Target fixture host.
-- `test_func`: Target test function.
-- `param_union_name`: Target union name.
-- `i`: Index used during creation.
-- `argvalue`: Value used during creation.
-- `scope`: Fixture scope.
-- `hook`: Optional hook.
-- `debug`: Debug flag.
-
-#### 30. `MultiParamAlternative` - Parameter Alternative
-
-**Description**:
-Base class for parameter alternatives.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import MultiParamAlternative
-```
-
-**Class Signature**:
-```python
-class MultiParamAlternative(ParamAlternative):
-    """alternative class for multiple parameter values"""
-    __slots__ = 'param_index_from', 'param_index_to'
-
-    def __init__(self,
-                 union_name,        # type: str
-                 alternative_name,  # type: str
-                 argnames,          # type: Sequence[str]
-                 param_index_from,  # type: int
-                 param_index_to,    # type: int
-                 decorated          # type: Callable
-                 ): ...
-    def __str__(self): ...
-    def get_alternative_idx(self): ...
-    def get_alternative_id(self): ...
-    @classmethod
-    def create(cls,
-               new_fixture_host,  # type: Union[Type, ModuleType]
-               test_func,         # type: Callable
-               param_union_name,  # type: str
-               argnames,          # type: Sequence[str]
-               from_i,            # type: int
-               to_i,              # type: int
-               argvalues,         # type: Any
-               ids,               # type: Union[Sequence[str], Callable]
-               scope="function",  # type: str
-               hook=None,         # type: Callable
-               debug=False        # type: bool
-               ): ...
-```
-
-**Function Description**:
-- `__init__(union_name, alternative_name, argnames, param_index_from, param_index_to, decorated)`: Defines a multi-parameter alternative.
-- `__str__()`: String representation.
-- `get_alternative_idx()`: Returns the index.
-- `get_alternative_id()`: Returns the id.
-- `create(new_fixture_host, test_func, param_union_name, argnames, from_i, to_i, argvalues, ids, scope = 'function', hook = None, debug = False)`: Factory method for multi-parameter alternative.
-
-**Parameter Description**:
-- `self`: The `MultiParamAlternative` instance.
-- `union_name`: Union fixture name.
-- `alternative_name`: Alternative name.
-- `argnames`: Argument names.
-- `param_index_from`: First parameter index.
-- `param_index_to`: Last parameter index.
-- `decorated`: Decoration flag.
-- `new_fixture_host`: Target fixture host.
-- `test_func`: Target test function.
-- `param_union_name`: Union name.
-- `from_i`: Start index.
-- `to_i`: End index.
-- `argvalues`: Values list.
-- `ids`: Ids list.
-- `scope`: Fixture scope.
-- `hook`: Optional hook.
-- `debug`: Debug flag.
-
-#### 31. `FixtureParamAlternative` - Fixture Parameter
-
-**Description**:
-Fixture parameter definition class.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import FixtureParamAlternative
-```
-
-**Class Signature**:
-```python
-class FixtureParamAlternative(SingleParamAlternative):
-    """alternative class for a single parameter containing a fixture ref"""
-
-    def __init__(self,
-                 union_name,   # type: str
-                 fixture_ref,  # type: fixture_ref
-                 argnames,     # type: Sequence[str]
-                 param_index,  # type: int
-                 id,           # type: Optional[str]
-                 decorated     # type: Callable
-                 ): ...
-    def get_alternative_idx(self): ...
-    def get_alternative_id(self): ...
-```
-
-**Function Description**:
-- `__init__(union_name, fixture_ref, argnames, param_index, id, decorated)`: Defines an alternative pointing to a fixture.
-- `get_alternative_idx()`: Returns index.
-- `get_alternative_id()`: Returns id.
-
-**Parameter Description**:
-- `self`: The `FixtureParamAlternative` instance.
-- `union_name`: Union name.
-- `fixture_ref`: Fixture reference.
-- `argnames`: Argument names.
-- `param_index`: Parameter index.
-- `id`: Explicit id.
-- `decorated`: Decoration flag.
-
-#### 32. `ProductParamAlternative` - Parameter Alternative
-
-**Description**:
-Base class for parameter alternatives.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import ProductParamAlternative
-```
-
-**Class Signature**:
-```python
-class ProductParamAlternative(SingleParamAlternative):
-    """alternative class for a single product parameter containing fixture refs"""
-
-    def get_alternative_idx(self): ...
-    def get_alternative_id(self): ...
-
-```
-
-**Function Description**:
-- `get_alternative_idx()`: Returns index of this alternative.
-- `get_alternative_id()`: Returns id of this alternative.
-
-**Parameter Description**:
-- `self`: The `ProductParamAlternative` instance.
-
-#### 33. `ParamIdMakers` - Parameter ID Makers
-
-**Description**:
-ID generation for parameter alternatives.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import ParamIdMakers
-```
-
-**Class Signature**:
-```python
-class ParamIdMakers(UnionIdMakers):
-   """ 'Enum' of id styles for param ids
-
-    It extends UnionIdMakers to adapt to the special fixture alternatives `ParamAlternative` we create
-    in @parametrize
-    """
-    @classmethod
-    def nostyle(cls,
-                param  # type: ParamAlternative
-                ):
-        if isinstance(param, MultiParamAlternative):
-            # make an empty minimal id since the parameter themselves will appear as ids separately
-            # note if the final id is empty it will be dropped by the filter in CallSpec2.id
-            return EMPTY_ID
-        else:
-            return UnionIdMakers.nostyle(param)
-```
-
-**Function Description**:
-- `nostyle(param)`: Returns neutral id string for a parameter.
-
-**Parameter Description**:
-- `cls`: The class (classmethod usage).
-- `param`: The parameter to generate an id for.
-
-#### 34. `InvalidIdTemplateException` - Invalid ID Template Exception
-
-**Description**:
-Exception raised when ID template is invalid.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import InvalidIdTemplateException
-```
-
-**Class Signature**:
-```python
-class InvalidIdTemplateException(Exception):
-    """
-    Raised when a string template provided in an `idgen` raises an error
-    """
-    def __init__(self, idgen, params, caught): ...
-    def __str__(self): ...
-    def __repr__(self): ...
-```
-
-**Function Description**:
-- `__init__(idgen, params, caught)`: Builds the exception with context.
-- `__str__()`: Error message.
-- `__repr__()`: Debug representation.
-
-**Parameter Description**:
-- `self`: The exception instance.
-- `idgen`: Id generator or template.
-- `params`: Parameters that failed.
-- `caught`: The caught underlying exception.
-
-#### 35. `ExistingFixtureNameError` - Existing Fixture Name Error
-
-**Description**:
-Exception raised when fixture name already exists.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture__creation import ExistingFixtureNameError
-```
-
-**Class Signature**:
-```python
-class ExistingFixtureNameError(ValueError):
-    """
-    Raised by `add_fixture_to_callers_module` when a fixture already exists in a module
-    """
-    def __init__(self, module, name, caller): ...
-    def __str__(self): ...
-```
-
-**Function Description**:
-- `__init__(module, name, caller)`: Creates the error with context info.
-- `__str__()`: Error message.
-
-**Parameter Description**:
-- `self`: The exception instance.
-- `module`: Module object or name.
-- `name`: Fixture name in conflict.
-- `caller`: Caller information.
-
-#### 36. `FixtureDefsCache` - Fixture Definitions Cache
-
-**Description**:
-Cache for fixture definitions.
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import FixtureDefsCache
-```
-
-**Class Signature**:
-```python
-class FixtureDefsCache(object):
-    """
-    A 'cache' for fixture definitions obtained from the FixtureManager `fm`, for test node `nodeid`
-    """
-    __slots__ = 'fm', 'node', 'cached_fix_defs'
-    def __init__(self, fm, node): ...
-
-    def get_fixture_defs(self, fixname): ...
-```
-
-**Function Description**:
-- `__init__(fm, node)`: Initializes the cache with a fixture manager and node.
-- `get_fixture_defs(fixname)`: Returns the definitions for the fixture named `fixname`.
-
-**Parameter Description**:
-- `self`: The cache instance.
-- `fm`: The fixture manager.
-- `node`: The pytest collection node.
-- `fixname`: The fixture name to look up.
-
-#### 37. `FixtureClosureNode` - Fixture Closure Node
-
-**Description**:
-Node in fixture closure graph.
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import FixtureClosureNode
-```
-
-**Class Signature**:
-```python
-class FixtureClosureNode(object):
-    """
-    A node in a fixture closure Tree.
-
-     - its `fixture_defs` is a {name: def} ordered dict containing all fixtures AND args that are required at this node
-       (*before* a union is required). Note that some of them have def=None when the fixture manager has no definition
-       for them (same behaviour than in pytest). `get_all_fixture_names` and `get_all_fixture_defs` helper functions
-       allow to either return the full ordered list (equivalent to pytest `fixture_names`) or the dictionary of non-none
-       definitions (equivalent to pytest `arg2fixturedefs`)
-
-     - if a union appears at this node, `split_fixture_name` is set to the name of the union fixture, and `children`
-       contains an ordered dict of {split_fixture_alternative: node}
-
-    """
-    __slots__ = 'parent', 'fixture_defs_mgr', \
-                'fixture_defs', 'split_fixture_name', 'split_fixture_alternatives', 'children'
-
-    def __init__(self,
-                 fixture_defs_mgr=None,   # type: FixtureDefsCache
-                 parent_node=None         # type: FixtureClosureNode
-                 ): ...
-    def get_leaves(self): ...
-    def to_str(self, indent_nb = 0, with_children = True): ...
-    def __repr__(self): ...
-    def get_all_fixture_names(self, try_to_sort_by_scope = True): ...
-    def get_all_fixture_defs(self, drop_fake_fixtures = True, try_to_sort = True): ...
-    def gen_all_fixture_defs(self, drop_fake_fixtures = True): ...
-    def build_closure(self,
-                      initial_fixture_names,  # type: Iterable[str]
-                      ignore_args=()
-                      ): ...
-    def is_closure_built(self): ...
-    def already_knows_fixture(self, fixture_name): ...
-     def _build_closure(self,
-                       fixture_defs_mgr,       # type: FixtureDefsCache
-                       initial_fixture_names,  # type: Iterable[str]
-                       ignore_args
-                       ): ...
-    def remove_fixtures(self, fixture_names_to_remove)
-    def add_required_fixture(self, new_fixture_name, new_fixture_defs)
-    def split_and_build(self,
-                        fixture_defs_mgr,           # type: FixtureDefsCache
-                        split_fixture_name,         # type: str
-                        split_fixture_defs,         # type: Tuple[FixtureDefinition]  # noqa
-                        alternative_fixture_names,  # type: List[str]
-                        pending_fixtures_list,      #
-                        ignore_args
-                        ): ...
-    def has_split(self): ...
-    def get_not_always_used(self): ...
-    def gather_all_required(self, include_children = True, include_parents = True)
-    def requires(self, fixturename): ...
-    def get_alternatives(self): ...
-    def _get_alternatives(self): ...
-```
-
-**Function Description**:
-- `__init__(fixture_defs_mgr = None, parent_node = None)`: Initializes a closure node.
-- `get_leaves()`: Returns leaf nodes.
-- `to_str(indent_nb = 0, with_children = True)`: Stringifies the closure subtree.
-- `get_all_fixture_names(try_to_sort_by_scope = True)`: Returns all fixture names.
-- `get_all_fixture_defs(drop_fake_fixtures = True, try_to_sort = True)`: Returns all fixture defs.
-- `gen_all_fixture_defs(drop_fake_fixtures = True)`: Generator of fixture defs.
-- `build_closure(initial_fixture_names, ignore_args = ())`: Builds the closure from initial names.
-- `is_closure_built()`: Indicates if closure is already built.
-- `already_knows_fixture(fixture_name)`: Checks if a fixture name is known.
-- `_build_closure(fixture_defs_mgr, initial_fixture_names, ignore_args)`: Internal builder.
-- `remove_fixtures(fixture_names_to_remove)`: Removes fixtures from closure.
-- `add_required_fixture(new_fixture_name, new_fixture_defs)`: Adds required fixture.
-- `split_and_build(...)`: Splits and rebuilds part of the closure graph.
-- `has_split()`: Returns True if a split occurred.
-- `get_not_always_used()`: Returns fixtures not always used.
-- `gather_all_required(include_children = True, include_parents = True)`: Returns required fixtures.
-- `requires(fixturename)`: Returns the requirements for the given fixture.\
-- `get_alternatives()`: Returns alternative fixture names.
-- `_get_alternatives()`: Internal method to get alternatives.
-
-**Parameter Description**:
-- `self`: The node instance.
-- `fixture_defs_mgr`: Fixture definitions manager.
-- `parent_node`: Optional parent node.
-- `indent_nb`: Indentation in spaces for display.
-- `with_children`: Whether to include children in display.
-- `try_to_sort_by_scope`: Whether to attempt sorting by scope.
-- `drop_fake_fixtures`: If True, remove fake fixtures.
-- `try_to_sort`: Whether to try sorting results.
-- `initial_fixture_names`: Initial set of fixture names.
-- `ignore_args`: Iterable of argument names to ignore.
-- `fixture_names_to_remove`: Names to remove.
-- `new_fixture_name`: Newly required fixture name.
-- `new_fixture_defs`: Newly required fixture definitions.
-- `split_fixture_name`: Fixture name to split on.
-- `split_fixture_defs`: Fixture definitions used for split.
-- `alternative_fixture_names`: Alternative fixture names for split.
-- `pending_fixtures_list`: Pending fixtures to process.
-- `fixturename`: A fixture name.
-- `include_children`: Include children flag.
-- `include_parents`: Include parents flag.
-
-#### 38. `SuperClosure` - Super Closure
-
-**Description**:
-Super closure implementation for fixture dependencies.
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import SuperClosure
-```
-
-**Class Signature**:
-```python
-class SuperClosure(MutableSequence):
-    """
-    A "super closure" is a closure made of several closures, each induced by a fixture union parameter value.
-    The number of alternative closures is `self.nb_alternative_closures`
-
-    This object behaves like a list (a mutable sequence), so that we can pass it to pytest in place of the list of
-    fixture names that is returned in `getfixtureclosure`.
-
-    In this implementation, it is backed by a fixture closure tree, that we have to preserve in order to get
-    parametrization right. In another branch of this project ('super_closure' branch) we tried to forget the tree
-    and only keep the partitions, but parametrization order was not as intuitive for the end user as all unions
-    appeared as parametrized first (since they induced the partitions).
-    """
-    __slots__ = 'tree', 'all_fixture_defs'
-    def __init__(self,
-                 root_node  # type: FixtureClosureNode
-                 ): ...
-    def _update_fixture_defs(self): ...
-    @property
-    def nb_alternative_closures(self): ...
-    def __repr__(self): ...
-    def get_all_fixture_defs(self, drop_fake_fixtures = True): ...
-    def __len__(self): ...
-    def __getitem__(self, i): ...
-    def __setitem__(self, i, o): ...
-    def __delitem__(self, i): ...
-    def insert(self, index, fixture_name): ...
-    def append_all(self, fixture_names): ...
-    def remove(self, value): ...
-    def remove_all(self, values): ...
-```
-
-**Function Description**:
-- `__init__(root_node)`: Initializes a super closure from a root node.
-- `_update_fixture_defs()`: Refreshes fixture definitions across nodes.
-- `nb_alternative_closures()`: Returns number of alternative closures.
-- `__repr__()`: Debug representation.
-- `get_all_fixture_defs(drop_fake_fixtures = True)`: Returns all fixture defs.
-- `__len__()`: Length protocol for sequence.
-- `__getitem__(i)`: Indexing protocol.
-- `__setitem__(i, o)`: Item assignment protocol.
-- `__delitem__(i)`: Item deletion protocol.
-- `insert(index, fixture_name)`: Inserts a fixture at position.
-- `append_all(fixture_names)`: Appends multiple fixtures.
-- `remove(value)`: Removes first occurrence.
-- `remove_all(values)`: Removes all listed.
-
-**Parameter Description**:
-- `self`: The super closure instance.
-- `root_node`: Root node.
-- `i`: Index.
-- `o`: New value.
-- `index`: Insertion index.
-- `fixture_name`: Name to insert.
-- `fixture_names`: Iterable of names to append.
-- `value`: Value to remove.
-- `values`: Iterable of values to remove.
-- `drop_fake_fixtures`: Whether to drop fake fixtures.
-
-#### 39. `UnionParamz` - Union Parameters
-
-**Description**:
-Union parameters implementation.
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import UnionParamz
-```
-
-**Class Signature**:
-```python
-class UnionParamz(namedtuple('UnionParamz', ['union_fixture_name', 'alternative_names', 'ids', 'scope', 'kwargs'])):
-    """ Represents some parametrization to be applied, for a union fixture """
-
-    __slots__ = ()
-
-    def __str__(self):
-        return "[UNION] %s=[%s], ids=%s, scope=%s, kwargs=%s" \
-               "" % (self.union_fixture_name, ','.join([str(a) for a in self.alternative_names]),
-                     self.ids, self.scope, self.kwargs)
-
-```
-
-**Function Description**:
-- `__str__()`: Returns a string description for union parameters.
-
-**Parameter Description**:
-- `self`: The instance.
-
-#### 40. `NormalParamz` - Normal Parameters
-
-**Description**:
-Normal parameters implementation.
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import NormalParamz
-```
-
-**Class Signature**:
-```python
-class NormalParamz(namedtuple('NormalParamz', ['argnames', 'argvalues', 'indirect', 'ids', 'scope', 'kwargs'])):
-    """ Represents some parametrization to be applied """
-
-    __slots__ = ()
-
-    def __str__(self):
-        return "[NORMAL] %s=[%s], indirect=%s, ids=%s, scope=%s, kwargs=%s" \
-               "" % (self.argnames, self.argvalues, self.indirect, self.ids, self.scope, self.kwargs)
-
-```
-
-**Function Description**:
-- `__str__()`: Returns a string description for normal parameters.
-
-**Parameter Description**:
-- `self`: The instance.
-
-#### 41. `CallsReactor` - Calls Reactor
-
-**Description**:
-Reactor for handling test calls and parametrization.
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import CallsReactor
-```
-
-**Class Signature**:
-```python
-class CallsReactor(object):
-    """
-    This object replaces the list of calls that was in `metafunc._calls`.
-    It behaves like a list, but it actually builds that list dynamically based on all parametrizations collected
-    from the custom `metafunc.parametrize` above.
-
-    There are therefore three steps:
-
-     - when `metafunc.parametrize` is called, this object gets called on `add_union` or `add_param`. A parametrization
-     order gets stored in `self._pending`
-
-     - when this object is first read as a list, all parametrization orders in `self._pending` are transformed into a
-     tree in `self._tree`, and `self._pending` is discarded. This is done in `create_tree_from_pending_parametrization`.
-
-     - finally, the list is built from the tree using `self._tree.to_call_list()`. This will also be the case in
-     subsequent usages of this object.
-
-    """
-    __slots__ = 'metafunc', '_pending', '_call_list'
-
-    def __init__(self, metafunc): ...
-    def append(self,
-               parametrization  # type: Union[UnionParamz, NormalParamz]
-               ): ...
-    def print_parametrization_list(self): ...
-    def __iter__(self): ...
-    def __getitem__(self, item): ...
-    @property
-    def calls_list(self): ...
-    def create_call_list_from_pending_parametrizations(self): ...
-```
-
-**Function Description**:
-- `__init__(metafunc)`: Initializes the reactor with a meta function.
-- `append(parametrization)`: Appends a parametrization entry.
-- `print_parametrization_list()`: Prints current parametrizations.
-- `__iter__()`: Iterates over generated calls.
-- `__getitem__(item)`: Returns the call at index.
-- `calls_list()`: Returns the internal calls list.
-- `create_call_list_from_pending_parametrizations`: Builds the calls list from pending parametrizations.
-
-**Parameter Description**:
-- `self`: The reactor instance.
-- `metafunc`: Pytest metafunc object.
-- `parametrization`: Parametrization entry.
-- `item`: Index to retrieve.
-
-#### 1. `publish()` - Function Name
-
-**Function Signature**:
-```python
-@nox.session(python=PY311)
-def publish(session):
-    """Deploy the docs+reports on github pages. Note: this rebuilds the docs"""
-
-```
-
-**Import Statement**:
-```python
-from noxfile import publish
-```
-
-**Function**:
-Nox session that deploys documentation and reports (e.g., GitHub Pages).
-
-**Parameter Description**:
-- `session`: Nox session object.
-
-**Return Value**:
-None (runs the deployment workflow).
-
-#### 2. `_build()` - Function Name
-
-**Function Signature**:
-```python
-def _build(session):
-    """Common code used by build and release sessions"""
-```
-
-**Import Statement**:
-```python
-from noxfile import _build
-```
-
-**Function**:
-Common build routine that prepares distributions and validates versioning.
-
-**Parameter Description**:
-- `session`: Nox session object.
-
-**Return Value**:
-None (performs build operations).
-
-#### 3. `my_scheme()` - Function Name
-
-**Function Signature**:
-```python
-def my_scheme(version_)
-```
-
-**Import Statement**:
-```python
-from noxfile import my_scheme
-```
-
-**Function**:
-It is an internal function of the `_build` function.
-Version scheme callback used by setuptools_scm to derive dev/release versions.
-
-**Parameter Description**:
-- `version_`: Version string to process.
-
-**Return Value**:
-Processed version string for setuptools_scm.
-
-#### 4. `create_or_update_release()` - Function Name
-
-**Function Signature**:
-```python
-@click.command()
-@click.option('-u', '--user', help='GitHub username')
-@click.option('-p', '--pwd', help='GitHub password')
-@click.option('-s', '--secret', help='GitHub access token')
-@click.option('-r', '--repo-slug', help='Repo slug. i.e.: apple/swift')
-@click.option('-cf', '--changelog-file', help='Changelog file path')
-@click.option('-d', '--doc-url', help='Documentation url')
-@click.option('-df', '--data-file', help='Data file to upload', type=Path(exists=True, file_okay=True, dir_okay=False,
-                                                                          resolve_path=True))
-@click.argument('tag')
-def create_or_update_release(user, pwd, secret, repo_slug, changelog_file, doc_url, data_file, tag):
-    """
-    Creates or updates (TODO)
-    a github release corresponding to git tag <TAG>.
-    """
-```
-
-**Import Statement**:
-```python
-from ci_tools.github_release import create_or_update_release
-```
-
-**Function**:
-Creates or updates a GitHub release from a tag and changelog, optionally uploading assets.
-
-**Parameter Description**:
-- `user`: GitHub username.
-- `pwd`: GitHub password or token.
-- `secret`: Additional secret for authentication.
-- `repo_slug`: Repository slug (owner/repo).
-- `changelog_file`: Path to changelog file.
-- `doc_url`: Documentation URL.
-- `data_file`: Optional data file.
-- `tag`: Git tag for the release.
-
-**Return Value**:
-GitHub release object or None.
-
-#### 5. `install_reqs()` - Function Name
-
-**Function Signature**:
-```python
-def install_reqs(session, setup = False, install = False, tests = False, extras = (), phase = None, phase_reqs = None, versions_dct = None)
-```
-
-**Import Statement**:
-```python
-from ci_tools.nox_utils import install_reqs
-```
-
-**Function**:
-High-level installer for build/test/doc phases, merging constraints and conda/pip sources.
-
-**Parameter Description**:
-- `session`: Nox session object.
-- `setup`: Install setup dependencies.
-- `install`: Install the package itself.
-- `tests`: Install test dependencies.
-- `extras`: List of extra dependency groups.
-- `phase`: Install phase name.
-- `phase_reqs`: Phase-specific requirements.
-- `versions_dct`: Dictionary of package versions.
-
-**Return Value**:
-None (installs packages).
-
-#### 6. `install_any()` - Function Name
-
-**Function Signature**:
-```python
-def install_any(session, phase_name: str, pkgs: Sequence[str], use_conda_for: Sequence[str] = (), versions_dct: Dict[str, str] = None): 
-    """Install the `pkgs` provided with `session.install(*pkgs)`, except for those present in `use_conda_for`"""
-
-```
-
-**Import Statement**:
-```python
-from ci_tools.nox_utils import install_any
-```
-
-**Function**:
-Installs the given package list with pip or conda according to configuration.
-
-**Parameter Description**:
-- `session`: Nox session object.
-- `phase_name`: Name of the installation phase.
-- `pkgs`: List of package names to install.
-- `use_conda_for`: Packages to install via conda.
-- `versions_dct`: Dictionary mapping package names to versions.
-
-**Return Value**:
-None (installs packages).
-
-#### 7. `read_pyproject_toml()` - Function Name
-
-**Function Signature**:
-```python
-def read_pyproject_toml() -> Union[list, list]:
-    """
-    Reads the `pyproject.toml` and returns
-
-     - a list of setup requirements from [build-system] requires
-     - sub-list of these requirements that should be installed with conda, from [tool.my_conda] conda_packages
-    """
-```
-
-**Import Statement**:
-```python
-from ci_tools.nox_utils import read_pyproject_toml
-```
-
-**Function**:
-Parses pyproject.toml to extract build-system requirements and optional conda packages.
-
-**Parameter Description**:
-None
-
-**Return Value**:
-A tuple of two lists: (setup_requirements, conda_packages).
-
-#### 8. `read_setuptools_cfg()` - Function Name
-
-**Function Signature**:
-```python
-def read_setuptools_cfg():
-    """
-    Reads the `setup.cfg` file and extracts the various requirements lists
-    """
-```
-
-**Import Statement**:
-```python
-from ci_tools.nox_utils import read_setuptools_cfg
-```
-
-**Function**:
-Loads setup.cfg to collect setup, install, tests, and extras requirements.
-
-**Parameter Description**:
-None
-
-**Return Value**:
-A dictionary containing parsed requirements from setup.cfg.
-
-#### 9. `get_req_pkg_name()` - Function Name
-
-**Function Signature**:
-```python
-def get_req_pkg_name(r):
-    """Return the package name part of a python package requirement.
-
-    For example
-    "funcsigs;python<'3.5'" will return "funcsigs"
-    "pytest>=3" will return "pytest"
-    """
-    return r.replace('<', '=').replace('>', '=').replace(';', '=').split("=")[0]
-
-```
-
-**Import Statement**:
-```python
-from ci_tools.nox_utils import get_req_pkg_name
-```
-
-**Function**:
-Extracts the base package name from a requirement string (drops markers and specifiers).
-
-**Parameter Description**:
-- `r`: Package requirement string (e.g., "pytest>=3", "funcsigs;python<'3.5'").
-
-**Return Value**:
-A string containing the clean package name (e.g., "pytest", "funcsigs").
-
-#### 10. `rm_file()` - Function Name
-
-**Function Signature**:
-```python
-def rm_file(folder: Union[str, Path]):
-    """Since on windows Path.unlink throws permission error sometimes, os.remove is preferred."""
- 
-```
-
-**Import Statement**:
-```python
-from ci_tools.nox_utils import rm_file
-```
-
-**Function**:
-Safely removes a file path, using OS removal to avoid Windows permission issues.
-
-**Parameter Description**:
-- `folder`: File path to remove (can be string or Path object).
-
-**Return Value**:
-None
-
-#### 11. `rm_folder()` - Function Name
-
-**Function Signature**:
-```python
-def rm_folder(folder: Union[str, Path]):
-    """Since on windows Path.unlink throws permission error sometimes, shutil is preferred."""
-
-```
-
-**Import Statement**:
-```python
-from ci_tools.nox_utils import rm_folder
-```
-
-**Function**:
-Recursively removes a directory tree, avoiding Path.unlink permission problems.
-
-**Parameter Description**:
-- `folder`: Folder path to remove (can be string or Path object).
-
-**Return Value**:
-None
-
-#### 12. `_tags_match_query()` - Function Name
-
-**Function Signature**:
-```python
-def _tags_match_query(tags,    # type: Iterable[str]
-                      has_tag  # type: Optional[Union[str, Iterable[str]]]
-                      ):
-    """Internal routine to determine is all tags in `has_tag` are persent in `tags`
-    Note that `has_tag` can be a single tag, or none
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import _tags_match_query
-```
-
-**Function**:
-Checks whether a set of tags satisfies a tag predicate or query.
-
-**Parameter Description**:
-- `tags`: Set of tags to check.
-- `has_tag`: Tag predicate function or query.
-
-**Return Value**:
-True if the tags match the query, False otherwise.
-
-#### 13. `copy_case_info()` - Function Name
-
-**Function Signature**:
-```python
-
-def copy_case_info(from_fun,  # type: Callable
-                   to_fun     # type: Callable
-                   ):
-    """Copy all information from case function `from_fun` to `to_fun`."""
-    _CaseInfo.copy_info(from_fun, to_fun)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import copy_case_info
-```
-
-**Function**:
-Copies case metadata (id, marks, tags) from one function to another.
-
-**Parameter Description**:
-- `from_fun`: Source function to copy metadata from.
-- `to_fun`: Target function to copy metadata to.
-
-**Return Value**:
-None (modifies to_fun in place).
-
-#### 14. `set_case_id()` - Function Name
-
-**Function Signature**:
-```python
-def set_case_id(id,        # type: str
-                case_func  # type: Callable
-                ):
-    """Set an explicit id on case function `case_func`."""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import set_case_id
-```
-
-**Function**:
-Assigns an explicit case id to a case function.
-
-**Parameter Description**:
-- `id`: Case identifier string.
-- `case_func`: Case function to set the id on.
-
-**Return Value**:
-None (modifies case_func metadata).
-
-#### 15. `get_case_id()` - Function Name
-
-**Function Signature**:
-```python
-def get_case_id(case_func,                              # type: Callable
-                prefix_for_default_ids=CASE_PREFIX_FUN  # type: str
-                ):
-    """Return the case id associated with this case function.
-
-    If a custom id is not present, a case id is automatically created from the function name based on removing the
-    provided prefix if present at the beginning of the function name. If the resulting case id is empty,
-    "<empty_case_id>" will be returned.
-
-    :param case_func: the case function to get a case id for
-    :param prefix_for_default_ids: this prefix that will be removed if present on the function name to form the default
-        case id.
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import get_case_id
-```
-
-**Function**:
-Computes or retrieves the case identifier, applying a default prefix when needed.
-
-**Parameter Description**:
-- `case_func`: Case function to get the id from.
-- `prefix_for_default_ids`: Prefix to use when generating default ids.
-
-**Return Value**:
-Case identifier string.
-
-#### 16. `get_case_marks()` - Function Name
-
-**Function Signature**:
-```python
-def get_case_marks(case_func,                         # type: Callable
-                   concatenate_with_fun_marks=False,  # type: bool
-                   as_decorators=False                # type: bool
-                   ):
-    # type: (...) -> Union[Tuple[Mark, ...], Tuple[MarkDecorator, ...]]
-    """Return the marks that are on the case function.
-
-    There are currently two ways to place a mark on a case function: either with `@pytest.mark.<name>` or in
-    `@case(marks=...)`. This function returns a list of marks containing either both (if `concatenate_with_fun_marks` is
-    `True`) or only the ones set with `@case` (`concatenate_with_fun_marks` is `False`, default).
-
-    :param case_func: the case function
-    :param concatenate_with_fun_marks: if `False` (default) only the marks declared in `@case` will be returned.
-        Otherwise a concatenation of marks in `@case` and on the function (for example directly with
-        `@pytest.mark.<name>`) will be returned.
-    :param as_decorators: when `True`, the marks (`MarkInfo`) will be transformed into `MarkDecorators` before being
-        returned. Otherwise (default) the marks are returned as is.
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import get_case_marks
-```
-
-**Function**:
-Collects pytest marks associated with a case function, optionally as decorators.
-
-**Parameter Description**:
-- `case_func`: Case function to get marks from.
-- `concatenate_with_fun_marks`: Whether to include function-level marks.
-- `as_decorators`: Return marks as decorator objects instead of mark info.
-
-**Return Value**:
-List of mark info objects or decorators.
-
-#### 17. `get_case_tags()` - Function Name
-
-**Function Signature**:
-```python
-def get_case_tags(case_func  # type: Callable
-                  ):
-    """Return the tags on this case function or an empty tuple"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import get_case_tags
-```
-
-**Function**:
-Returns the tags attached to a case function.
-
-**Parameter Description**:
-- `case_func`: Case function to get tags from.
-
-**Return Value**:
-Set of tag strings.
-
-#### 18. `matches_tag_query()` - Function Name
-
-**Function Signature**:
-```python
-def matches_tag_query(case_fun,      # type: Callable
-                      has_tag=None,  # type: Union[str, Iterable[str]]
-                      filter=None,   # type: Union[Callable[[Callable], bool], Iterable[Callable[[Callable], bool]]]  # noqa
-                      ):
-    """
-    This function is the one used by `@parametrize_with_cases` to filter the case functions collected. It can be used
-    manually for tests/debug.
-
-    Returns True if the case function is selected by the query:
-
-     - if `has_tag` contains one or several tags, they should ALL be present in the tags
-       set on `case_fun` (`get_case_tags`)
-
-     - if `filter` contains one or several filter callables, they are all called in sequence and the
-       `case_fun` is only selected if ALL of them return a `True` truth value
-
-    :param case_fun: the case function
-    :param has_tag: one or several tags that should ALL be present in the tags set on `case_fun` for it to be selected.
-    :param filter: one or several filter callables that will be called in sequence. If all of them return a `True`
-        truth value, `case_fun` is selected.
-    :return: True if the case_fun is selected by the query.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import matches_tag_query
-```
-
-**Function**:
-Evaluates a tag query against a case function's tags and optional filters.
-
-**Parameter Description**:
-- `case_fun`: Case function to evaluate.
-- `has_tag`: Tag predicate function or query.
-- `filter`: Additional filter function.
-
-**Return Value**:
-True if the case matches the query, False otherwise.
-
-#### 19. `is_case_class()` - Function Name
-
-**Function Signature**:
-```python
-
-def is_case_class(cls,                                  # type: Any
-                  case_marker_in_name=CASE_PREFIX_CLS,  # type: str
-                  check_name=True                       # type: bool
-                  ):
-    """
-    This function is the one used by `@parametrize_with_cases` to collect cases within classes. It can be used manually
-    for tests/debug.
-
-    Returns True if the given object is a class and, if `check_name=True` (default), if its name contains
-    `case_marker_in_name`.
-
-    :param cls: the object to check
-    :param case_marker_in_name: the string that should be present in a class name so that it is selected. Default is
-        'Case'.
-    :param check_name: a boolean (default True) to enforce that the name contains the word `case_marker_in_name`.
-        If False, any class will lead to a `True` result whatever its name.
-    :return: True if this is a case class
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import is_case_class
-```
-
-**Function**:
-Determines if a class should be considered a case container based on naming and markers.
-
-**Parameter Description**:
-- `cls`: Class to check.
-- `case_marker_in_name`: Prefix expected in class name.
-- `check_name`: Whether to validate the class name.
-
-**Return Value**:
-True if the class is a case container, False otherwise.
-
-#### 20. `is_case_function()` - Function Name
-
-**Function Signature**:
-```python
-def is_case_function(f,                       # type: Any
-                     prefix=CASE_PREFIX_FUN,  # type: str
-                     check_prefix=True        # type: bool
-                     ):
-    """
-    This function is the one used by `@parametrize_with_cases` to collect cases. It can be used manually for
-    tests/debug.
-
-    Returns True if the provided object is a function or callable and, if `check_prefix=True` (default), if it starts
-    with `prefix`.
-
-    :param f: the object to check
-    :param prefix: the string that should be present at the beginning of a function name so that it is selected.
-        Default is 'case_'.
-    :param check_prefix: if this boolean is True (default), the prefix will be checked. If False, any function will
-        lead to a `True` result whatever its name.
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import is_case_function
-```
-
-**Function**:
-Determines if a function is a case function based on naming rules and checks.
-
-**Parameter Description**:
-- `f`: Function to check.
-- `prefix`: Expected prefix for case function names.
-- `check_prefix`: Whether to validate the prefix.
-
-**Return Value**:
-True if the function is a case function, False otherwise.
-
-#### 21. `with_case_tags()` - Function Name
-
-**Function Signature**:
-```python
-def with_case_tags(*tags):
-    """Attach `tags` to all cases defined in the decorated class."""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import with_case_tags
-```
-
-**Function**:
-Decorator factory adding tags to a case function or class.
-
-**Parameter Description**:
-- `*tags`: Variable-length tag names to attach.
-
-**Return Value**:
-Decorator function.
-
-#### 22. `_decorator()` - Function Name
-
-**Function Signature**:
-```python
-def _decorator(cls): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import _decorator
-```
-
-**Function**:
-It is an internal function of the with_case_tags function.
-Internal decorator that attaches tags to a case class.
-
-**Parameter Description**:
-- `cls`: Case class to decorate.
-
-**Return Value**:
-The decorated class.
-
-#### 23. `_apply_parametrization()` - Function Name
-
-**Function Signature**:
-```python
- @inject_host
-def _apply_parametrization(f, host_class_or_module):
-    """ execute parametrization of test function or fixture `f` """
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _apply_parametrization
-```
-
-**Function**:
-Internal helper applying collected case parametrization to a target function.
-
-**Parameter Description**:
-- `f`: Target function to parametrize.
-- `host_class_or_module`: Module or class hosting case functions.
-
-**Return Value**:
-None (modifies f with parametrize marks).
-
-#### 24. `_get_original_case_func()` - Function Name
-
-**Function Signature**:
-```python
-def _get_original_case_func(case_fun  # type: Callable
-                            ):
-    """
-
-    :param case_fun:
-    :return: the original case function, and a boolean indicating if it is different from the input
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _get_original_case_func
-```
-
-**Function**:
-Returns the original case function if it has been wrapped/decorated.
-
-**Parameter Description**:
-- `case_fun`: Potentially decorated case function.
-
-**Return Value**:
-Original unwrapped case function.
-
-#### 25. `create_glob_name_filter()` - Function Name
-
-**Function Signature**:
-```python
-def create_glob_name_filter(glob_str  # type: str
-                            ):
-    """
-    Creates a glob-like matcher for the name of case functions
-    The only special character that is supported is `*` and it can not be
-    escaped. However it can be used multiple times in an expression.
-
-    :param glob_str: for example `*_success` or `*_*`
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import create_glob_name_filter
-```
-
-**Function**:
-Creates a predicate that matches case names against a glob pattern.
-
-**Parameter Description**:
-- `glob_str`: Glob pattern string (e.g., "test_*").
-
-**Return Value**:
-A filter function that matches case names against the glob pattern.
-
-#### 26. `_glob_name_filter()` - Function Name
-
-**Function Signature**:
-```python
-def _glob_name_filter(case_fun)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _glob_name_filter
-```
-
-**Function**:
-It is an internal function of the `create_glob_name_filter` function
-Internal predicate used to filter case functions by name.
-
-**Parameter Description**:
-- `case_fun`: Case function to check against the glob pattern.
-
-**Return Value**:
-True if the case name matches the glob, False otherwise.
-
-#### 27. `get_all_cases()` - Function Name
-
-**Function Signature**:
-```python
-def get_all_cases(parametrization_target=None,  # type: Callable
-                  cases=AUTO,                   # type: Union[CaseType, List[CaseType]]
-                  prefix=CASE_PREFIX_FUN,       # type: str
-                  glob=None,                    # type: str
-                  has_tag=None,                 # type: Union[str, Iterable[str]]
-                  filter=None                   # type: Callable[[Callable], bool]  # noqa
-                  ):
-    # type: (...) -> List[Callable]
-    """
-    Lists all desired cases for a given `parametrization_target` (a test function or a fixture). This function may be
-    convenient for debugging purposes. See `@parametrize_with_cases` for details on the parameters.
-
-    :param parametrization_target: either an explicit module object or a function or None. If it's a function, it will
-        use the module it is defined in. If None is given, it will just get the module it was called from.
-    :param cases: a case function, a class containing cases, a module or a module name string (relative module
-        names accepted). Or a list of such items. You may use `THIS_MODULE` or `'.'` to include current module.
-        `AUTO` (default) means that the module named `test_<name>_cases.py` will be loaded, where `test_<name>.py` is
-        the module file of the decorated function. `AUTO2` allows you to use the alternative naming scheme
-        `cases_<name>.py`. When a module is listed, all of its functions matching the `prefix`, `filter` and `has_tag`
-        are selected, including those functions nested in classes following naming pattern `*Case*`. When classes are
-        explicitly provided in the list, they can have any name and do not need to follow this `*Case*` pattern.
-    :param prefix: the prefix for case functions. Default is 'case_' but you might wish to use different prefixes to
-        denote different kind of cases, for example 'data_', 'algo_', 'user_', etc.
-    :param glob: a matching pattern for case ids, for example `*_success` or `*_failure`. The only special character
-        that can be used for now in this pattern is `*`, it can not be escaped, and it can be used several times in the
-        same expression. The pattern should match the entire case id for the case to be selected. Note that this is
-        applied on the case id, and therefore if it is customized through `@case(id=...)` it will be taken into
-        account.
-    :param has_tag: a single tag or a tuple, set, list of tags that should be matched by the ones set with the `@case`
-        decorator on the case function(s) to be selected.
-    :param filter: a callable receiving the case function and returning True or a truth value in case the function
-        needs to be selected.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import get_all_cases
-```
-
-**Function**:
-Collects case functions from modules/classes according to filters and tags.
-
-**Parameter Description**:
-- `parametrization_target`: Module or class to search for cases.
-- `cases`: Case functions to use (can be AUTO for auto-discovery).
-- `prefix`: Expected prefix for case functions.
-- `glob`: Glob pattern to filter case names.
-- `has_tag`: Tag predicate to filter cases.
-- `filter`: Additional filter function.
-
-**Return Value**:
-List of case functions.
-
-#### 28. `get_parametrize_args()` - Function Name
-
-**Function Signature**:
-```python
-def get_parametrize_args(host_class_or_module,    # type: Union[Type, ModuleType]
-                         cases_funs,              # type: List[Callable]
-                         prefix,                  # type: str
-                         scope="function",        # type: str
-                         import_fixtures=False,   # type: bool
-                         debug=False              # type: bool
-                         ):
-    # type: (...) -> List[CaseParamValue]
-    """
-    Transforms a list of cases (obtained from `get_all_cases`) into a list of argvalues for `@parametrize`.
-    Each case function `case_fun` is transformed into one or several `lazy_value`(s) or a `fixture_ref`:
-
-     - If `case_fun` requires at least on fixture, a fixture will be created if not yet present, and a `fixture_ref`
-       will be returned. The fixture will be created in `host_class_or_module`
-     - If `case_fun` is a parametrized case, one `lazy_value` with a partialized version will be created for each
-       parameter combination.
-     - Otherwise, `case_fun` represents a single case: in that case a single `lazy_value` is returned.
-
-    :param host_class_or_module: host of the parametrization target. A class or a module.
-    :param cases_funs: a list of case functions, returned typically by `get_all_cases`
-    :param prefix:
-    :param scope:
-    :param import_fixtures: experimental feature. Turn this to True in order to automatically import all fixtures
-        defined in the cases module into the current module.
-    :param debug: a boolean flag, turn it to True to print debug messages.
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import get_parametrize_args
-```
-
-**Function**:
-Builds arguments for pytest parametrize based on discovered cases.
-
-**Parameter Description**:
-- `host_class_or_module`: Module or class hosting cases.
-- `cases_funs`: List of case functions.
-- `prefix`: Case function prefix.
-- `scope`: Pytest fixture scope.
-- `import_fixtures`: Whether to import fixtures.
-- `debug`: Enable debug output.
-
-**Return Value**:
-Tuple of (argnames, argvalues, ids) for pytest.mark.parametrize.
-
-#### 29. `case_to_argvalues()` - Function Name
-
-**Function Signature**:
-```python
-def case_to_argvalues(host_class_or_module,    # type: Union[Type, ModuleType]
-                      case_fun,                # type: Callable
-                      prefix,                  # type: str
-                      scope,                   # type: str
-                      import_fixtures=False,   # type: bool
-                      debug=False              # type: bool
-                      ):
-    # type: (...) -> Tuple[CaseParamValue, ...]
-    """Transform a single case into one or several `lazy_value`(s) or a `fixture_ref` to be used in `@parametrize`
-
-    If `case_fun` requires at least on fixture, a fixture will be created if not yet present, and a `fixture_ref` will
-    be returned.
-
-    If `case_fun` is a parametrized case, (NEW since 3.0.0) a fixture will be created if not yet present,
-    and a `fixture_ref` will be returned. (OLD < 3.0.0) one `lazy_value` with a partialized version will be created
-    for each parameter combination.
-
-    Otherwise, `case_fun` represents a single case: in that case a single `lazy_value` is returned.
-
-    :param case_fun:
-    :param import_fixtures: experimental feature. Turn this to True in order to automatically import all fixtures
-        defined in the cases module into the current module.
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import case_to_argvalues
-```
-
-**Function**:
-Converts a case function to pytest argvalues (values, ids, marks).
-
-**Parameter Description**:
-- `host_class_or_module`: Module or class containing the case.
-- `case_fun`: Case function to convert.
-- `prefix`: Case function prefix.
-- `scope`: Pytest fixture scope.
-- `import_fixtures`: Whether to import fixtures.
-- `debug`: Enable debug output.
-
-**Return Value**:
-Tuple of (argvalues, ids, marks) for a single case.
-
-#### 30. `get_or_create_case_fixture()` - Function Name
-
-**Function Signature**:
-```python
-def get_or_create_case_fixture(case_id,                # type: str
-                               case_fun,               # type: Callable
-                               target_host,            # type: Union[Type, ModuleType]
-                               add_required_fixtures,  # type: Iterable[str]
-                               scope,                  # type: str
-                               import_fixtures=False,  # type: bool
-                               debug=False             # type: bool
-                               ):
-    # type: (...) -> Tuple[str, Tuple[Mark]]
-    """
-    When case functions require fixtures, we want to rely on pytest to inject everything. Therefore
-    we create a "case fixture" wrapping the case function. Since a case function may not be located in the same place
-    than the symbol decorated with @parametrize_with_cases, we create that "case fixture" in the
-    appropriate module/class (the host of the test/fixture function, `target_host`).
-
-    If the case is parametrized, the parametrization marks are put on the created fixture.
-
-    If the case has other marks, they are returned as the
-
-    Note that we create a small cache in the module/class in order to reuse the created fixture corresponding
-    to a case function if it was already required by a test/fixture in this host.
-
-    :param case_id:
-    :param case_fun:
-    :param target_host:
-    :param add_required_fixtures:
-    :param import_fixtures: experimental feature. Turn this to True in order to automatically import all fixtures
-        defined in the cases module into the current module.
-    :param debug:
-    :return: the newly created fixture name, and the remaining marks not applied
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import get_or_create_case_fixture
-```
-
-**Function**:
-Creates a fixture for a case or returns an existing one, wiring dependencies.
-
-**Parameter Description**:
-- `case_id`: Identifier for the case fixture.
-- `case_fun`: Case function to create fixture for.
-- `target_host`: Target module or class to add fixture to.
-- `add_required_fixtures`: Whether to add required fixtures.
-- `scope`: Pytest fixture scope.
-- `import_fixtures`: Whether to import fixtures.
-- `debug`: Enable debug output.
-
-**Return Value**:
-Fixture function or existing fixture.
-
-#### 31. `name_changer()` - Function Name
-
-**Function Signature**:
-```python
-def name_changer(name, i)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import name_changer
-```
-
-**Function**:
-It is an internal function of the `get_or_create_case_fixture` function
-Helper to generate unique names when synthesizing fixtures from cases.
-
-**Parameter Description**:
-- `name`: Base name.
-- `i`: Index to append.
-
-**Return Value**:
-Modified name string.
-
-#### 32. `_get_fixture_cases()` - Function Name
-
-**Function Signature**:
-```python
-def _get_fixture_cases(module_or_class  # type: Union[ModuleType, Type]
-                       ):
-    """
-    Returns our 'storage unit' in a module or class, used to remember the fixtures created from case functions.
-    That way we can reuse fixtures already created for cases, in a given module/class.
-
-    In addition, the host module of the class, or the module itself, is used to store a list of modules
-    from where we imported fixtures already. This relates to the EXPERIMENTAL `import_fixtures=True` param.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _get_fixture_cases
-```
-
-**Function**:
-Returns all case functions defined as fixtures within a module or class.
-
-**Parameter Description**:
-- `module_or_class`: Module or class to search for fixture cases.
-
-**Return Value**:
-List of fixture case functions.
-
-#### 33. `import_default_cases_module()` - Function Name
-
-**Function Signature**:
-```python
-def import_default_cases_module(test_module_name):
-    """
-    Implements the `module=AUTO` behaviour of `@parameterize_cases`.
-
-    `test_module_name` will have the format "test_<module>.py", the associated python module "test_<module>_cases.py"
-    will be loaded to load the cases.
-
-    If "test_<module>_cases.py" module is not found it looks for the alternate file `cases_<module>.py`.
-
-    :param test_module_name: the test module
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import import_default_cases_module
-```
-
-**Function**:
-Imports the default cases module alongside a test module when needed.
-
-**Parameter Description**:
-- `test_module_name`: Name of the test module.
-
-**Return Value**:
-The imported cases module or None.
-
-#### 34. `hasinit()` - Function Name
-
-**Function Signature**:
-```python
-def hasinit(obj): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import hasinit
-```
-
-**Function**:
-Returns True if the object defines an __init__ method.
-
-**Parameter Description**:
-- `obj`: Object to check.
-
-**Return Value**:
-True if obj has __init__, False otherwise.
-
-#### 35. `hasnew()` - Function Name
-
-**Function Signature**:
-```python
-def hasnew(obj): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import hasnew
-```
-
-**Function**:
-Returns True if the object defines a __new__ method.
-
-**Parameter Description**:
-- `obj`: Object to check.
-
-**Return Value**:
-True if obj has __new__, False otherwise.
-
-#### 36. `extract_cases_from_class()` - Function Name
-
-**Function Signature**:
-```python
-def extract_cases_from_class(cls,
-                             check_name=True,
-                             case_fun_prefix=CASE_PREFIX_FUN,
-                             _case_param_factory=None
-                             ):
-    # type: (...) -> List[Callable]
-    """
-    Collects all case functions (methods matching ``case_fun_prefix``) in class ``cls``.
-
-    Parameters
-    ----------
-    cls : Type
-        A class where to look for case functions. All methods matching ``prefix`` will be returned.
-
-    check_name : bool
-        If this is ``True`` and class name does not contain the string ``Case``, the class will not be inspected and
-        an empty list will be returned.
-
-    case_fun_prefix : str
-        A prefix that case functions (class methods) must match to be collected.
-
-    _case_param_factory :
-        Legacy. Not used.
-
-    Returns
-    -------
-    cases_lst : List[Callable]
-        A list of collected case functions (class methods).
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import extract_cases_from_class
-```
-
-**Function**:
-Discovers case functions from a class according to naming and factory rules.
-
-**Parameter Description**:
-- `cls`: Class to extract case functions from.
-- `check_name`: Whether to validate names.
-- `case_fun_prefix`: Expected prefix for case functions.
-- `_case_param_factory`: Factory for creating case parameters.
-
-**Return Value**:
-List of case functions extracted from the class.
-
-#### 37. `extract_cases_from_module()` - Function Name
-
-**Function Signature**:
-```python
-def extract_cases_from_module(module,                           # type: Union[str, ModuleRef]
-                              package_name=None,                # type: str
-                              case_fun_prefix=CASE_PREFIX_FUN,  # type: str
-                              _case_param_factory=None
-                              ):
-    # type: (...) -> List[Callable]
-    """
-    Internal method used to create a list of case functions for all cases available from the given module.
-    See `@cases_data`
-
-    See also `_pytest.python.PyCollector.collect` and `_pytest.python.PyCollector._makeitem` and
-    `_pytest.python.pytest_pycollect_makeitem`: we could probably do this in a better way in pytest_pycollect_makeitem
-
-    Parameters
-    ----------
-    module : Union[str, ModuleRef]
-        A module where to look for case functions. All functions in the module matching ``prefix`` will be
-        returned. In addition, all classes in the module with ``Case`` in their name will be inspected. For each of
-        them, all methods matching ``prefix`` will be returned too.
-
-    package_name : Optional[str], default: None
-        If ``module`` is provided as a string, this is a mandatory package full qualified name (e.g. ``a.b.c``) where
-        to import the module from.
-
-    case_fun_prefix : str
-        A prefix that case functions (including class methods) must match to be collected.
-
-    _case_param_factory :
-        Legacy. Not used.
-
-    Returns
-    -------
-    cases : List[Callable]
-        A list of case functions
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import extract_cases_from_module
-```
-
-**Function**:
-Discovers case functions from a module considering prefixes, tags, and factories.
-
-**Parameter Description**:
-- `module`: Module to extract case functions from.
-- `package_name`: Package name for the module.
-- `case_fun_prefix`: Expected prefix for case functions.
-- `_case_param_factory`: Factory for creating case parameters.
-
-**Return Value**:
-List of case functions extracted from the module.
-
-#### 38. `_extract_cases_from_module_or_class()` - Function Name
-
-**Function Signature**:
-```python
-def _extract_cases_from_module_or_class(module=None,                      # type: ModuleRef
-                                        cls=None,                         # type: Type
-                                        case_fun_prefix=CASE_PREFIX_FUN,  # type: str
-                                        _case_param_factory=None
-                                        ):  # type: (...) -> List[Callable]
-    """
-    Extracts all case functions from `module` or `cls` (only one non-None must be provided).
-
-    Parameters
-    ----------
-    module : Optional[ModuleRef], default: None
-        A module where to look for case functions. All functions in the module matching ``prefix`` will be
-        returned. In addition, all classes in the module with ``Case`` in their name will be inspected. For each of
-        them, all methods matching ``prefix`` will be returned too.
-
-    cls : Optional[Type], default: None
-        A class where to look for case functions. All methods matching ``prefix`` will be returned.
-
-    case_fun_prefix : str
-        A prefix that case functions (including class methods) must match to be collected.
-
-    _case_param_factory :
-        Legacy. Not used.
-
-    Returns
-    -------
-    cases : List[Callable]
-        A list of case functions
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _extract_cases_from_module_or_class
-```
-
-**Function**:
-Internal routine that extracts cases from either a module or a class.
-
-**Parameter Description**:
-- `module`: Module to extract from (optional).
-- `cls`: Class to extract from (optional).
-- `case_fun_prefix`: Expected prefix for case functions.
-- `_case_param_factory`: Factory for creating case parameters.
-
-**Return Value**:
-List of case functions extracted from module or class.
-
-#### 39. `get_current_params()` - Function Name
-
-**Function Signature**:
-```python
-def get_current_params(request_or_item):
-    """
-    Returns a dictionary containing all parameters for the currently active `pytest` item.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import get_current_params
-```
-
-**Function**:
-Returns the current parameter dictionary during a parametrized test run.
-
-**Parameter Description**:
-- `request_or_item`: Pytest request or test item.
-
-**Return Value**:
-Dictionary of current parameter values.
-
-#### 40. `_is_same_parametrized_target()` - Function Name
-
-**Function Signature**:
-```python
-def _is_same_parametrized_target(parametrized, test_fun):
-    """
-
-    :param parametrized:
-    :param test_fun:
-    :return:
-    """
-    return parametrized.__name__ == test_fun.__name__
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _is_same_parametrized_target
-```
-
-**Function**:
-Checks whether two parametrized targets represent the same underlying test.
-
-**Parameter Description**:
-- `parametrized`: Parametrized target object.
-- `test_fun`: Test function to compare.
-
-**Return Value**:
-True if they represent the same test, False otherwise.
-
-#### 41. `_find_fixture_name()` - Function Name
-
-**Function Signature**:
-```python
-def _find_fixture_name(parametrized):
-    """
-    Finds the actual fixture symbol whose implementation is this function.
-    :param parametrized:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _find_fixture_name
-```
-
-**Function**:
-Retrieves the fixture name associated with a parametrized target.
-
-**Parameter Description**:
-- `parametrized`: Parametrized target object.
-
-**Return Value**:
-Fixture name string or None.
-
-#### 42. `get_current_param()` - Function Name
-
-**Function Signature**:
-```python
-def get_current_param(value, argname_or_fixturename, mp_fix_to_args):
-    """
-    This function's primary role is to unpack the various parameter values (instances of `ParamAlternative`) created by
-    @parametrize when a fixture reference is used in the parametrization.
-
-    Returns the argnames, actual value, and parametrized fixture name if it can be known,
-    associated with parameter value `value`.
-
-    :param value:
-    :param argname_or_fixturename:
-    :param mp_fix_to_args:
-    :return: (argnames, actual_value, paramztrized_fixname)
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import get_current_param
-```
-
-**Function**:
-Returns the current parameter value bound to a given argument or fixture.
-
-**Parameter Description**:
-- `value`: Default value to return if not found.
-- `argname_or_fixturename`: Parameter or fixture name.
-- `mp_fix_to_args`: Mapping from fixtures to arguments.
-
-**Return Value**:
-Current parameter value or the default.
-
-#### 43. `_do()` - Function Name
-
-**Function Signature**:
-```python
-def _do(name, value, dct, preserve = False)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _do
-```
-
-**Function**:
-It is an internal function of the `get_current_cases` function
-Internal helper to update dictionaries preserving pre-existing entries when requested.
-
-**Parameter Description**:
-- `name`: Key to set in the dictionary.
-- `value`: Value to set.
-- `dct`: Dictionary to update.
-- `preserve`: If True, don't overwrite existing keys.
-
-**Return Value**:
-None (modifies dct in place).
-
-#### 44. `_get_place_as()` - Function Name
-
-**Function Signature**:
-```python
-def _get_place_as(f): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _get_place_as
-```
-
-**Function**:
-Returns the placement (module/class) where a function logically belongs.
-
-**Parameter Description**:
-- `f`: Function to get placement for.
-
-**Return Value**:
-Module or class object where the function belongs.
-
-#### 45. `get_current_case_id()` - Function Name
-
-**Function Signature**:
-```python
-def get_current_case_id(request_or_item,
-                        argnames  # type: Union[Iterable[str], str]
-                        ):
-    """ DEPRECATED - use `get_current_cases` instead
-    A helper function to return the current case id for a given `pytest` item (available in some hooks) or `request`
-    (available in hooks, and also directly as a fixture).
-
-    You need to provide the argname(s) used in the corresponding `@parametrize_with_cases` so that this method finds
-    the right id.
-
-    :param request_or_item:
-    :param argnames:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import get_current_case_id
-```
-
-**Function**:
-Returns the currently active case id within a parametrized test function.
-
-**Parameter Description**:
-- `request_or_item`: Pytest request or test item.
-- `argnames`: Parameter names for the test.
-
-**Return Value**:
-Current case identifier string.
-
-#### 46. `get_code_first_line()` - Function Name
-
-**Function Signature**:
-```python
-def get_code_first_line(f):
-    """
-    Returns the source code associated to function or class f. It is robust to wrappers such as @lru_cache
-    :param f:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import get_code_first_line
-```
-
-**Function**:
-Returns the first line of source code for a function.
-
-**Parameter Description**:
-- `f`: Function to get the first line for.
-
-**Return Value**:
-String containing the first line of the function's source code.
-
-#### 47. `unfold_expected_err()` - Function Name
-
-**Function Signature**:
-```python
-def unfold_expected_err(expected_e  # type: ExpectedError
-                        ):
-    # type: (...) -> Tuple[ExpectedErrorType, ExpectedErrorPattern, ExpectedErrorInstance, ExpectedErrorValidator]
-    """
-    'Unfolds' the expected error `expected_e` to return a tuple of
-     - expected error type
-     - expected error representation pattern (a regex Pattern)
-     - expected error instance
-     - error validation callable
-
-    If `expected_e` is an exception type, returns `expected_e, None, None, None`
-
-    If `expected_e` is a string, returns `BaseException, re.compile(expected_e), None, None`
-
-    If `expected_e` is an exception instance, returns `type(expected_e), None, expected_e, None`
-
-    If `expected_e` is an exception validation function, returns `BaseException, None, None, expected_e`
-
-    :param expected_e: an `ExpectedError`, that is, either an exception type, a regex string, an exception
-        instance, or an exception validation function
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import unfold_expected_err
-```
-
-**Function**:
-Normalizes an expected error spec into a uniform structure used by assertions.
-
-**Parameter Description**:
-- `expected_e`: Expected error specification (can be exception class, tuple, or other format).
-
-**Return Value**:
-Normalized error specification structure.
-
-#### 48. `assert_exception()` - Function Name
-
-**Function Signature**:
-```python
-def assert_exception(expected  # type: ExpectedError
-    ):
- return AssertException(expected)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import assert_exception
-```
-
-**Function**:
-Context manager/helper to assert that a callable raises the expected exception.
-
-**Parameter Description**:
-- `expected`: Expected exception specification.
-
-**Return Value**:
-Context manager for exception assertion.
-
-#### 49. `get_host_module()` - Function Name
-
-**Function Signature**:
-```python
-def get_host_module(a):
-    """get the host module of a, or a if it is already a module"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import get_host_module
-```
-
-**Function**:
-Returns the module hosting an object (function/class), following indirections.
-
-**Parameter Description**:
-- `a`: Object (function or class) to get the host module for.
-
-**Return Value**:
-Module object hosting the given object.
-
-#### 50. `in_same_module()` - Function Name
-
-**Function Signature**:
-```python
-def in_same_module(a, b):
-    """Compare the host modules of a and b"""
-    return get_host_module(a) == get_host_module(b)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import in_same_module
-```
-
-**Function**:
-Checks whether two objects live in the same module.
-
-**Parameter Description**:
-- `a`: First object.
-- `b`: Second object.
-
-**Return Value**:
-True if both objects are in the same module, False otherwise.
-
-#### 51. `get_function_host()` - Function Name
-
-**Function Signature**:
-```python
-
-def get_function_host(func, fallback_to_module=True):
-    """
-    Returns the module or class where func is defined. Approximate method based on qname but "good enough"
-
-    :param func:
-    :param fallback_to_module: if True and an HostNotConstructedYet error is caught, the host module is returned
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import get_function_host
-```
-
-**Function**:
-Returns the module or class that hosts a function, optionally falling back to module when unbounded.
-
-**Parameter Description**:
-- `func`: Function to get the host for.
-- `fallback_to_module`: If True, return module when function is unbound.
-
-**Return Value**:
-Module or class that hosts the function.
-
-#### 52. `needs_binding()` - Function Name
-
-**Function Signature**:
-```python
-def needs_binding(f, return_bound=False):
-    # type: (...) -> Union[bool, Tuple[bool, Callable]]
-    """Utility to check if a function needs to be bound to be used """
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import needs_binding
-```
-
-**Function**:
-Returns True if a function requires explicit binding (belongs to a class) and optionally returns a bound method.
-
-**Parameter Description**:
-- `f`: Function to check.
-- `return_bound`: If True, return the bound method; if False, just return boolean.
-
-**Return Value**:
-True if function needs binding, or the bound method if return_bound=True.
-
-#### 53. `is_static_method()` - Function Name
-
-**Function Signature**:
-```python
-def is_static_method(cls, func_name, func=None):
-    """ Adapted from https://stackoverflow.com/a/64436801/7262247
-
-    indeed isinstance(staticmethod) does not work if the method is already bound
-
-    :param cls:
-    :param func_name:
-    :param func: optional, if you have it already
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import is_static_method
-```
-
-**Function**:
-Checks if a given name/function is a staticmethod in a class.
-
-**Parameter Description**:
-- `cls`: Class to check.
-- `func_name`: Name of the function to check.
-- `func`: Optional function object to check directly.
-
-**Return Value**:
-True if the function is a staticmethod, False otherwise.
-
-#### 54. `is_class_method()` - Function Name
-
-**Function Signature**:
-```python
-def is_class_method(cls, func_name, func=None):
-    """ Adapted from https://stackoverflow.com/a/64436801/7262247
-
-    indeed isinstance(classmethod) does not work if the method is already bound
-
-    :param cls:
-    :param func_name:
-    :param func: optional, if you have it already
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import is_class_method
-```
-
-**Function**:
-Checks if a given name/function is a classmethod in a class.
-
-**Parameter Description**:
-- `cls`: Class to check.
-- `func_name`: Name of the function to check.
-- `func`: Optional function object to check directly.
-
-**Return Value**:
-True if the function is a classmethod, False otherwise.
-
-#### 55. `is_bound_builtin_method()` - Function Name
-
-**Function Signature**:
-```python
-def is_bound_builtin_method(meth):
-    """Helper returning True if meth is a bound built-in method"""
-    return (inspect.isbuiltin(meth)
-            and getattr(meth, '__self__', None) is not None
-            and getattr(meth.__self__, '__class__', None))
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import is_bound_builtin_method
-```
-
-**Function**:
-Checks if an object is a bound built-in method.
-
-**Parameter Description**:
-- `meth`: Method object to check.
-
-**Return Value**:
-True if meth is a bound built-in method, False otherwise.
-
-#### 56. `funcopy()` - Function Name
-
-**Function Signature**:
-```python
-def funcopy(f):
-    """
-
-    >>> def foo():
-    ...     return 1
-    >>> foo.att = 2
-    >>> f = funcopy(foo)
-    >>> f.att
-    2
-    >>> f()
-    1
-
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import funcopy
-```
-
-**Function**:
-Creates a shallow copy of a function suitable for decorating or wrapping.
-
-**Parameter Description**:
-- `f`: Function to copy.
-
-**Return Value**:
-Shallow copy of the function.
-
-#### 57. `robust_isinstance()` - Function Name
-
-**Function Signature**:
-```python
-def robust_isinstance(o, cls): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import robust_isinstance
-```
-
-**Function**:
-Type check avoiding circular import traps and version differences.
-
-**Parameter Description**:
-- `o`: Object to check.
-- `cls`: Class or type to check against.
-
-**Return Value**:
-True if o is an instance of cls, False otherwise.
-
-#### 58. `isidentifier()` - Function Name
-
-**Function Signature**:
-```python
-def isidentifier(s # type: str
-): 
-"""python 2+3 compliant <str>.isidentifier()"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import isidentifier
-```
-
-**Function**:
-Checks if a string forms a valid Python identifier.
-
-**Parameter Description**:
-- `s`: String to check.
-
-**Return Value**:
-True if s is a valid identifier, False otherwise.
-
-#### 59. `make_identifier()` - Function Name
-
-**Function Signature**:
-```python
-def make_identifier(name  # type: str
-                    ):
-    """Transform the given name into a valid python identifier"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_others import make_identifier
-```
-
-**Function**:
-Converts a name into a valid identifier, cleaning invalid characters.
-
-**Parameter Description**:
-- `name`: Name string to convert to a valid identifier.
-
-**Return Value**:
-Valid Python identifier string.
-
-#### 60. `pytest_is_running()` - Function Name
-
-**Function Signature**:
-```python
-def pytest_is_running():
-    """Return True if the current process is a pytest run
-
-    See https://stackoverflow.com/questions/25188119/test-if-code-is-executed-from-within-a-py-test-session
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import pytest_is_running
-```
-
-**Function**:
-Returns True if pytest is the running test framework.
-
-**Parameter Description**:
-None
-
-**Return Value**:
-True if pytest is running, False otherwise.
-
-#### 61. `remove_duplicates()` - Function Name
-
-**Function Signature**:
-```python
-def remove_duplicates(lst): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import remove_duplicates
-```
-
-**Function**:
-Removes duplicates from a list while preserving order.
-
-**Parameter Description**:
-- `lst`: List to remove duplicates from.
-
-**Return Value**:
-List with duplicates removed, preserving order.
-
-#### 62. `safe_isclass()` - Function Name
-
-**Function Signature**:
-```python
-def safe_isclass(obj  # type: object
-                 ):
-    # type: (...) -> bool
-    """Ignore any exception via isinstance on Python 3."""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import safe_isclass
-```
-
-**Function**:
-Type check that behaves correctly across Python versions and avoids import cycles.
-
-**Parameter Description**:
-- `obj`: Object to check.
-
-**Return Value**:
-True if obj is a class, False otherwise.
-
-#### 63. `safe_isinstance()` - Function Name
-
-**Function Signature**:
-```python
-def safe_isinstance(obj,  # type: object
-                    cls):
-    # type: (...) -> bool
-    """Ignore any exception via isinstance"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import safe_isinstance
-```
-
-**Function**:
-Type check handling both Python 2/3 and avoiding circular imports.
-
-**Parameter Description**:
-- `obj`: Object to check.
-- `cls`: Class or type to check against.
-
-**Return Value**:
-True if obj is an instance of cls, False otherwise.
-
-#### 64. `assert_is_fixture()` - Function Name
-
-**Function Signature**:
-```python
-def assert_is_fixture(fixture_fun  # type: Any
-                      ):
-    """
-    Raises a ValueError if the provided fixture function is not a fixture.
-
-    :param fixture_fun:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import assert_is_fixture
-```
-
-**Function**:
-Asserts that a function is actually a pytest fixture, raising if not.
-
-**Parameter Description**:
-- `fixture_fun`: Function to check if it's a fixture.
-
-**Return Value**:
-None (raises AssertionError if not a fixture).
-
-#### 65. `is_function_node()` - Function Name
-
-**Function Signature**:
-```python
-def is_function_node(node): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import is_function_node
-```
-
-**Function**:
-Returns True if a pytest node represents a function-level item.
-
-**Parameter Description**:
-- `node`: Pytest node to check.
-
-**Return Value**:
-True if node is a function node, False otherwise.
-
-#### 66. `get_parametrization_markers()` - Function Name
-
-**Function Signature**:
-```python
-def get_parametrization_markers(fnode): 
-    """
-    Returns the parametrization marks on a pytest Function node.
-    :param fnode:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import get_parametrization_markers
-```
-
-**Function**:
-Collects all parametrize markers attached to a function node.
-
-**Parameter Description**:
-- `fnode`: Function node to get markers from.
-
-**Return Value**:
-List of parametrize marker objects.
-
-#### 67. `get_param_names()` - Function Name
-
-**Function Signature**:
-```python
-def get_param_names(fnode):
-    """
-    Returns a list of parameter names for the given pytest Function node.
-    parameterization marks containing several names are split
-
-    :param fnode:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import get_param_names
-```
-
-**Function**:
-Returns the parameter names from a pytest parametrize marker.
-
-**Parameter Description**:
-- `fnode`: Function node to get parameter names from.
-
-**Return Value**:
-List of parameter name strings.
-
-#### 68. `combine_ids()` - Function Name
-
-**Function Signature**:
-```python
-def combine_ids(paramid_tuples):
-    """
-    Receives a list of tuples containing ids for each parameterset.
-    Returns the final ids, that are obtained by joining the various param ids by '-' for each test node
-
-    :param paramid_tuples:
-    :return:
-    """
-    #
-    return ['-'.join(pid for pid in testid) for testid in paramid_tuples]
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import combine_ids
-```
-
-**Function**:
-Combines multiple id tuples into a single compact or explicit string id.
-
-**Parameter Description**:
-- `paramid_tuples`: List of (param_name, id_value) tuples.
-
-**Return Value**:
-Combined string id.
-
-#### 69. `make_test_ids()` - Function Name
-
-**Function Signature**:
-```python
-def make_test_ids(global_ids, id_marks, argnames=None, argvalues=None, precomputed_ids=None):
-    """
-    Creates the proper id for each test based on (higher precedence first)
-
-     - any specific id mark from a `pytest.param` (`id_marks`)
-     - the global `ids` argument of pytest parametrize (`global_ids`)
-     - the name and value of parameters (`argnames`, `argvalues`) or the precomputed ids(`precomputed_ids`)
-
-    See also _pytest.python._idvalset method
-
-    :param global_ids:
-    :param id_marks:
-    :param argnames:
-    :param argvalues:
-    :param precomputed_ids:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import make_test_ids
-```
-
-**Function**:
-Generates pytest test id strings from global ids, marks, args, and optional precomputed ids.
-
-**Parameter Description**:
-- `global_ids`: Global id mapping.
-- `id_marks`: ID marks from pytest markers.
-- `argnames`: Parameter names.
-- `argvalues`: Parameter values.
-- `precomputed_ids`: Precomputed id list.
-
-**Return Value**:
-List of test id strings.
-
-#### 70. `resolve_ids()` - Function Name
-
-**Function Signature**:
-```python
-def resolve_ids(ids,                # type: Optional[Union[Callable, Iterable[str]]]
-                argvalues,          # type: Sized(Any)
-                full_resolve=False  # type: bool
-                ):
-    # type: (...) -> Union[List[str], Callable]
-    """
-    Resolves the `ids` argument of a parametrized fixture.
-
-    If `full_resolve` is False (default), iterable ids will be resolved, but not callable ids. This is useful if the
-    `argvalues` have not yet been cleaned of possible `pytest.param` wrappers.
-
-    If `full_resolve` is True, callable ids will be called using the argvalues, so the result is guaranteed to be a
-    list.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import resolve_ids
-```
-
-**Function**:
-Resolves ambiguous or partial ids against argument values, including lazy resolution.
-
-**Parameter Description**:
-- `ids`: ID values or callables.
-- `argvalues`: Argument values.
-- `full_resolve`: If True, fully resolve lazy values.
-
-**Return Value**:
-List of resolved id strings.
-
-#### 71. `make_test_ids_from_param_values()` - Function Name
-
-**Function Signature**:
-```python
-def make_test_ids_from_param_values(param_names, param_values)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import make_test_ids_from_param_values
-```
-
-**Function**:
-Builds test ids based solely on parameter names and their values.
-
-**Parameter Description**:
-- `param_names`: Parameter names.
-- `param_values`: Parameter values for each test case.
-
-**Return Value**:
-List of test id strings.
-
-#### 72. `extract_parameterset_info()` - Function Name
-
-**Function Signature**:
-```python
-def make_test_ids_from_param_values(param_names,
-                                    param_values,
-                                    ):
-    """
-    Replicates pytest behaviour to generate the ids when there are several parameters in a single `parametrize.
-    Note that param_values should not contain marks.
-
-    :param param_names:
-    :param param_values:
-    :return: a list of param ids
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import extract_parameterset_info
-```
-
-**Function**:
-Extracts structure info from parametrize argnames and argvalues.
-
-**Parameter Description**:
-- `argnames`: Parameter names.
-- `argvalues`: Parameter values.
-- `check_nb`: Whether to check the number of parameters.
-
-**Return Value**:
-Information about the parameter set structure.
-
-#### 73. `extract_pset_info_single()` - Function Name
-
-**Function Signature**:
-```python
-def extract_pset_info_single(nbnames, argvalue):
-    """Return id, marks, value"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import extract_pset_info_single
-```
-
-**Function**:
-Parses a single argvalue tuple/list/tree into a (values, ids) pair.
-
-**Parameter Description**:
-- `nbnames`: Number of parameter names.
-- `argvalue`: Single argument value tuple/list/tree.
-
-**Return Value**:
-Tuple of (values, ids).
-
-#### 74. `get_pytest_nodeid()` - Function Name
-
-**Function Signature**:
-```python
-def get_pytest_nodeid(metafunc): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import get_pytest_nodeid
-```
-
-**Function**:
-Returns the pytest node id for a metafunc object.
-
-**Parameter Description**:
-- `metafunc`: Metafunc object.
-
-**Return Value**:
-Node id string.
-
-#### 75. `in_callspec_explicit_args()` - Function Name
-
-**Function Signature**:
-```python
-def in_callspec_explicit_args(
-    callspec,  # type: CallSpec2
-    name  # type: str
-):  # type: (...) -> bool
-    """Return True if name is explicitly used in callspec args"""
-    return (name in callspec.params) or (not PYTEST8_OR_GREATER and name in callspec.funcargs)
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import in_callspec_explicit_args
-```
-
-**Function**:
-Checks whether a given name appears in a CallSpec's explicit arguments.
-
-**Parameter Description**:
-- `callspec`: CallSpec object.
-- `name`: Argument name to check.
-
-**Return Value**:
-True if name is in explicit args, False otherwise.
-
-#### 76. `mini_idval()` - Function Name
-
-**Function Signature**:
-```python
-def mini_idval(
-        val,      # type: object
-        argname,  # type: str
-        idx,      # type: int
-):
-    """
-    A simplified version of idval where idfn, item and config do not need to be passed.
-
-    :param val:
-    :param argname:
-    :param idx:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import mini_idval
-```
-
-**Function**:
-Generates a compact string id for a single value/name/index.
-
-**Parameter Description**:
-- `val`: Value to generate id for.
-- `argname`: Argument name.
-- `idx`: Index.
-
-**Return Value**:
-Compact string identifier.
-
-#### 77. `mini_idvalset()` - Function Name
-
-**Function Signature**:
-```python
-def mini_idvalset(argnames, argvalues, idx):
-    """ mimic _pytest.python._idvalset but can handle lazyvalues used for tuples or args
-
-    argvalues should not be a pytest.param (ParameterSet)
-    This function returns a SINGLE id for a single test node
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import mini_idvalset
-```
-
-**Function**:
-Generates compact ids for a set of param values at the given index.
-
-**Parameter Description**:
-- `argnames`: Parameter names.
-- `argvalues`: Parameter values for all test cases.
-- `idx`: Index to generate id for.
-
-**Return Value**:
-Compact string identifier.
-
-#### 78. `add_fixture_params()` - Function Name
-
-**Function Signature**:
-```python
-def add_fixture_params(func, new_names)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import add_fixture_params
-```
-
-**Function**:
-Adds additional fixture parameters to an existing function.
-
-**Parameter Description**:
-- `func`: Function to add parameters to.
-- `new_names`: List of additional parameter names.
-
-**Return Value**:
-None (modifies func in place).
-
-#### 79. `wrapped_func()` - Function Name
-
-**Function Signature**:
-```python
-@wraps(func, new_sig=new_sig)
-def wrapped_func(**kwargs): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import wrapped_func
-```
-
-**Function**:
-It is an internal function of the `add_fixture_params` function
-Generic wrapper function that accepts kwargs for cases where fixture injection occurs.
-
-**Parameter Description**:
-- `**kwargs`: Variable keyword arguments to pass through.
-
-**Return Value**:
-Result of the wrapped function execution.
-
-#### 80. `get_callspecs()` - Function Name
-
-**Function Signature**:
-```python
-def get_callspecs(func):
-    """
-    Returns a list of pytest CallSpec objects corresponding to calls that should be made for this parametrized function.
-    This mini-helper assumes no complex things (scope='function', indirect=False, no fixtures, no custom configuration)
-
-    Note that this function is currently only used in tests.
-    """
-    meta = MiniMetafunc(func)
-    # meta.update_callspecs()
-    # noinspection PyProtectedMember
-    return meta._calls
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import get_callspecs
-```
-
-**Function**:
-Retrieves pytest CallSpec objects attached to a function node.
-
-**Parameter Description**:
-- `func`: Function to get CallSpecs from.
-
-**Return Value**:
-List of CallSpec objects.
-
-#### 81. `cart_product_pytest()` - Function Name
-
-**Function Signature**:
-```python
-def cart_product_pytest(argnames, argvalues):
-    """
-     - do NOT use `itertools.product` as it fails to handle MarkDecorators
-     - we also unpack tuples associated with several argnames ("a,b") if needed
-     - we also propagate marks
-
-    :param argnames:
-    :param argvalues:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import cart_product_pytest
-```
-
-**Function**:
-Creates a cartesian product of multiple parametrization lists.
-
-**Parameter Description**:
-- `argnames`: Parameter names.
-- `argvalues`: Parameter values.
-
-**Return Value**:
-Cartesian product of argnames and argvalues.
-
-#### 82. `_cart_product_pytest()` - Function Name
-
-**Function Signature**:
-```python
-def _cart_product_pytest(argnames_lists, argvalues): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import _cart_product_pytest
-```
-
-**Function**:
-Internal helper to compute a cartesian product of argnames and values.
-
-**Parameter Description**:
-- `argnames_lists`: Lists of parameter names.
-- `argvalues`: Parameter values.
-
-**Return Value**:
-Cartesian product result.
-
-#### 83. `inject_host()` - Function Name
-
-**Function Signature**:
-```python
-def inject_host(apply_decorator):
-    """
-    A decorator for function with signature `apply_decorator(f, host)`, in order to inject 'host', the host of f.
-
-    Since it is not entirely feasible to detect the host in python, my first implementation was a bit complex: it was
-    returning an object with custom implementation of __call__ and __get__ methods, both reacting when pytest collection
-    happens.
-
-    That was very complex. Now we rely on an approximate but good enough alternative with `get_function_host`
-
-    :param apply_decorator:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import inject_host
-```
-
-**Function**:
-Decorator that injects the function's host module/class as a first argument.
-
-**Parameter Description**:
-- `apply_decorator`: Decorator function to apply.
-
-**Return Value**:
-Decorator that injects the host.
-
-#### 84. `apply()` - Function Name
-
-**Function Signature**:
-```python
-def apply(test_or_fixture_func)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import apply
-```
-
-**Function**:
-It is an internal function of the `inject_host` function
-Decorator that applies pytest marks and transformations to a test or fixture function.
-
-**Parameter Description**:
-- `test_or_fixture_func`: Test or fixture function to apply transformations to.
-
-**Return Value**:
-Decorated function.
-
-#### 85. `get_pytest_request_and_item()` - Function Name
-
-**Function Signature**:
-```python
-def get_pytest_request_and_item(request_or_item):
-    """Return the `request` and `item` (node) from whatever is provided"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest import get_pytest_request_and_item
-```
-
-**Function**:
-Extracts both request and item from pytest objects, normalizing input.
-
-**Parameter Description**:
-- `request_or_item`: Pytest request or item object.
-
-**Return Value**:
-Tuple of (request, item).
-
-#### 86. `_unwrap()` - Function Name
-
-**Function Signature**:
-```python
-def _unwrap(obj):
-    """A light copy of _pytest.compat.get_real_func. In our case
-    we do not wish to unwrap the partial nor handle pytest fixture
-    Note: maybe from inspect import unwrap could do the same?
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_lazy_values import _unwrap
-```
-
-**Function**:
-Removes wrapper objects to access the underlying object (usually a function).
-
-**Parameter Description**:
-- `obj`: Object to unwrap.
-
-**Return Value**:
-Underlying unwrapped object.
-
-#### 87. `partial_to_str()` - Function Name
-
-**Function Signature**:
-```python
-def partial_to_str(partialfun):
-    """Return a string representation of a partial function, to use in lazy_value ids"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_lazy_values import partial_to_str
-```
-
-**Function**:
-Converts a functools.partial object into a string representation.
-
-**Parameter Description**:
-- `partialfun`: functools.partial object.
-
-**Return Value**:
-String representation of the partial function.
-
-#### 88. `is_lazy_value()` - Function Name
-
-**Function Signature**:
-```python
-def is_lazy_value(argval):
-    """ Return True if `argval` is the *immediate* output of `lazy_value()` """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_lazy_values import is_lazy_value
-```
-
-**Function**:
-Returns True if the argument value is a lazy value wrapper.
-
-**Parameter Description**:
-- `argval`: Argument value to check.
-
-**Return Value**:
-True if argval is a lazy value, False otherwise.
-
-#### 89. `is_lazy()` - Function Name
-
-**Function Signature**:
-```python
-def is_lazy(argval):
-    """
-    Return True if `argval` is the outcome of processing a `lazy_value` through `@parametrize`
-    As opposed to `is_lazy_value`, this encompasses lazy tuples that are created when parametrizing several argnames
-    with the same `lazy_value()`.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_lazy_values import is_lazy
-```
-
-**Function**:
-Checks if an argument value is lazy (alias for is_lazy_value).
-
-**Parameter Description**:
-- `argval`: Argument value to check.
-
-**Return Value**:
-True if argval is lazy, False otherwise.
-
-#### 90. `get_lazy_args()` - Function Name
-
-**Function Signature**:
-```python
-def get_lazy_args(argval, request_or_item):
-    """
-    Possibly calls the lazy values contained in argval if needed, before returning it.
-    Since the lazy values cache their result to ensure that their underlying function is called only once
-    per test node, the `request` argument here is mandatory.
-
-    :param request_or_item: the context of this call: either a pytest request or item
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_lazy_values import get_lazy_args
-```
-
-**Function**:
-Resolves lazy argument values into concrete values using the request context.
-
-**Parameter Description**:
-- `argval`: Lazy argument value.
-- `request_or_item`: Pytest request or item for context.
-
-**Return Value**:
-Resolved concrete value.
-
-#### 91. `get_test_node()` - Function Name
-
-**Function Signature**:
-```python
-def get_test_node(request_or_item):
-    """
-    Return the test node, typically a _pytest.Function.
-    Provided arg may be the node already, or the pytest request
-
-    :param request_or_item:
-    :return:
-    """
-```
-
-**Import Statement**:
+**Input/Output Example**:
 ```python
-from pytest_cases.common_pytest_lazy_values import get_test_node
-```
-
-**Function**:
-Returns the pytest item node from a request or item object.
-
-**Parameter Description**:
-- `request_or_item`: Pytest request or item object.
+  """
+    Yield items from *iterable* until *limit_seconds* have passed.
+    If the time limit expires before all items have been yielded, the
+    ``timed_out`` parameter will be set to ``True``.
 
-**Return Value**:
-Pytest item node.
+    >>> from time import sleep
+    >>> def generator():
+    ...     yield 1
+    ...     yield 2
+    ...     sleep(0.2)
+    ...     yield 3
+    >>> iterable = time_limited(0.1, generator())
+    >>> list(iterable)
+    [1, 2]
+    >>> iterable.timed_out
+    True
 
-#### 92. `get_param_argnames_as_list()` - Function Name
+    Note that the time is checked before each item is yielded, and iteration
+    stops if  the time elapsed is greater than *limit_seconds*. If your time
+    limit is 1 second, but it takes 2 seconds to generate the first item from
+    the iterable, the function will run for 2 seconds and not yield anything.
+    As a special case, when *limit_seconds* is zero, the iterator never
+    returns anything.
 
-**Function Signature**:
-```python
-def get_param_argnames_as_list(argnames):
-    """
-    pytest parametrize accepts both coma-separated names and list/tuples.
-    This function makes sure that we always return a list
-    :param argnames:
-    :return:
     """
-```
 
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import get_param_argnames_as_list
+class time_limited(Generic[_T], Iterator[_T]):
+    def __init__(
+        self, limit_seconds: float, iterable: Iterable[_T]
+    ) -> None: ...
+    def __iter__(self) -> islice_extended[_T]: ...
+    def __next__(self) -> _T: ...
 ```
-
-**Function**:
-Converts parameter names from string or list format into a list format.
 
-**Parameter Description**:
-- `argnames`: Parameter names (string or list).
+#### 57: `AbortThread` Class
 
-**Return Value**:
-List of parameter names.
+**Function Description**: 
+Lightweight exception used by ``callback_iter`` to signal that a background callback loop was aborted early.
 
-#### 93. `_pytest_mark_parametrize()` - Function Name
+**Core Algorithm**: 
+Inherits from ``BaseException`` so it bypasses ``Exception`` handlers and terminates the callback thread promptly when raised.
 
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _pytest_mark_parametrize(argnames, argvalues, ids = None, indirect = False, scope = None, **kwargs):
+class AbortThread(BaseException):
     pass
 ```
 
-**Import Statement**:
+#### 58: `callback_iter` Class
+
+**Function Description**: 
+Convert a function that uses callbacks to an iterator.
+
+**Core Algorithm**: 
+Let *func* be a function that takes a `callback` keyword argument. For example:
+
+**Input/Output Example**:
 ```python
-from pytest_cases.common_pytest_marks import _pytest_mark_parametrize
-```
 
-**Function**:
-Creates a pytest.mark.parametrize decorator with the given arguments.
+class callback_iter(Generic[_T], Iterator[_T]):
+    def __init__(
+        self,
+        func: Callable[..., Any],
+        callback_kwd: str = ...,
+        wait_seconds: float = ...,
+    ) -> None: ...
+    def __enter__(self) -> callback_iter[_T]: ...
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: types.TracebackType | None,
+    ) -> bool | None: ...
+    def __iter__(self) -> callback_iter[_T]: ...
+    def __next__(self) -> _T: ...
+    def _reader(self) -> Iterator[_T]: ...
+    @property
+    def done(self) -> bool: ...
+    @property
+    def result(self) -> Any: ...
+    """Convert a function that uses callbacks to an iterator.
 
-**Parameter Description**:
-- `argnames`: Parameter names.
-- `argvalues`: Parameter values.
-- `ids`: ID generation strategy.
-- `indirect`: Whether parameters are indirect.
-- `scope`: Fixture scope.
-- `**kwargs`: Additional keyword arguments.
+    Let *func* be a function that takes a `callback` keyword argument.
+    For example:
 
-**Return Value**:
-pytest.mark.parametrize decorator.
+    >>> def func(callback=None):
+    ...     for i, c in [(1, 'a'), (2, 'b'), (3, 'c')]:
+    ...         if callback:
+    ...             callback(i, c)
+    ...     return 4
 
-#### 94. `get_parametrize_signature()` - Function Name
 
-**Function Signature**:
-```python
-def get_parametrize_signature():
-    """
+    Use ``with callback_iter(func)`` to get an iterator over the parameters
+    that are delivered to the callback.
 
-    :return: a reference signature representing
-    """
-    return signature(_pytest_mark_parametrize)
-```
+    >>> with callback_iter(func) as it:
+    ...     for args, kwargs in it:
+    ...         print(args)
+    (1, 'a')
+    (2, 'b')
+    (3, 'c')
 
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import get_parametrize_signature
-```
+    The function will be called in a background thread. The ``done`` property
+    indicates whether it has completed execution.
 
-**Function**:
-Returns the signature parameters for pytest.mark.parametrize.
+    >>> it.done
+    True
 
-**Parameter Description**:
-None
+    If it completes successfully, its return value will be available
+    in the ``result`` property.
 
-**Return Value**:
-Signature information for parametrize.
+    >>> it.result
+    4
 
-#### 95. `copy_pytest_marks()` - Function Name
+    Notes:
 
-**Function Signature**:
-```python
-def copy_pytest_marks(from_f, to_f, override = False):
-    """Copy all pytest marks from a function or class to another"""
+    * If the function uses some keyword argument besides ``callback``, supply
+      *callback_kwd*.
+    * If it finished executing, but raised an exception, accessing the
+      ``result`` property will raise the same exception.
+    * If it hasn't finished executing, accessing the ``result``
+      property from within the ``with`` block will raise ``RuntimeError``.
+    * If it hasn't finished executing, accessing the ``result`` property from
+      outside the ``with`` block will raise a
+      ``more_itertools.AbortThread`` exception.
+    * Provide *wait_seconds* to adjust how frequently the it is polled for
+      output.
 
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import copy_pytest_marks
-```
-
-**Function**:
-Copies pytest marks from one function to another, optionally overriding.
-
-**Parameter Description**:
-- `from_f`: Source function to copy marks from.
-- `to_f`: Target function to copy marks to.
-- `override`: Whether to override existing marks.
-
-**Return Value**:
-None (modifies to_f in place).
-
-#### 96. `filter_marks()` - Function Name
-
-**Function Signature**:
-```python
-def filter_marks(marks,  # type: Iterable[Mark]
-                 remove  # type: str
-                 ):
-    # type: (...) -> Tuple[Mark]
-    """
-    Returns a tuple of all marks in `marks` that do not have a 'parametrize' name.
-
-    :param marks:
-    :param remove:
-    :return:
     """
 ```
 
-**Import Statement**:
+#### 59: `countable` Function
+
+**Function Description**: 
+Wrap *iterable* and keep a count of how many items have been consumed.
+
+**Core Algorithm**: 
+The ``items_seen`` attribute starts at ``0`` and increments as the iterable is consumed:
+
+**Input/Output Example**:
 ```python
-from pytest_cases.common_pytest_marks import filter_marks
-```
+    """Convert a function that uses callbacks to an iterator.
 
-**Function**:
-Removes specific marks from a marks list or collection.
+    Let *func* be a function that takes a `callback` keyword argument.
+    For example:
 
-**Parameter Description**:
-- `marks`: List of marks to filter.
-- `remove`: Mark names or types to remove.
+    >>> def func(callback=None):
+    ...     for i, c in [(1, 'a'), (2, 'b'), (3, 'c')]:
+    ...         if callback:
+    ...             callback(i, c)
+    ...     return 4
 
-**Return Value**:
-Filtered list of marks.
 
-#### 97. `get_pytest_marks_on_function()` - Function Name
+    Use ``with callback_iter(func)`` to get an iterator over the parameters
+    that are delivered to the callback.
 
-**Function Signature**:
-```python
-def get_pytest_marks_on_function(f,
-                                 as_decorators=False  # type: bool
-                                 ):
-    # type: (...) -> Union[List[Mark], List[MarkDecorator]]
+    >>> with callback_iter(func) as it:
+    ...     for args, kwargs in it:
+    ...         print(args)
+    (1, 'a')
+    (2, 'b')
+    (3, 'c')
+
+    The function will be called in a background thread. The ``done`` property
+    indicates whether it has completed execution.
+
+    >>> it.done
+    True
+
+    If it completes successfully, its return value will be available
+    in the ``result`` property.
+
+    >>> it.result
+    4
+
+    Notes:
+
+    * If the function uses some keyword argument besides ``callback``, supply
+      *callback_kwd*.
+    * If it finished executing, but raised an exception, accessing the
+      ``result`` property will raise the same exception.
+    * If it hasn't finished executing, accessing the ``result``
+      property from within the ``with`` block will raise ``RuntimeError``.
+    * If it hasn't finished executing, accessing the ``result`` property from
+      outside the ``with`` block will raise a
+      ``more_itertools.AbortThread`` exception.
+    * Provide *wait_seconds* to adjust how frequently the it is polled for
+      output.
+
     """
-    Utility to return a list of *ALL* pytest marks (not only parametrization) applied on a function
-    Note that this also works on classes
-
-    :param f:
-    :param as_decorators: transforms the marks into decorators before returning them
-    :return:
-    """
+class countable(Generic[_T], Iterator[_T]):
+    def __init__(self, iterable: Iterable[_T]) -> None: ...
+    def __iter__(self) -> countable[_T]: ...
+    def __next__(self) -> _T: ...
+    items_seen: int
 ```
 
-**Import Statement**:
+#### 61 `consumer` Function
+
+**Function Description**: 
+Decorator that automatically advances a PEP-342-style "reverse iterator" to its first yield point so you don't have to call ``next()`` on it manually.
+
+**Core Algorithm**: 
+The decorator returns an internal `wrapper(*args, **kwargs)` that primes the generator so you do not have to call `next(t)` before using `t.send(...)`.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.common_pytest_marks import get_pytest_marks_on_function
-```
 
-**Function**:
-Retrieves all pytest marks from a function, optionally returning decorator objects.
-
-**Parameter Description**:
-- `f`: Function to get marks from.
-- `as_decorators`: If True, return as decorator objects.
-
-**Return Value**:
-List of mark objects or decorators.
-
-#### 98. `get_pytest_marks_on_item()` - Function Name
-
-**Function Signature**:
-```python
-def get_pytest_marks_on_item(item):
-    """lists all marks on an item such as `request._pyfuncitem`"""
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import get_pytest_marks_on_item
-```
-
-**Function**:
-Extracts pytest marks from a test item or node.
-
-**Parameter Description**:
-- `item`: Pytest test item or node.
-
-**Return Value**:
-List of mark objects.
-
-#### 99. `get_pytest_usefixture_marks()` - Function Name
-
-**Function Signature**:
-```python
-def get_pytest_usefixture_marks(f): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import get_pytest_usefixture_marks
-```
-
-**Function**:
-Returns all usefixture marks on a function.
-
-**Parameter Description**:
-- `f`: Function to get usefixture marks from.
-
-**Return Value**:
-List of usefixture mark objects.
-
-#### 100. `remove_pytest_mark()` - Function Name
-
-**Function Signature**:
-```python
-def remove_pytest_mark(f, mark_name): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import remove_pytest_mark
-```
-
-**Function**:
-Removes a specific pytest mark from a function's mark collection.
-
-**Parameter Description**:
-- `f`: Function to remove marks from.
-- `mark_name`: Name of the mark to remove.
-
-**Return Value**:
-None (modifies f in place).
-
-#### 101. `get_pytest_parametrize_marks()` - Function Name
-
-**Function Signature**:
-```python
-def get_pytest_parametrize_marks(
-    f,
-    pop=False  # type: bool
-):
-    """
-    Returns the @pytest.mark.parametrize marks associated with a function (and only those)
-
-    :param f:
-    :param pop: boolean flag, when True the marks will be removed from f.
-    :return: a tuple containing all 'parametrize' marks
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import get_pytest_parametrize_marks
-```
-
-**Function**:
-Retrieves pytest.mark.parametrize marks from a function, optionally popping them.
-
-**Parameter Description**:
-- `f`: Function to get marks from.
-- `pop`: If True, remove marks after retrieving.
-
-**Return Value**:
-List of parametrize mark objects.
-
-#### 102. `markinfos_to_markdecorators()` - Function Name
-
-**Function Signature**:
-```python
-def markinfos_to_markdecorators(marks,                # type: Iterable[Mark]
-                                function_marks=False  # type: bool
-                                ):
-    # type: (...) -> List[MarkDecorator]
-    """
-    Transforms the provided marks (MarkInfo or Mark in recent pytest) obtained from marked cases, into MarkDecorator so
-    that they can be re-applied to generated pytest parameters in the global @pytest.mark.parametrize.
-
-    Returns a list.
-
-    :param marks:
-    :param function_marks:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import markinfos_to_markdecorators
-```
-
-**Function**:
-Converts mark info objects into mark decorator objects.
-
-**Parameter Description**:
-- `marks`: List of mark info objects.
-- `function_marks`: Whether these are function marks.
-
-**Return Value**:
-List of mark decorator objects.
-
-#### 103. `markdecorators_to_markinfos()` - Function Name
-
-**Function Signature**:
-```python
-def markdecorators_to_markinfos(marks # type: Sequence[MarkDecorator]
-): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import markdecorators_to_markinfos
-```
-
-**Function**:
-Extracts mark info from decorator objects.
-
-**Parameter Description**:
-- `marks`: List of mark decorator objects.
-
-**Return Value**:
-List of mark info objects.
-
-#### 104. `has_tags()` - Function Name
-
-**Function Signature**:
-```python
-def has_tags(*tag_names  # type: str
-             ):
-    """
-    Selects cases that have all tags in `tag_names`. See `@case(tags=...)` to add tags to a case.
-
-    :param tag_names:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.filters import has_tags
-```
-
-**Function**:
-Creates a filter function that checks if a case has specific tags.
-
-**Parameter Description**:
-- `*tag_names`: Variable-length tag names to filter by.
-
-**Return Value**:
-Filter function that checks for tags.
-
-#### 105. `_filter()` - Function Name
-
-**Function Signature**:
-```python
-def _filter(case)
-```
-
-**Import Statement**:
-```python
-from pytest_cases.filters import _filter
-```
-
-**Function**:
-It is an internal function of `has_tags`, `id_has_prefix`,`id_has_suffix` and `id_match_regex` functions.
-Internal filtering logic for case functions.
-
-**Parameter Description**:
-- `case`: Case function to filter.
-
-**Return Value**:
-True if case passes the filter, False otherwise.
-
-#### 106. `id_has_prefix()` - Function Name
-
-**Function Signature**:
-```python
-def id_has_prefix(prefix  # type: str
-                  ):
-    """
-    Selects cases that have a case id prefix `prefix`.
-
-    Note that this is not the prefix of the whole case function name, but the case id,
-    possibly overridden with `@case(id=)`
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.filters import id_has_prefix
-```
-
-**Function**:
-Creates a filter that matches case ids with the given prefix.
-
-**Parameter Description**:
-- `prefix`: Prefix string to match.
-
-**Return Value**:
-Filter function that checks for prefix.
-
-#### 107. `id_has_suffix()` - Function Name
-
-**Function Signature**:
-```python
-def id_has_suffix(suffix  # type: str
-                  ):
-    """
-    Selects cases that have a case id suffix `suffix`.
-
-    Note that this is not the suffix of the whole case function name, but the case id,
-    possibly overridden with `@case(id=)`
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.filters import id_has_suffix
-```
-
-**Function**:
-Creates a filter that matches case ids with the given suffix.
-
-**Parameter Description**:
-- `suffix`: Suffix string to match.
-
-**Return Value**:
-Filter function that checks for suffix.
-
-#### 108. `is_fixture_union_params()` - Function Name
-
-**Function Signature**:
-```python
-def is_fixture_union_params(params):
-    """
-    Internal helper to quickly check if a bunch of parameters correspond to a union fixture.
-
-    Note: unfortunately `pytest` transform all params to a list when a @pytest.fixture is created,
-    so we can not pass a subclass of list to do the trick, we really have to work on the list elements.
-    :param params:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import is_fixture_union_params
-```
-
-**Function**:
-Checks if parameters indicate a fixture union scenario.
-
-**Parameter Description**:
-- `params`: Parameters to check.
-
-**Return Value**:
-True if params indicate a fixture union, False otherwise.
-
-#### 109. `is_used_request()` - Function Name
-
-**Function Signature**:
-```python
-def is_used_request(request):
-    return getattr(request, 'param', None) is not NOT_USED
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import is_used_request
-```
-
-**Function**:
-Determines if a pytest request object is actually used by the fixture.
-
-**Parameter Description**:
-- `request`: Pytest request object.
-
-**Return Value**:
-True if request is used, False otherwise.
-
-#### 110. `ignore_unused()` - Function Name
-
-**Function Signature**:
-```python
-def ignore_unused(fixture_func):
-    """
-    A decorator for fixture functions so that they are compliant with fixture unions.
-    It
-
-     - adds the `request` fixture dependency to their signature if needed
-     - filters the calls based on presence of the `NOT_USED` token in the request params.
-
-    IMPORTANT: even if 'params' is not in kwargs, the fixture can be used in a fixture union and therefore a param
-    *will* be received on some calls (and the fixture will be called several times - only once for real) - we have to
-    handle the NOT_USED.
-
-    :param fixture_func:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import ignore_unused
-```
-
-**Function**:
-Decorator to mark fixture arguments as optionally unused without warnings.
-
-**Parameter Description**:
-- `fixture_func`: Fixture function to wrap.
-
-**Return Value**:
-Wrapped fixture function that ignores unused warnings.
-
-#### 111. `_fixture_union()` - Function Name
-
-**Function Signature**:
-```python
-def _fixture_union(fixtures_dest,
-                   name,                  # type: str
-                   fix_alternatives,      # type: Sequence[UnionFixtureAlternative]
-                   unique_fix_alt_names,  # type: List[str]
-                   scope="function",      # type: str
-                   idstyle="compact",     # type: Optional[Union[str, Callable]]
-                   ids=None,              # type: Union[Callable, Iterable[str]]
-                   autouse=False,         # type: bool
-                   hook=None,             # type: Callable[[Callable], Callable]
-                   caller=fixture_union,  # type: Callable
-                   **kwargs):
-    """
-    Internal implementation for fixture_union.
-    The "alternatives" have to be created beforehand, by the caller. This allows `fixture_union` and `parametrize`
-    to use the same implementation while `parametrize` uses customized "alternatives" containing more information.
-
-    :param fixtures_dest:
-    :param name:
-    :param fix_alternatives:
-    :param unique_fix_alt_names:
-    :param idstyle:
-    :param scope:
-    :param ids:
-    :param unpack_into:
-    :param autouse:
-    :param hook: an optional hook to apply to each fixture function that is created during this call. The hook function
-        will be called every time a fixture is about to be created. It will receive a single argument (the function
-        implementing the fixture) and should return the function to use. For example you can use `saved_fixture` from
-        `pytest-harvest` as a hook in order to save all such created fixtures in the fixture store.
-    :param caller: a function to reference for error messages
-    :param kwargs:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import _fixture_union
-```
-
-**Function**:
-Internal implementation for creating union fixtures that select from multiple alternatives.
-
-**Parameter Description**:
-- `fixtures_dest`: Destination module or class.
-- `name`: Fixture name.
-- `fix_alternatives`: List of fixture alternatives.
-- `unique_fix_alt_names`: Unique alternative names.
-- `scope`: Fixture scope.
-- `idstyle`: ID generation style.
-- `ids`: ID list.
-- `autouse`: Whether fixture is autouse.
-- `hook`: Hook function.
-- `caller`: Caller function.
-- `**kwargs`: Additional keyword arguments.
-
-**Return Value**:
-Created union fixture function.
-
-#### 112. `_new_fixture()` - Function Name
-
-**Function Signature**:
-```python
-@with_signature("%s(%s, request)" % (name, ', '.join(unique_fix_alt_names)))
-def _new_fixture(request, **all_fixtures): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import _new_fixture
-```
-
-**Function**:
-It is an internal function of the `_fixture_union` function
-Creates a new fixture generator from a request and multiple fixture dependencies.
-
-**Parameter Description**:
-- `request`: Pytest request object.
-- `**all_fixtures`: All fixture dependencies.
-
-**Return Value**:
-Fixture generator function.
-
-#### 113. `unpack_fixture()` - Function Name
-
-**Function Signature**:
-```python
-def unpack_fixture(argnames,      # type: str
-                   fixture,       # type: Union[str, Callable]
-                   in_cls=False,  # type: bool
-                   hook=None      # type: Callable[[Callable], Callable]
-                   ):
-    """
-    Creates several fixtures with names `argnames` from the source `fixture`. Created fixtures will correspond to
-    elements unpacked from `fixture` in order. For example if `fixture` is a tuple of length 2, `argnames="a,b"` will
-    create two fixtures containing the first and second element respectively.
-
-    The created fixtures are automatically registered into the callers' module, but you may wish to assign them to
-    variables for convenience. In that case make sure that you use the same names,
-    e.g. `a, b = unpack_fixture('a,b', 'c')`.
-
-    ```python
-    import pytest
-    from pytest_cases import unpack_fixture, fixture
-
-    @fixture
-    @pytest.mark.parametrize("o", ['hello', 'world'])
-    def c(o):
-        return o, o[0]
-
-    a, b = unpack_fixture("a,b", c)
-
-    def test_function(a, b):
-        assert a[0] == b
-    ```
-
-    You can also use this function inside a class with `in_cls=True`. In that case you MUST assign the output of the
-    function to variables, as the created fixtures won't be registered with the encompassing module.
-
-    ```python
-    import pytest
-    from pytest_cases import unpack_fixture, fixture
-
-    @fixture
-    @pytest.mark.parametrize("o", ['hello', 'world'])
-    def c(o):
-        return o, o[0]
-
-    class TestClass:
-        a, b = unpack_fixture("a,b", c, in_cls=True)
-
-        def test_function(self, a, b):
-            assert a[0] == b
-    ```
-
-    :param argnames: same as `@pytest.mark.parametrize` `argnames`.
-    :param fixture: a fixture name string or a fixture symbol. If a fixture symbol is provided, the created fixtures
-        will have the same scope. If a name is provided, they will have scope='function'. Note that in practice the
-        performance loss resulting from using `function` rather than a higher scope is negligible since the created
-        fixtures' body is a one-liner.
-    :param in_cls: a boolean (default False). You may wish to turn this to `True` to use this function inside a class.
-        If you do so, you **MUST** assign the output to variables in the class.
-    :param hook: an optional hook to apply to each fixture function that is created during this call. The hook function
-        will be called every time a fixture is about to be created. It will receive a single argument (the function
-        implementing the fixture) and should return the function to use. For example you can use `saved_fixture` from
-        `pytest-harvest` as a hook in order to save all such created fixtures in the fixture store.
-    :return: the created fixtures.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import unpack_fixture
-```
-
-**Function**:
-Creates a fixture that unpacks a tuple/list into multiple named parameters.
-
-**Parameter Description**:
-- `argnames`: Names of parameters to unpack.
-- `fixture`: Fixture to unpack from.
-- `in_cls`: Whether fixture is in a class.
-- `hook`: Optional hook function.
-
-**Return Value**:
-Unpacking fixture function.
-
-#### 114. `_unpack_fixture()` - Function Name
-
-**Function Signature**:
-```python
-def _unpack_fixture(fixtures_dest,  # type: ModuleType
-                    argnames,       # type: Union[str, Iterable[str]]
-                    fixture,        # type: Union[str, Callable]
-                    in_cls,         # type: bool
-                    hook            # type: Callable[[Callable], Callable]
-                    ):
-    """
-
-    :param fixtures_dest: if this is `None` the fixtures won't be registered anywhere (just returned)
-    :param argnames:
-    :param fixture:
-    :param in_cls: a boolean indicating if the `self` argument should be prepended.
-    :param hook: an optional hook to apply to each fixture function that is created during this call. The hook function
-        will be called every time a fixture is about to be created. It will receive a single argument (the function
-        implementing the fixture) and should return the function to use. For example you can use `saved_fixture` from
-        `pytest-harvest` as a hook in order to save all such created fixtures in the fixture store.
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import _unpack_fixture
-```
-
-**Function**:
-Internal helper to implement unpacking fixtures in module or class contexts.
-
-**Parameter Description**:
-- `fixtures_dest`: Destination module or class.
-- `argnames`: Names of parameters to unpack.
-- `fixture`: Fixture to unpack from.
-- `in_cls`: Whether fixture is in a class.
-- `hook`: Optional hook function.
-
-**Return Value**:
-None (creates unpacking fixtures in destination).
-
-#### 115. `param_fixture()` - Function Name
-
-**Function Signature**:
-```python
-def param_fixture(argname,           # type: str
-                  argvalues,         # type: Iterable[Any]
-                  autouse=False,     # type: bool
-                  ids=None,          # type: Union[Callable, Iterable[str]]
-                  scope="function",  # type: str
-                  hook=None,         # type: Callable[[Callable], Callable]
-                  debug=False,       # type: bool
-                  **kwargs):
-    """
-    Identical to `param_fixtures` but for a single parameter name, so that you can assign its output to a single
-    variable.
-
-    ```python
-    import pytest
-    from pytest_cases import param_fixtures, param_fixture
-
-    # create a single parameter fixture
-    my_parameter = param_fixture("my_parameter", [1, 2, 3, 4])
-
-    @pytest.fixture
-    def fixture_uses_param(my_parameter):
+def consumer(func):
+    """Decorator that automatically advances a PEP-342-style "reverse iterator"
+    to its first yield point so you don't have to call ``next()`` on it
+    manually.
+
+        >>> @consumer
+        ... def tally():
+        ...     i = 0
+        ...     while True:
+        ...         print('Thing number %s is %s.' % (i, (yield)))
+        ...         i += 1
         ...
+        >>> t = tally()
+        >>> t.send('red')
+        Thing number 0 is red.
+        >>> t.send('fish')
+        Thing number 1 is fish.
 
-    def test_uses_param(my_parameter, fixture_uses_param):
+    Without the decorator, you would have to call ``next(t)`` before
+    ``t.send()`` could be used.
+
+    """
+```
+
+#### 61: `raise_` Function
+
+**Function Description**: 
+Utility that raises the given exception type with positional arguments; useful inside expressions.
+
+**Core Algorithm**: 
+Calls the provided exception class with *args* and raises the resulting instance immediately.
+
+**Input/Output Example**:
+```python
+
+def raise_(exception, *args):
+    raise exception(*args)
+```
+
+#### 62: `strictly_n` Function
+
+**Function Description**: 
+Validate that *iterable* has exactly *n* items and return them if it does. If it has fewer than *n* items, call function *too_short* with the actual number of items. If it has more than *n* items, call function *too_long* with the number ``n + 1``.
+
+**Core Algorithm**: 
+Note that the returned iterable must be consumed in order for the check to be made.
+
+**Input/Output Example**:
+```python
+
+def strictly_n(iterable, n, too_short=None, too_long=None):
+    """Validate that *iterable* has exactly *n* items and return them if
+    it does. If it has fewer than *n* items, call function *too_short*
+    with the actual number of items. If it has more than *n* items, call function
+    *too_long* with the number ``n + 1``.
+
+        >>> iterable = ['a', 'b', 'c', 'd']
+        >>> n = 4
+        >>> list(strictly_n(iterable, n))
+        ['a', 'b', 'c', 'd']
+
+    Note that the returned iterable must be consumed in order for the check to
+    be made.
+
+    By default, *too_short* and *too_long* are functions that raise
+    ``ValueError``.
+
+        >>> list(strictly_n('ab', 3))  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
         ...
-    ```
+        ValueError: too few items in iterable (got 2)
 
-    :param argname: see fixture `name`
-    :param argvalues: see fixture `params`
-    :param autouse: see fixture `autouse`
-    :param ids: see fixture `ids`
-    :param scope: see fixture `scope`
-    :param hook: an optional hook to apply to each fixture function that is created during this call. The hook function
-        will be called every time a fixture is about to be created. It will receive a single argument (the function
-        implementing the fixture) and should return the function to use. For example you can use `saved_fixture` from
-        `pytest-harvest` as a hook in order to save all such created fixtures in the fixture store.
-    :param debug: print debug messages on stdout to analyze fixture creation (use pytest -s to see them)
-    :param kwargs: any other argument for 'fixture'
-    :return: the create fixture
+        >>> list(strictly_n('abc', 2))  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
+        ...
+        ValueError: too many items in iterable (got at least 3)
+
+    You can instead supply functions that do something else.
+    *too_short* will be called with the number of items in *iterable*.
+    *too_long* will be called with `n + 1`.
+
+        >>> def too_short(item_count):
+        ...     raise RuntimeError
+        >>> it = strictly_n('abcd', 6, too_short=too_short)
+        >>> list(it)  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
+        ...
+        RuntimeError
+
+        >>> def too_long(item_count):
+        ...     print('The boss is going to hear about this')
+        >>> it = strictly_n('abcdef', 4, too_long=too_long)
+        >>> list(it)
+        The boss is going to hear about this
+        ['a', 'b', 'c', 'd']
+
     """
 ```
 
-**Import Statement**:
+#### 63: `derangements` Function
+
+**Function Description**: 
+Yield successive derangements of the elements in *iterable*.
+
+**Core Algorithm**: 
+A derangement is a permutation in which no element appears at its original index. In other words, a derangement is a permutation that has no fixed points.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture_core2 import param_fixture
-```
 
-**Function**:
-Creates a parametrized fixture that provides multiple values for a single parameter.
+def derangements(iterable, r=None):
+    """Yield successive derangements of the elements in *iterable*.
 
-**Parameter Description**:
-- `argname`: Parameter name.
-- `argvalues`: List of values for the parameter.
-- `autouse`: Whether fixture is autouse.
-- `ids`: ID list for values.
-- `scope`: Fixture scope.
-- `hook`: Optional hook function.
-- `debug`: Enable debug output.
-- `**kwargs`: Additional keyword arguments.
+    A derangement is a permutation in which no element appears at its original
+    index. In other words, a derangement is a permutation that has no fixed points.
 
-**Return Value**:
-None (creates the parametrized fixture).
+    Suppose Alice, Bob, Carol, and Dave are playing Secret Santa.
+    The code below outputs all of the different ways to assign gift recipients
+    such that nobody is assigned to himself or herself:
 
-#### 116. `_create_param_fixture()` - Function Name
+        >>> for d in derangements(['Alice', 'Bob', 'Carol', 'Dave']):
+        ...    print(', '.join(d))
+        Bob, Alice, Dave, Carol
+        Bob, Carol, Dave, Alice
+        Bob, Dave, Alice, Carol
+        Carol, Alice, Dave, Bob
+        Carol, Dave, Alice, Bob
+        Carol, Dave, Bob, Alice
+        Dave, Alice, Bob, Carol
+        Dave, Carol, Alice, Bob
+        Dave, Carol, Bob, Alice
 
-**Function Signature**:
-```python
-def _create_param_fixture(fixtures_dest,
-                          argname,           # type: str
-                          argvalues,         # type: Sequence[Any]
-                          autouse=False,     # type: bool
-                          ids=None,          # type: Union[Callable, Iterable[str]]
-                          scope="function",  # type: str
-                          hook=None,         # type: Callable[[Callable], Callable]
-                          auto_simplify=False,
-                          debug=False,
-                          **kwargs):
-    """ Internal method shared with param_fixture and param_fixtures """
-```
+    If *r* is given, only the *r*-length derangements are yielded.
 
-**Import Statement**:
-```python
-from pytest_cases.fixture_core2 import _create_param_fixture
-```
+        >>> sorted(derangements(range(3), 2))
+        [(1, 0), (1, 2), (2, 0)]
+        >>> sorted(derangements([0, 2, 3], 2))
+        [(2, 0), (2, 3), (3, 0)]
 
-**Function**:
-Internal helper that constructs a parameter fixture from values and metadata.
+    Elements are treated as unique based on their position, not on their value.
 
-**Parameter Description**:
-- `fixtures_dest`: Destination module or class.
-- `argname`: Parameter name.
-- `argvalues`: List of values for the parameter.
-- `autouse`: Whether fixture is autouse.
-- `ids`: ID list for values.
-- `scope`: Fixture scope.
-- `hook`: Optional hook function.
-- `auto_simplify`: Whether to auto-simplify.
-- `debug`: Enable debug output.
-- `**kwargs`: Additional keyword arguments.
+    Consider the Secret Santa example with two *different* people who have
+    the *same* name. Then there are two valid gift assignments even though
+    it might appear that a person is assigned to themselves:
 
-**Return Value**:
-None (creates the parameter fixture in destination).
+        >>> names = ['Alice', 'Bob', 'Bob']
+        >>> list(derangements(names))
+        [('Bob', 'Bob', 'Alice'), ('Bob', 'Alice', 'Bob')]
 
-#### 117. `param_fixtures()` - Function Name
+    To avoid confusion, make the inputs distinct:
 
-**Function Signature**:
-```python
-def param_fixtures(argnames, argvalues, autouse = False, ids = None, scope = 'function', hook = None, debug = False, **kwargs)
-```
+        >>> deduped = [f'{name}{index}' for index, name in enumerate(names)]
+        >>> list(derangements(deduped))
+        [('Bob1', 'Bob2', 'Alice0'), ('Bob2', 'Alice0', 'Bob1')]
 
-**Import Statement**:
-```python
-from pytest_cases.fixture_core2 import param_fixtures
-```
+    The number of derangements of a set of size *n* is known as the
+    "subfactorial of n".  For n > 0, the subfactorial is:
+    ``round(math.factorial(n) / math.e)``.
 
-**Function**:
-Creates multiple parametrized fixtures from combined argnames and argvalues.
+    References:
 
-**Parameter Description**:
-- `argnames`: Parameter names (string or list).
-- `argvalues`: List of value tuples for parameters.
-- `autouse`: Whether fixtures are autouse.
-- `ids`: ID list for values.
-- `scope`: Fixture scope.
-- `hook`: Optional hook function.
-- `debug`: Enable debug output.
-- `**kwargs`: Additional keyword arguments.
-
-**Return Value**:
-None (creates the parametrized fixtures).
-
-#### 118. `_create_params_fixture()` - Function Name
-
-**Function Signature**:
-```python
-def _create_params_fixture(fixtures_dest,
-                           argnames_lst,      # type: Sequence[str]
-                           argvalues,         # type: Sequence[Any]
-                           autouse=False,     # type: bool
-                           ids=None,          # type: Union[Callable, Iterable[str]]
-                           scope="function",  # type: str
-                           hook=None,         # type: Callable[[Callable], Callable]
-                           debug=False,       # type: bool
-                           **kwargs): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core2 import _create_params_fixture
-```
-
-**Function**:
-Internal helper to create multiple combined parametrized fixtures.
-
-**Parameter Description**:
-- `fixtures_dest`: Destination module or class.
-- `argnames_lst`: List of parameter names.
-- `argvalues`: List of value tuples for parameters.
-- `autouse`: Whether fixtures are autouse.
-- `ids`: ID list for values.
-- `scope`: Fixture scope.
-- `hook`: Optional hook function.
-- `debug`: Enable debug output.
-- `**kwargs`: Additional keyword arguments.
-
-**Return Value**:
-None (creates the parametrized fixtures in destination).
-
-#### 119. `_root_fixture()` - Function Name
-
-**Function Signature**:
-```python
-@fixture(name=root_fixture_name, autouse=autouse, scope=scope, hook=hook, **kwargs)
-@pytest.mark.parametrize(argnames, argvalues, ids=ids)
-@with_signature("%s(%s)" % (root_fixture_name, argnames))
-def _root_fixture(**_kwargs):
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import _root_fixture
-```
-
-**Function**:
-It is an internal function of the `_create_params_fixture` function
-Placeholder root fixture used as a dependency anchor in fixture graphs.
-
-**Parameter Description**:
-- `**_kwargs`: Variable keyword arguments (usually empty).
-
-**Return Value**:
-None (placeholder fixture).
-
-#### 120. `pytest_fixture_plus()` - Function Name
-
-**Function Signature**:
-```python
-@pytest.hookimpl(optionalhook=True)
-def pytest_fixture_plus(*args, **kwargs): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core2 import pytest_fixture_plus
-```
-
-**Function**:
-Enhanced pytest fixture decorator with additional features like unpacking and parameter injection.
-
-**Parameter Description**:
-- `*args`: Variable positional arguments.
-- `**kwargs`: Variable keyword arguments for fixture configuration.
-
-**Return Value**:
-Fixture decorator or decorated function.
-
-#### 121. `_fixture_plus()` - Function Name
-
-**Function Signature**:
-```python
-def _fixture_plus(f): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import _fixture_plus
-```
-
-**Function**:
-It is an internal function of the `pytest_fixture_plus` function
-Internal decorator that prepares a function to become a fixture_plus.
-
-**Parameter Description**:
-- `f`: Function to prepare as fixture_plus.
-
-**Return Value**:
-Prepared fixture_plus function.
-
-#### 122. `_decorate_fixture_plus()` - Function Name
-
-**Function Signature**:
-```python
-def _decorate_fixture_plus(fixture_func,
-                           scope="function",   # type: str
-                           autouse=False,      # type: bool
-                           name=None,          # type: str
-                           unpack_into=None,   # type: Iterable[str]
-                           hook=None,          # type: Callable[[Callable], Callable]
-                           _caller_module_offset_when_unpack=3,  # type: int
-                           **kwargs):
-    """ decorator to mark a fixture factory function.
-
-    Identical to `@pytest.fixture` decorator, except that
-
-     - it supports multi-parametrization with `@pytest.mark.parametrize` as requested in
-       https://github.com/pytest-dev/pytest/issues/3960. As a consequence it does not support the `params` and `ids`
-       arguments anymore.
-
-     - it supports a new argument `unpack_into` where you can provide names for fixtures where to unpack this fixture
-       into.
-
-    :param scope: the scope for which this fixture is shared, one of "function" (default), "class", "module" or
-        "session".
-    :param autouse: if True, the fixture func is activated for all tests that can see it.  If False (the default) then
-        an explicit reference is needed to activate the fixture.
-    :param name: the name of the fixture. This defaults to the name of the decorated function. Note: If a fixture is
-        used in the same module in which it is defined, the function name of the fixture will be shadowed by the
-        function arg that requests the fixture; one way to resolve this is to name the decorated function
-        ``fixture_<fixturename>`` and then use ``@pytest.fixture(name='<fixturename>')``.
-    :param unpack_into: an optional iterable of names, or string containing coma-separated names, for additional
-        fixtures to create to represent parts of this fixture. See `unpack_fixture` for details.
-    :param hook: an optional hook to apply to each fixture function that is created during this call. The hook function
-        will be called every time a fixture is about to be created. It will receive a single argument (the function
-        implementing the fixture) and should return the function to use. For example you can use `saved_fixture` from
-        `pytest-harvest` as a hook in order to save all such created fixtures in the fixture store.
-    :param kwargs: other keyword arguments for `@pytest.fixture`
+    * Article:  https://www.numberanalytics.com/blog/ultimate-guide-to-derangements-in-combinatorics
+    * Sizes:    https://oeis.org/A000166
     """
 ```
 
-**Import Statement**:
+#### 64: `interleave_randomly` Function
+
+**Function Description**: 
+Repeatedly select one of the input *iterables* at random and yield the next item from it.
+
+**Core Algorithm**: 
+The relative order of the items in each input iterable will preserved. Note the sequences of items with this property are not equally likely to be generated.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture_core2 import _decorate_fixture_plus
-```
 
-**Function**:
-Applies fixture_plus transformations and metadata to a function.
+def interleave_randomly(*iterables):
+    """Repeatedly select one of the input *iterables* at random and yield the next
+    item from it.
 
-**Parameter Description**:
-- `fixture_func`: Fixture function to decorate.
-- `scope`: Fixture scope.
-- `autouse`: Whether fixture is autouse.
-- `name`: Fixture name.
-- `unpack_into`: Parameters to unpack into.
-- `hook`: Optional hook function.
-- `_caller_module_offset_when_unpack`: Stack offset for module detection.
-- `**kwargs`: Additional keyword arguments.
+        >>> iterables = [1, 2, 3], 'abc', (True, False, None)
+        >>> list(interleave_randomly(*iterables))  # doctest: +SKIP
+        ['a', 'b', 1, 'c', True, False, None, 2, 3]
 
-**Return Value**:
-Decorated fixture function.
+    The relative order of the items in each input iterable will preserved. Note the
+    sequences of items with this property are not equally likely to be generated.
 
-#### 123. `_map_arguments()` - Function Name
-
-**Function Signature**:
-```python
-def _map_arguments(*_args, **_kwargs): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import _map_arguments
-```
-
-**Function**:
-Maps pytest fixture arguments to the wrapped function's signature dynamically.
-
-**Parameter Description**:
-- `*_args`: Variable positional arguments.
-- `**_kwargs`: Variable keyword arguments.
-
-**Return Value**:
-Mapped arguments.
-
-#### 124. `_fixture_product()` - Function Name
-
-**Function Signature**:
-```python
-def _fixture_product(fixtures_dest,
-                     name,                # type: str
-                     fixtures_or_values,
-                     fixture_positions,
-                     scope="function",    # type: str
-                     unpack_into=None,    # type: Iterable[str]
-                     autouse=False,       # type: bool
-                     hook=None,           # type: Callable[[Callable], Callable]
-                     caller=None,         # type: Callable
-                     **kwargs):
-    """
-    Internal implementation for fixture products created by pytest parametrize plus.
-
-    :param fixtures_dest:
-    :param name:
-    :param fixtures_or_values:
-    :param fixture_positions:
-    :param idstyle:
-    :param scope:
-    :param ids:
-    :param unpack_into:
-    :param autouse:
-    :param kwargs:
-    :return:
     """
 ```
 
-**Import Statement**:
+#### 65: `split_when` Function
+
+**Function Description**: 
+Split *iterable* into pieces based on the output of *pred*. *pred* should be a function that takes successive pairs of items and returns ``True`` if the iterable should be split in between them.
+
+**Core Algorithm**: 
+For example, to find runs of increasing numbers, split the iterable when element ``i`` is larger than element ``i + 1``:
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture_parametrize_plus import _fixture_product
-```
 
-**Function**:
-Creates a fixture that yields the cartesian product of multiple fixture alternatives.
 
-**Parameter Description**:
-- `fixtures_dest`: Destination module or class.
-- `name`: Fixture name.
-- `fixtures_or_values`: Fixtures or values to combine.
-- `fixture_positions`: Positions of fixtures.
-- `scope`: Fixture scope.
-- `unpack_into`: Parameters to unpack into.
-- `autouse`: Whether fixture is autouse.
-- `hook`: Optional hook function.
-- `caller`: Caller function.
-- `**kwargs`: Additional keyword arguments.
+def split_when(iterable, pred, maxsplit=-1):
+    """Split *iterable* into pieces based on the output of *pred*.
+    *pred* should be a function that takes successive pairs of items and
+    returns ``True`` if the iterable should be split in between them.
 
-**Return Value**:
-Product fixture function.
+    For example, to find runs of increasing numbers, split the iterable when
+    element ``i`` is larger than element ``i + 1``:
 
-#### 125. `_tuple_generator()` - Function Name
+        >>> list(split_when([1, 2, 3, 3, 2, 5, 2, 4, 2], lambda x, y: x > y))
+        [[1, 2, 3, 3], [2, 5], [2, 4], [2]]
 
-**Function Signature**:
-```python
-def _tuple_generator(request, all_fixtures)
-```
+    At most *maxsplit* splits are done. If *maxsplit* is not specified or -1,
+    then there is no limit on the number of splits:
 
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import _tuple_generator
-```
+        >>> list(split_when([1, 2, 3, 3, 2, 5, 2, 4, 2],
+        ...                 lambda x, y: x > y, maxsplit=2))
+        [[1, 2, 3, 3], [2, 5], [2, 4, 2]]
 
-**Function**:
-It is an internal function of the `_fixture_product` function
-Generator that yields tuples of fixture values for product fixtures.
-
-**Parameter Description**:
-- `request`: Pytest request object.
-- `all_fixtures`: All fixture dependencies.
-
-**Return Value**:
-Generator of value tuples.
-
-#### 126. `pytest_parametrize_plus()` - Function Name
-
-**Function Signature**:
-```python
-@pytest.hookimpl(optionalhook=True)
-def pytest_parametrize_plus(*args, **kwargs): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import pytest_parametrize_plus
-```
-
-**Function**:
-Enhanced parametrize decorator supporting fixture references and unpacking.
-
-**Parameter Description**:
-- `*args`: Variable positional arguments.
-- `**kwargs`: Variable keyword arguments for parametrize configuration.
-
-**Return Value**:
-Parametrize decorator.
-
-#### 127. `_get_argnames_argvalues()` - Function Name
-
-**Function Signature**:
-```python
-def _get_argnames_argvalues(
-    argnames=None,   # type: Union[str, Tuple[str], List[str]]
-    argvalues=None,  # type: Iterable[Any]
-    **args
-):
-    """
-
-    :param argnames:
-    :param argvalues:
-    :param args:
-    :return: argnames, argvalues - both guaranteed to be lists
     """
 ```
 
-**Import Statement**:
+#### 66: `count_cycle` Function
+
+**Function Description**: 
+Cycle through the items from *iterable* up to *n* times, yielding the number of completed cycles along with each item. If *n* is omitted the process repeats indefinitely.
+
+**Core Algorithm**: 
+Cycle through the items from *iterable* up to *n* times, yielding the number of completed cycles along with each item. If *n* is omitted the process repeats indefinitely.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture_parametrize_plus import _get_argnames_argvalues
-```
 
-**Function**:
-Extracts and validates argnames and argvalues from arguments.
+def count_cycle(iterable, n=None):
+    """Cycle through the items from *iterable* up to *n* times, yielding
+    the number of completed cycles along with each item. If *n* is omitted the
+    process repeats indefinitely.
 
-**Parameter Description**:
-- `argnames`: Parameter names (optional).
-- `argvalues`: Parameter values (optional).
-- `**args`: Additional keyword arguments.
+    >>> list(count_cycle('AB', 3))
+    [(0, 'A'), (0, 'B'), (1, 'A'), (1, 'B'), (2, 'A'), (2, 'B')]
 
-**Return Value**:
-Tuple of (argnames, argvalues).
-
-#### 128. `_gen_ids()` - Function Name
-
-**Function Signature**:
-```python
-def _gen_ids(argnames, argvalues, idgen):
-    """
-    Generates an explicit test ids list from a non-none `idgen`.
-
-    `idgen` should be either a callable of a string template.
-
-    :param argnames:
-    :param argvalues:
-    :param idgen:
-    :return:
     """
 ```
 
-**Import Statement**:
+#### 67: `mark_ends` Function
+
+**Function Description**: 
+Yield 3-tuples of the form ``(is_first, is_last, item)``.
+
+**Core Algorithm**: 
+Use this when looping over an iterable to take special action on its first and/or last items:
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture_parametrize_plus import _gen_ids
+def mark_ends(iterable):
+"""
+Yield 3-tuples of the form ``(is_first, is_last, item)``.
+
+>>> list(mark_ends('ABC'))
+[(True, False, 'A'), (False, False, 'B'), (False, True, 'C')]
+
+Use this when looping over an iterable to take special action on its first
+and/or last items:
+
+>>> iterable = ['Header', 100, 200, 'Footer']
+>>> total = 0
+>>> for is_first, is_last, item in mark_ends(iterable):
+...     if is_first:
+...         continue  # Skip the header
+...     if is_last:
+...         continue  # Skip the footer
+...     total += item
+>>> print(total)
+300
+"""
 ```
 
-**Function**:
-Generates test ids for parametrized tests using a custom id generation function.
+#### 68: `longest_common_prefix` Function
 
-**Parameter Description**:
-- `argnames`: Parameter names.
-- `argvalues`: Parameter values.
-- `idgen`: ID generation function.
+**Function Description**: 
+Yield elements of the longest common prefix among given *iterables*.
 
-**Return Value**:
-List of generated test ids.
+**Core Algorithm**: 
+Yield elements of the longest common prefix among given *iterables*.
 
-#### 129. `_process_argvalues()` - Function Name
+**Input/Output Example**:
+```python
+def longest_common_prefix(iterables):
+"""
+Yield elements of the longest common prefix among given *iterables*.
 
-**Function Signature**:
+>>> ''.join(longest_common_prefix(['abcd', 'abc', 'abf']))
+'ab'
+"""
+```
+
+#### 69: `lstrip` Function
+
+**Function Description**: 
+Yield the items from *iterable*, but strip any from the beginning for which *pred* returns ``True``.
+
+**Core Algorithm**: 
+For example, to remove a set of items from the start of an iterable:
+
+**Input/Output Example**:
+```python
+def lstrip(iterable, pred):
+"""
+Yield the items from *iterable*, but strip any from the beginning
+for which *pred* returns ``True``.
+
+For example, to remove a set of items from the start of an iterable:
+
+    >>> iterable = (None, False, None, 1, 2, None, 3, False, None)
+    >>> pred = lambda x: x in {None, False, ''}
+    >>> list(lstrip(iterable, pred))
+    [1, 2, None, 3, False, None]
+
+This function is analogous to to :func:`str.lstrip`, and is essentially
+an wrapper for :func:`itertools.dropwhile`.
+"""
+```
+
+#### 70: `rstrip` Function
+
+**Function Description**: 
+Yield the items from *iterable*, but strip any from the end for which *pred* returns ``True``.
+
+**Core Algorithm**: 
+For example, to remove a set of items from the end of an iterable:
+
+**Input/Output Example**:
+```python
+def rstrip(iterable, pred):
+"""
+Yield the items from *iterable*, but strip any from the end
+for which *pred* returns ``True``.
+
+For example, to remove a set of items from the end of an iterable:
+
+    >>> iterable = (None, False, None, 1, 2, None, 3, False, None)
+    >>> pred = lambda x: x in {None, False, ''}
+    >>> list(rstrip(iterable, pred))
+    [None, False, None, 1, 2, None, 3]
+
+This function is analogous to :func:`str.rstrip`.
+"""
+```
+
+#### 71: `strip` Function
+
+**Function Description**: 
+Yield the items from *iterable*, but strip any from the beginning and end for which *pred* returns ``True``.
+
+**Core Algorithm**: 
+For example, to remove a set of items from both ends of an iterable:
+
+**Input/Output Example**:
+```python
+def strip(iterable, pred):
+"""
+Yield the items from *iterable*, but strip any from the
+beginning and end for which *pred* returns ``True``.
+
+For example, to remove a set of items from both ends of an iterable:
+
+    >>> iterable = (None, False, None, 1, 2, None, 3, False, None)
+    >>> pred = lambda x: x in {None, False, ''}
+    >>> list(strip(iterable, pred))
+    [1, 2, None, 3]
+
+This function is analogous to :func:`str.strip`.
+"""
+```
+
+#### 72: `_islice_helper` Function
+**Function Description**: 
+Helper that normalizes slicing semantics for ``islice_extended``.
+```def _islice_helper(it, s):```
+
+**Core Algorithm**: 
+Translates arbitrary ``slice`` objects, including negative indices, into the indices required to iterate the wrapped iterator.
+
+**Input/Output Example**:
+```python
+from more_itertools.more import _islice_helper
+
+data = iter('abcdef')
+tail = list(_islice_helper(data, slice(-3, None)))
+# tail == ['d', 'e', 'f']
+```
+
+#### 73: `always_reversible` Function
+
+**Function Description**: 
+An extension of :func:`reversed` that supports all iterables, not just those which implement the ``Reversible`` or ``Sequence`` protocols.
+
+**Core Algorithm**: 
+If the iterable is already reversible, this function returns the result of :func:`reversed()`. If the iterable is not reversible, this function will cache the remaining items in the iterable and yield them in reverse order, which may require significant storage.
+
+**Input/Output Example**:
+```python
+def always_reversible(iterable):
+"""
+An extension of :func:`reversed` that supports all iterables, not
+just those which implement the ``Reversible`` or ``Sequence`` protocols.
+
+    >>> print(*always_reversible(x for x in range(3)))
+    2 1 0
+
+If the iterable is already reversible, this function returns the
+result of :func:`reversed()`. If the iterable is not reversible,
+this function will cache the remaining items in the iterable and
+yield them in reverse order, which may require significant storage.
+"""
+```
+
+#### 74: `consecutive_groups` Function
+
+**Function Description**: 
+Yield groups of consecutive items using :func:`itertools.groupby`. The *ordering* function determines whether two items are adjacent by returning their position.
+
+**Core Algorithm**: 
+By default, the ordering function is the identity function. This is suitable for finding runs of numbers:
+
+**Input/Output Example**:
+```python
+def consecutive_groups(iterable, ordering=None):
+"""
+Yield groups of consecutive items using :func:`itertools.groupby`.
+The *ordering* function determines whether two items are adjacent by
+returning their position.
+
+By default, the ordering function is the identity function. This is
+suitable for finding runs of numbers:
+
+    >>> iterable = [1, 10, 11, 12, 20, 30, 31, 32, 33, 40]
+    >>> for group in consecutive_groups(iterable):
+    ...     print(list(group))
+    [1]
+    [10, 11, 12]
+    [20]
+    [30, 31, 32, 33]
+    [40]
+
+To find runs of adjacent letters, apply :func:`ord` function
+to convert letters to ordinals.
+
+    >>> iterable = 'abcdfgilmnop'
+    >>> ordering = ord
+    >>> for group in consecutive_groups(iterable, ordering):
+    ...     print(list(group))
+    ['a', 'b', 'c', 'd']
+    ['f', 'g']
+    ['i']
+    ['l', 'm', 'n', 'o', 'p']
+
+Each group of consecutive items is an iterator that shares it source with
+*iterable*. When an an output group is advanced, the previous group is
+no longer available unless its elements are copied (e.g., into a ``list``).
+
+    >>> iterable = [1, 2, 11, 12, 21, 22]
+    >>> saved_groups = []
+    >>> for group in consecutive_groups(iterable):
+    ...     saved_groups.append(list(group))  # Copy group elements
+    >>> saved_groups
+    [[1, 2], [11, 12], [21, 22]]
+"""
+```
+
+#### 75: `exactly_n` Function
+
+**Function Description**: 
+Return ``True`` if exactly ``n`` items in the iterable are ``True`` according to the *predicate* function.
+
+**Core Algorithm**: 
+The iterable will be advanced until ``n + 1`` truthy items are encountered, so avoid calling it on infinite iterables.
+
+**Input/Output Example**:
+```python
+def exactly_n(iterable, n, predicate=bool):
+"""
+Return ``True`` if exactly ``n`` items in the iterable are ``True``
+according to the *predicate* function.
+
+    >>> exactly_n([True, True, False], 2)
+    True
+    >>> exactly_n([True, True, False], 1)
+    False
+    >>> exactly_n([0, 1, 2, 3, 4, 5], 3, lambda x: x < 3)
+    True
+
+The iterable will be advanced until ``n + 1`` truthy items are encountered,
+so avoid calling it on infinite iterables.
+"""
+```
+
+#### 76: `circular_shifts` Function
+
+**Function Description**: 
+Yield the circular shifts of *iterable*.
+
+**Core Algorithm**: 
+Set *steps* to the number of places to rotate to the left (or to the right if negative). Defaults to 1.
+
+**Input/Output Example**:
+```python
+def circular_shifts(iterable, steps=1):
+"""
+Yield the circular shifts of *iterable*.
+
+>>> list(circular_shifts(range(4)))
+[(0, 1, 2, 3), (1, 2, 3, 0), (2, 3, 0, 1), (3, 0, 1, 2)]
+
+Set *steps* to the number of places to rotate to the left
+(or to the right if negative).  Defaults to 1.
+
+>>> list(circular_shifts(range(4), 2))
+[(0, 1, 2, 3), (2, 3, 0, 1)]
+
+>>> list(circular_shifts(range(4), -1))
+[(0, 1, 2, 3), (3, 0, 1, 2), (2, 3, 0, 1), (1, 2, 3, 0)]
+"""
+```
+
+#### 77: `make_decorator` Function
+
+**Function Description**: 
+Return a decorator version of *wrapping_func*, which is a function that modifies an iterable. *result_index* is the position in that function's signature where the iterable goes.
+
+**Core Algorithm**: 
+Builds a closure trio (`decorator`, `outer_wrapper`, `inner_wrapper`) that injects the result of *wrapping_func* at position *result_index*, letting you apply iterator utilities at definition time without touching the original function body.
+
+**Input/Output Example**:
+```python
+def make_decorator(wrapping_func, result_index=0):
+"""
+Return a decorator version of *wrapping_func*, which is a function that
+modifies an iterable. *result_index* is the position in that function's
+signature where the iterable goes.
+
+This lets you use itertools on the "production end," i.e. at function
+definition. This can augment what the function returns without changing the
+function's code.
+
+For example, to produce a decorator version of :func:`chunked`:
+
+    >>> from more_itertools import chunked
+    >>> chunker = make_decorator(chunked, result_index=0)
+    >>> @chunker(3)
+    ... def iter_range(n):
+    ...     return iter(range(n))
+    ...
+    >>> list(iter_range(9))
+    [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+
+To only allow truthy items to be returned:
+
+    >>> truth_serum = make_decorator(filter, result_index=1)
+    >>> @truth_serum(bool)
+    ... def boolean_test():
+    ...     return [0, 1, '', ' ', False, True]
+    ...
+    >>> list(boolean_test())
+    [1, ' ', True]
+
+The :func:`peekable` and :func:`seekable` wrappers make for practical
+decorators:
+
+    >>> from more_itertools import peekable
+    >>> peekable_function = make_decorator(peekable)
+    >>> @peekable_function()
+    ... def str_range(*args):
+    ...     return (str(x) for x in range(*args))
+    ...
+    >>> it = str_range(1, 20, 2)
+    >>> next(it), next(it), next(it)
+    ('1', '3', '5')
+    >>> it.peek()
+    '7'
+    >>> next(it)
+    '7'
+"""
+```
+
+#### 78: `map_reduce` Function
+
+**Function Description**: 
+Return a dictionary that maps the items in *iterable* to categories defined by *keyfunc*, transforms them with *valuefunc*, and then summarizes them by category with *reducefunc*.
+
+**Core Algorithm**: 
+*valuefunc* defaults to the identity function if it is unspecified. If *reducefunc* is unspecified, no summarization takes place:
+
+**Input/Output Example**:
+```python
+def map_reduce(iterable, keyfunc, valuefunc=None, reducefunc=None):
+"""
+Return a dictionary that maps the items in *iterable* to categories
+defined by *keyfunc*, transforms them with *valuefunc*, and
+then summarizes them by category with *reducefunc*.
+
+*valuefunc* defaults to the identity function if it is unspecified.
+If *reducefunc* is unspecified, no summarization takes place:
+
+    >>> keyfunc = lambda x: x.upper()
+    >>> result = map_reduce('abbccc', keyfunc)
+    >>> sorted(result.items())
+    [('A', ['a']), ('B', ['b', 'b']), ('C', ['c', 'c', 'c'])]
+
+Specifying *valuefunc* transforms the categorized items:
+
+    >>> keyfunc = lambda x: x.upper()
+    >>> valuefunc = lambda x: 1
+    >>> result = map_reduce('abbccc', keyfunc, valuefunc)
+    >>> sorted(result.items())
+    [('A', [1]), ('B', [1, 1]), ('C', [1, 1, 1])]
+
+Specifying *reducefunc* summarizes the categorized items:
+
+    >>> keyfunc = lambda x: x.upper()
+    >>> valuefunc = lambda x: 1
+    >>> reducefunc = sum
+    >>> result = map_reduce('abbccc', keyfunc, valuefunc, reducefunc)
+    >>> sorted(result.items())
+    [('A', 1), ('B', 2), ('C', 3)]
+
+You may want to filter the input iterable before applying the map/reduce
+procedure:
+
+    >>> all_items = range(30)
+    >>> items = [x for x in all_items if 10 <= x <= 20]  # Filter
+    >>> keyfunc = lambda x: x % 2  # Evens map to 0; odds to 1
+    >>> categories = map_reduce(items, keyfunc=keyfunc)
+    >>> sorted(categories.items())
+    [(0, [10, 12, 14, 16, 18, 20]), (1, [11, 13, 15, 17, 19])]
+    >>> summaries = map_reduce(items, keyfunc=keyfunc, reducefunc=sum)
+    >>> sorted(summaries.items())
+    [(0, 90), (1, 75)]
+
+Note that all items in the iterable are gathered into a list before the
+summarization step, which may require significant storage.
+
+The returned object is a :obj:`collections.defaultdict` with the
+``default_factory`` set to ``None``, such that it behaves like a normal
+dictionary.
+"""
+```
+
+#### 79: `rlocate` Function
+
+**Function Description**: 
+Yield the index of each item in *iterable* for which *pred* returns ``True``, starting from the right and moving left.
+
+**Core Algorithm**: 
+*pred* defaults to :func:`bool`, which will select truthy items:
+
+**Input/Output Example**:
+```python
+def rlocate(iterable, pred=bool, window_size=None):
+"""
+Yield the index of each item in *iterable* for which *pred* returns
+``True``, starting from the right and moving left.
+
+*pred* defaults to :func:`bool`, which will select truthy items:
+
+    >>> list(rlocate([0, 1, 1, 0, 1, 0, 0]))  # Truthy at 1, 2, and 4
+    [4, 2, 1]
+
+Set *pred* to a custom function to, e.g., find the indexes for a particular
+item:
+
+    >>> iterator = iter('abcb')
+    >>> pred = lambda x: x == 'b'
+    >>> list(rlocate(iterator, pred))
+    [3, 1]
+
+If *window_size* is given, then the *pred* function will be called with
+that many items. This enables searching for sub-sequences:
+
+    >>> iterable = [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]
+    >>> pred = lambda *args: args == (1, 2, 3)
+    >>> list(rlocate(iterable, pred=pred, window_size=3))
+    [9, 5, 1]
+
+Beware, this function won't return anything for infinite iterables.
+If *iterable* is reversible, ``rlocate`` will reverse it and search from
+the right. Otherwise, it will search from the left and return the results
+in reverse order.
+
+See :func:`locate` to for other example applications.
+"""
+```
+
+#### 80: `partitions` Function
+
+**Function Description**: 
+Yield all possible order-preserving partitions of *iterable*.
+
+**Core Algorithm**: 
+This is unrelated to :func:`partition`.
+
+**Input/Output Example**:
+```python
+def partitions(iterable):
+"""
+Yield all possible order-preserving partitions of *iterable*.
+
+>>> iterable = 'abc'
+>>> for part in partitions(iterable):
+...     print([''.join(p) for p in part])
+['abc']
+['a', 'bc']
+['ab', 'c']
+['a', 'b', 'c']
+
+This is unrelated to :func:`partition`.
+"""
+```
+
+#### 81: `set_partitions` Function
+
+**Function Description**: 
+Yield the set partitions of *iterable* into *k* parts. Set partitions are not order-preserving.
+
+**Core Algorithm**: 
+Delegates to the recursive helper `set_partitions_helper` to enumerate all partitions within the requested size constraints.
+
+**Input/Output Example**:
+```python
+def set_partitions(iterable, k=None, min_size=None, max_size=None):
+"""
+Yield the set partitions of *iterable* into *k* parts. Set partitions are
+not order-preserving.
+
+>>> iterable = 'abc'
+>>> for part in set_partitions(iterable, 2):
+...     print([''.join(p) for p in part])
+['a', 'bc']
+['ab', 'c']
+['b', 'ac']
+
+
+If *k* is not given, every set partition is generated.
+
+>>> iterable = 'abc'
+>>> for part in set_partitions(iterable):
+...     print([''.join(p) for p in part])
+['abc']
+['a', 'bc']
+['ab', 'c']
+['b', 'ac']
+['a', 'b', 'c']
+
+if *min_size* and/or *max_size* are given, the minimum and/or maximum size
+per block in partition is set.
+
+>>> iterable = 'abc'
+>>> for part in set_partitions(iterable, min_size=2):
+...     print([''.join(p) for p in part])
+['abc']
+>>> for part in set_partitions(iterable, max_size=2):
+...     print([''.join(p) for p in part])
+['a', 'bc']
+['ab', 'c']
+['b', 'ac']
+['a', 'b', 'c']
+"""
+```
+
+#### 82: `_ichunk` Function
+**Function Description**: 
+```def _ichunk(iterator, n):```
+Internal chunk loader used by ``ichunked`` to lazily materialize fixed-size groups.
+
+**Core Algorithm**: 
+Returns a tuple ``(chunk_iter, materialize_next)`` where the iterator yields cached values and the callback preloads elements from the shared iterator.
+
+**Input/Output Example**:
+```python
+from more_itertools.more import _ichunk
+
+source = iter(range(6))
+chunk1, ensure1 = _ichunk(source, 2)
+if ensure1():
+    first = [next(chunk1) for _ in range(2)]  # [0, 1]
+ensure1(None)
+
+chunk2, ensure2 = _ichunk(source, 2)
+if ensure2():
+    second = [next(chunk2) for _ in range(2)]  # [2, 3]
+```
+
+#### 83: `iequals` Function
+
+**Function Description**: 
+Return ``True`` if all given *iterables* are equal to each other, which means that they contain the same elements in the same order.
+
+**Core Algorithm**: 
+The function is useful for comparing iterables of different data types or iterables that do not support equality checks.
+
+**Input/Output Example**:
+```python
+def iequals(*iterables):
+"""
+Return ``True`` if all given *iterables* are equal to each other,
+which means that they contain the same elements in the same order.
+
+The function is useful for comparing iterables of different data types
+or iterables that do not support equality checks.
+
+>>> iequals("abc", ['a', 'b', 'c'], ('a', 'b', 'c'), iter("abc"))
+True
+
+>>> iequals("abc", "acb")
+False
+
+Not to be confused with :func:`all_equal`, which checks whether all
+elements of iterable are equal to each other.
+"""
+```
+
+#### 84: `distinct_combinations` Function
+
+**Function Description**: 
+Yield the distinct combinations of *r* items taken from *iterable*.
+
+**Core Algorithm**: 
+Equivalent to ``set(combinations(iterable))``, except duplicates are not generated and thrown away. For larger input sequences this is much more efficient.
+
+**Input/Output Example**:
+```python
+def distinct_combinations(iterable, r):
+"""
+Yield the distinct combinations of *r* items taken from *iterable*.
+
+    >>> list(distinct_combinations([0, 0, 1], 2))
+    [(0, 0), (0, 1)]
+
+Equivalent to ``set(combinations(iterable))``, except duplicates are not
+generated and thrown away. For larger input sequences this is much more
+efficient.
+"""
+```
+
+#### 85: `filter_except` Function
+
+**Function Description**: 
+Yield the items from *iterable* for which the *validator* function does not raise one of the specified *exceptions*.
+
+**Core Algorithm**: 
+*validator* is called for each item in *iterable*. It should be a function that accepts one argument and raises an exception if that item is not valid.
+
+**Input/Output Example**:
+```python
+def filter_except(validator, iterable, *exceptions):
+"""
+Yield the items from *iterable* for which the *validator* function does
+not raise one of the specified *exceptions*.
+
+*validator* is called for each item in *iterable*.
+It should be a function that accepts one argument and raises an exception
+if that item is not valid.
+
+>>> iterable = ['1', '2', 'three', '4', None]
+>>> list(filter_except(int, iterable, ValueError, TypeError))
+['1', '2', '4']
+
+If an exception other than one given by *exceptions* is raised by
+*validator*, it is raised like normal.
+"""
+```
+
+#### 86: `map_except` Function
+
+**Function Description**: 
+Transform each item from *iterable* with *function* and yield the result, unless *function* raises one of the specified *exceptions*.
+
+**Core Algorithm**: 
+*function* is called to transform each item in *iterable*. It should accept one argument.
+
+**Input/Output Example**:
+```python
+def map_except(function, iterable, *exceptions):
+"""
+Transform each item from *iterable* with *function* and yield the
+result, unless *function* raises one of the specified *exceptions*.
+
+*function* is called to transform each item in *iterable*.
+It should accept one argument.
+
+>>> iterable = ['1', '2', 'three', '4', None]
+>>> list(map_except(int, iterable, ValueError, TypeError))
+[1, 2, 4]
+
+If an exception other than one given by *exceptions* is raised by
+*function*, it is raised like normal.
+"""
+```
+
+#### 87: `map_if` Function
+
+**Function Description**: 
+Evaluate each item from *iterable* using *pred*. If the result is equivalent to ``True``, transform the item with *func* and yield it. Otherwise, transform the item with *func_else* and yield it.
+
+**Core Algorithm**: 
+*pred*, *func*, and *func_else* should each be functions that accept one argument. By default, *func_else* is the identity function.
+
+**Input/Output Example**:
+```python
+def map_if(iterable, pred, func, func_else=None):
+"""
+Evaluate each item from *iterable* using *pred*. If the result is
+equivalent to ``True``, transform the item with *func* and yield it.
+Otherwise, transform the item with *func_else* and yield it.
+
+*pred*, *func*, and *func_else* should each be functions that accept
+one argument. By default, *func_else* is the identity function.
+
+>>> from math import sqrt
+>>> iterable = list(range(-5, 5))
+>>> iterable
+[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
+>>> list(map_if(iterable, lambda x: x > 3, lambda x: 'toobig'))
+[-5, -4, -3, -2, -1, 0, 1, 2, 3, 'toobig']
+>>> list(map_if(iterable, lambda x: x >= 0,
+... lambda x: f'{sqrt(x):.2f}', lambda x: None))
+[None, None, None, None, None, '0.00', '1.00', '1.41', '1.73', '2.00']
+"""
+```
+
+#### 88: `_sample_unweighted` Function
+**Function Description**: 
+Reservoir sampling helper for uniformly selecting ``k`` items from an iterator.
+
+**Core Algorithm**: 
+Implements Algorithm R to draw a size-``k`` sample without replacement, optionally enforcing strict population size.
+
+**Input/Output Example**:
+```python
+def _sample_unweighted(iterator, k, strict):
+    # Algorithm L in the 1994 paper by Kim-Hung Li:
+    # "Reservoir-Sampling Algorithms of Time Complexity O(n(1+log(N/n)))".
+```
+
+#### 89: `_sample_weighted` Function
+**Function Description**: 
+Reservoir sampler that honors per-item weights.
+
+**Core Algorithm**: 
+Maintains a weighted reservoir so that selection probability is proportional to the supplied weights.
+
+**Input/Output Example**:
+```python
+def _sample_weighted(iterator, k, weights, strict):
+    # Implementation of "A-ExpJ" from the 2006 paper by Efraimidis et al. :
+    # "Weighted random sampling with a reservoir".
+
+    # Log-transform for numerical stability for weights that are small/large
+```
+
+#### 90: `_sample_counted` Function
+**Function Description**: 
+Sampling helper that respects per-element occurrence counts.
+```def _sample_counted(population, k, counts, strict):```
+
+**Core Algorithm**: 
+Uses a feed-forward reservoir with the nested `feed(i)` helper to advance the population iterator while obeying the provided `counts` iterator.
+
+**Input/Output Example**:
+```python
+from more_itertools.more import _sample_counted
+
+items = _sample_counted(iter('ABC'), 2, counts=iter([2, 1, 3]), strict=False)
+# returned items honor the per-element multiplicities
+```
+
+#### 91: `is_sorted` Function
+
+**Function Description**: 
+Returns ``True`` if the items of iterable are in sorted order, and ``False`` otherwise. *key* and *reverse* have the same meaning that they do in the built-in :func:`sorted` function.
+
+**Core Algorithm**: 
+If *strict*, tests for strict sorting, that is, returns ``False`` if equal elements are found:
+
+**Input/Output Example**:
+```python
+def is_sorted(iterable, key=None, reverse=False, strict=False):
+"""
+Returns ``True`` if the items of iterable are in sorted order, and
+``False`` otherwise. *key* and *reverse* have the same meaning that they do
+in the built-in :func:`sorted` function.
+
+>>> is_sorted(['1', '2', '3', '4', '5'], key=int)
+True
+>>> is_sorted([5, 4, 3, 1, 2], reverse=True)
+False
+
+If *strict*, tests for strict sorting, that is, returns ``False`` if equal
+elements are found:
+
+>>> is_sorted([1, 2, 2])
+True
+>>> is_sorted([1, 2, 2], strict=True)
+False
+
+The function returns ``False`` after encountering the first out-of-order
+item, which means it may produce results that differ from the built-in
+:func:`sorted` function for objects with unusual comparison dynamics
+(like ``math.nan``). If there are no out-of-order items, the iterable is
+exhausted.
+"""
+```
+
+#### 92: `windowed_complete` Function
+
+**Function Description**: 
+Yield ``(beginning, middle, end)`` tuples, where:
+
+**Core Algorithm**: 
+* Each ``middle`` has *n* items from *iterable* * Each ``beginning`` has the items before the ones in ``middle`` * Each ``end`` has the items after the ones in ``middle``
+
+**Input/Output Example**:
+```python
+def windowed_complete(iterable, n):
+"""
+Yield ``(beginning, middle, end)`` tuples, where:
+
+* Each ``middle`` has *n* items from *iterable*
+* Each ``beginning`` has the items before the ones in ``middle``
+* Each ``end`` has the items after the ones in ``middle``
+
+>>> iterable = range(7)
+>>> n = 3
+>>> for beginning, middle, end in windowed_complete(iterable, n):
+...     print(beginning, middle, end)
+() (0, 1, 2) (3, 4, 5, 6)
+(0,) (1, 2, 3) (4, 5, 6)
+(0, 1) (2, 3, 4) (5, 6)
+(0, 1, 2) (3, 4, 5) (6,)
+(0, 1, 2, 3) (4, 5, 6) ()
+
+Note that *n* must be at least 0 and most equal to the length of
+*iterable*.
+
+This function will exhaust the iterable and may require significant
+storage.
+"""
+```
+
+#### 93: `all_unique` Function
+
+**Function Description**:  
+Return ``True`` if every element in *iterable* is unique; otherwise return ``False`` immediately upon encountering the first duplicate.  
+If a *key* function is provided, uniqueness is determined by ``key(element)``.
+
+**Core Algorithm**:  
+* Initialize an empty set ``seen``.  
+* For each ``item`` in *iterable*:  
+  * Compute ``k = key(item)`` if *key* is given, else use ``item`` itself.  
+  * If ``k`` is already in ``seen``, return ``False``.  
+  * Otherwise, add ``k`` to ``seen`` and continue.  
+* After scanning all elements without finding duplicates, return ``True``.
+
+**Input/Output Example**:
 ```python
 
-def _process_argvalues(argnames, marked_argvalues, nb_params, has_custom_ids, auto_refs):
-    """Internal method to use in _pytest_parametrize_plus
+def all_unique(iterable, key=None):
+    """
+    Returns ``True`` if all the elements of *iterable* are unique (no two
+    elements are equal).
 
-    Processes the provided marked_argvalues (possibly marked with pytest.param) and returns
-    p_ids, p_marks, argvalues (not marked with pytest.param), fixture_indices
+        >>> all_unique('ABCB')
+        False
 
-    Note: `marked_argvalues` is modified in the process if a `lazy_value` is found with a custom id or marks.
+    If a *key* function is specified, it will be used to make comparisons.
 
-    :param argnames:
-    :param marked_argvalues:
-    :param nb_params:
-    :param has_custom_ids: a boolean indicating if custom ids are provided separately in `ids` or `idgen` (see
-        @parametrize)
-    :param auto_refs: if True, a `fixture_ref` will be created around fixture symbols used as argvalues automatically
-    :return:
+        >>> all_unique('ABCb')
+        True
+        >>> all_unique('ABCb', str.lower)
+        False
+
+    The function returns as soon as the first non-unique element is
+    encountered. Iterables with a mix of hashable and unhashable items can
+    be used, but the function will be slower for unhashable items.
     """
 ```
 
-**Import Statement**:
+#### 94: `nth_product` Function
+
+**Function Description**: 
+Equivalent to ``list(product(*args))[index]``.
+
+**Core Algorithm**: 
+The products of *args* can be ordered lexicographically. :func:`nth_product` computes the product at sort position *index* without computing the previous products.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture_parametrize_plus import _process_argvalues
+def nth_product(index, *args):
+"""
+Equivalent to ``list(product(*args))[index]``.
+
+The products of *args* can be ordered lexicographically.
+:func:`nth_product` computes the product at sort position *index* without
+computing the previous products.
+
+    >>> nth_product(8, range(2), range(2), range(2), range(2))
+    (1, 0, 0, 0)
+
+``IndexError`` will be raised if the given *index* is invalid.
+"""
 ```
 
-**Function**:
-Processes argument values including lazy evaluation and auto-references to fixtures.
+#### 95: `nth_permutation` Function
 
-**Parameter Description**:
-- `argnames`: Parameter names.
-- `marked_argvalues`: Marked argument values.
-- `nb_params`: Number of parameters.
-- `has_custom_ids`: Whether custom ids are provided.
-- `auto_refs`: Whether to auto-reference fixtures.
+**Function Description**: 
+Equivalent to ``list(permutations(iterable, r))[index]```
 
-**Return Value**:
-Processed argument values.
+**Core Algorithm**: 
+The subsequences of *iterable* that are of length *r* where order is important can be ordered lexicographically. :func:`nth_permutation` computes the subsequence at sort position *index* directly, without computing the previous subsequences.
 
-#### 130. `check_name_available()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def check_name_available(module,
-                         name,                  # type: str
-                         if_name_exists=RAISE,  # type: int
-                         name_changer=None,     # type: Callable
-                         caller=None,           # type: Callable[[Any], Any]
-                         extra_forbidden_names=()  # type: Iterable[str]
-                         ):
-    """
-    Routine to check that a name is not already in dir(module) + extra_forbidden_names.
-    The `if_name_exists` argument allows users to specify what happens if a name exists already.
+def nth_permutation(iterable, r, index):
+"""
+Equivalent to ``list(permutations(iterable, r))[index]```
 
-    `if_name_exists=CHANGE` allows users to ask for a new non-conflicting name to be found and returned.
+The subsequences of *iterable* that are of length *r* where order is
+important can be ordered lexicographically. :func:`nth_permutation`
+computes the subsequence at sort position *index* directly, without
+computing the previous subsequences.
 
-    :param module: a module or a class. dir(module) + extra_forbidden_names is used as a reference of forbidden names
-    :param name: proposed name, to check against existent names in module
-    :param if_name_exists: policy to apply if name already exists in dir(module) + extra_forbidden_names
-    :param name_changer: an optional custom name changer function for new names to be generated
-    :param caller: for warning / error messages. Something identifying the caller
-    :param extra_forbidden_names: a reference list of additional forbidden names that can be provided, in addition to
-        dir(module)
-    :return: a name that might be different if policy was CHANGE
-    """
+    >>> nth_permutation('ghijk', 2, 5)
+    ('h', 'i')
+
+``ValueError`` will be raised If *r* is negative or greater than the length
+of *iterable*.
+``IndexError`` will be raised if the given *index* is invalid.
+"""
 ```
 
-**Import Statement**:
+#### 96: `nth_combination_with_replacement` Function
+
+**Function Description**: 
+Equivalent to ``list(combinations_with_replacement(iterable, r))[index]``.
+
+**Core Algorithm**: 
+The subsequences with repetition of *iterable* that are of length *r* can be ordered lexicographically. :func:`nth_combination_with_replacement` computes the subsequence at sort position *index* directly, without computing the previous subsequences with replacement.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture__creation import check_name_available
+def nth_combination_with_replacement(iterable, r, index):
+"""
+Equivalent to
+``list(combinations_with_replacement(iterable, r))[index]``.
+
+
+The subsequences with repetition of *iterable* that are of length *r* can
+be ordered lexicographically. :func:`nth_combination_with_replacement`
+computes the subsequence at sort position *index* directly, without
+computing the previous subsequences with replacement.
+
+    >>> nth_combination_with_replacement(range(5), 3, 5)
+    (0, 1, 1)
+
+``ValueError`` will be raised If *r* is negative or greater than the length
+of *iterable*.
+``IndexError`` will be raised if the given *index* is invalid.
+"""
 ```
 
-**Function**:
-Verifies that a name is available in a module and renames if necessary.
+#### 97: `value_chain` Function
 
-**Parameter Description**:
-- `module`: Module to check.
-- `name`: Name to verify.
-- `if_name_exists`: Action when name exists.
-- `name_changer`: Function to rename.
-- `caller`: Caller information.
-- `extra_forbidden_names`: Additional forbidden names.
+**Function Description**: 
+Yield all arguments passed to the function in the same order in which they were passed. If an argument itself is iterable then iterate over its values.
 
-**Return Value**:
-Available name string.
+**Core Algorithm**: 
+Binary and text strings are not considered iterable and are emitted as-is:
 
-#### 131. `get_caller_module()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def get_caller_module(frame_offset=1):
-    # type: (...) -> ModuleType
-    """ Return the module where the last frame belongs.
+def value_chain(*args):
+"""
+Yield all arguments passed to the function in the same order in which
+they were passed. If an argument itself is iterable then iterate over its
+values.
 
-    :param frame_offset: an alternate offset to look further up in the call stack
-    :return:
-    """
+    >>> list(value_chain(1, 2, 3, [4, 5, 6]))
+    [1, 2, 3, 4, 5, 6]
+
+Binary and text strings are not considered iterable and are emitted
+as-is:
+
+    >>> list(value_chain('12', '34', ['56', '78']))
+    ['12', '34', '56', '78']
+
+Pre- or postpend a single element to an iterable:
+
+    >>> list(value_chain(1, [2, 3, 4, 5, 6]))
+    [1, 2, 3, 4, 5, 6]
+    >>> list(value_chain([1, 2, 3, 4, 5], 6))
+    [1, 2, 3, 4, 5, 6]
+
+Multiple levels of nesting are not flattened.
+"""
 ```
 
-**Import Statement**:
+#### 98: `product_index` Function
+
+**Function Description**: 
+Equivalent to ``list(product(*args)).index(element)``
+
+**Core Algorithm**: 
+The products of *args* can be ordered lexicographically. :func:`product_index` computes the first index of *element* without computing the previous products.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture__creation import get_caller_module
+def product_index(element, *args):
+"""
+Equivalent to ``list(product(*args)).index(element)``
+
+The products of *args* can be ordered lexicographically.
+:func:`product_index` computes the first index of *element* without
+computing the previous products.
+
+    >>> product_index([8, 2], range(10), range(5))
+    42
+
+``ValueError`` will be raised if the given *element* isn't in the product
+of *args*.
+"""
 ```
 
-**Function**:
-Returns the module of the calling frame at the specified stack offset.
+#### 99: `combination_index` Function
 
-**Parameter Description**:
-- `frame_offset`: Stack offset (default 1).
+**Function Description**: 
+Equivalent to ``list(combinations(iterable, r)).index(element)``
 
-**Return Value**:
-Module object of the caller.
+**Core Algorithm**: 
+The subsequences of *iterable* that are of length *r* can be ordered lexicographically. :func:`combination_index` computes the index of the first *element*, without computing the previous combinations.
 
-#### 132. `_get_callerframe()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _get_callerframe(offset = 0):
-    """ Return a frame in the call stack
+def combination_index(element, iterable):
+"""
+Equivalent to ``list(combinations(iterable, r)).index(element)``
 
-    :param offset: an alternate offset to look further up in the call stack
-    :return:
-    """
+The subsequences of *iterable* that are of length *r* can be ordered
+lexicographically. :func:`combination_index` computes the index of the
+first *element*, without computing the previous combinations.
+
+    >>> combination_index('adf', 'abcdefg')
+    10
+
+``ValueError`` will be raised if the given *element* isn't one of the
+combinations of *iterable*.
+"""
 ```
 
-**Import Statement**:
+#### 100: `combination_with_replacement_index` Function
+
+**Function Description**: 
+Equivalent to ``list(combinations_with_replacement(iterable, r)).index(element)``
+
+**Core Algorithm**: 
+The subsequences with repetition of *iterable* that are of length *r* can be ordered lexicographically. :func:`combination_with_replacement_index` computes the index of the first *element*, without computing the previous combinations with replacement.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture__creation import _get_callerframe
+def combination_with_replacement_index(element, iterable):
+"""
+Equivalent to
+``list(combinations_with_replacement(iterable, r)).index(element)``
+
+The subsequences with repetition of *iterable* that are of length *r* can
+be ordered lexicographically. :func:`combination_with_replacement_index`
+computes the index of the first *element*, without computing the previous
+combinations with replacement.
+
+    >>> combination_with_replacement_index('adf', 'abcdefg')
+    20
+
+``ValueError`` will be raised if the given *element* isn't one of the
+combinations with replacement of *iterable*.
+"""
 ```
 
-**Function**:
-Internal helper to get the calling frame at a given stack offset.
+#### 101: `permutation_index` Function
 
-**Parameter Description**:
-- `offset`: Stack offset (default 0).
+**Function Description**: 
+Equivalent to ``list(permutations(iterable, r)).index(element)```
 
-**Return Value**:
-Frame object of the caller.
+**Core Algorithm**: 
+The subsequences of *iterable* that are of length *r* where order is important can be ordered lexicographically. :func:`permutation_index` computes the index of the first *element* directly, without computing the previous permutations.
 
-#### 133. `_ignore_unused_generator_pep380()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _ignore_unused_generator_pep380(fixture_func, new_sig, func_needs_request): ...
+def permutation_index(element, iterable):
+"""
+Equivalent to ``list(permutations(iterable, r)).index(element)```
+
+The subsequences of *iterable* that are of length *r* where order is
+important can be ordered lexicographically. :func:`permutation_index`
+computes the index of the first *element* directly, without computing
+the previous permutations.
+
+    >>> permutation_index([1, 3, 2], range(5))
+    19
+
+``ValueError`` will be raised if the given *element* isn't one of the
+permutations of *iterable*.
+"""
 ```
 
-**Import Statement**:
+#### 102: `chunked_even` Function
+
+**Function Description**: 
+Break *iterable* into lists of approximately length *n*. Items are distributed such the lengths of the lists differ by at most 1 item.
+
+**Core Algorithm**: 
+Break *iterable* into lists of approximately length *n*. Items are distributed such the lengths of the lists differ by at most 1 item.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.pep380 import _ignore_unused_generator_pep380
+def chunked_even(iterable, n):
+"""
+Break *iterable* into lists of approximately length *n*.
+Items are distributed such the lengths of the lists differ by at most
+1 item.
+
+>>> iterable = [1, 2, 3, 4, 5, 6, 7]
+>>> n = 3
+>>> list(chunked_even(iterable, n))  # List lengths: 3, 2, 2
+[[1, 2, 3], [4, 5], [6, 7]]
+>>> list(chunked(iterable, n))  # List lengths: 3, 3, 1
+[[1, 2, 3], [4, 5, 6], [7]]
+"""
 ```
 
-**Function**:
-Wraps generator fixtures (PEP 380) to suppress unused parameter warnings.
+#### 103: `zip_broadcast` Function
 
-**Parameter Description**:
-- `fixture_func`: Generator fixture function.
-- `new_sig`: New function signature.
-- `func_needs_request`: Whether function needs request.
+**Function Description**: 
+A version of :func:`zip` that "broadcasts" any scalar (i.e., non-iterable) items into output tuples.
 
-**Return Value**:
-Wrapped fixture function.
+**Core Algorithm**: 
+Uses an internal `is_scalar` helper to decide which arguments should be broadcast, defaulting to treating `scalar_types` as atomic while iterating over true iterables.
 
-#### 134. `wrapped_fixture_func()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-@wraps(fixture_func, new_sig=new_sig)
-def wrapped_fixture_func(*args, **kwargs)
+def zip_broadcast(*objects, scalar_types=(str, bytes), strict=False):
+"""
+A version of :func:`zip` that "broadcasts" any scalar
+(i.e., non-iterable) items into output tuples.
+
+>>> iterable_1 = [1, 2, 3]
+>>> iterable_2 = ['a', 'b', 'c']
+>>> scalar = '_'
+>>> list(zip_broadcast(iterable_1, iterable_2, scalar))
+[(1, 'a', '_'), (2, 'b', '_'), (3, 'c', '_')]
+
+The *scalar_types* keyword argument determines what types are considered
+scalar. It is set to ``(str, bytes)`` by default. Set it to ``None`` to
+treat strings and byte strings as iterable:
+
+>>> list(zip_broadcast('abc', 0, 'xyz', scalar_types=None))
+[('a', 0, 'x'), ('b', 0, 'y'), ('c', 0, 'z')]
+
+If the *strict* keyword argument is ``True``, then
+``ValueError`` will be raised if any of the iterables have
+different lengths.
+"""
 ```
 
-**Import Statement**:
+#### 104: `unique_in_window` Function
+
+**Function Description**: 
+Yield the items from *iterable* that haven't been seen recently. *n* is the size of the lookback window.
+
+**Core Algorithm**: 
+The *key* function, if provided, will be used to determine uniqueness:
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture_parametrize_plus import wrapped_fixture_func
+def unique_in_window(iterable, n, key=None):
+"""
+Yield the items from *iterable* that haven't been seen recently.
+*n* is the size of the sliding window.
+
+    >>> iterable = [0, 1, 0, 2, 3, 0]
+    >>> n = 3
+    >>> list(unique_in_window(iterable, n))
+    [0, 1, 2, 3, 0]
+
+The *key* function, if provided, will be used to determine uniqueness:
+
+    >>> list(unique_in_window('abAcda', 3, key=lambda x: x.lower()))
+    ['a', 'b', 'c', 'd', 'a']
+
+Updates a sliding window no larger than n and yields a value
+if the item only occurs once in the updated window.
+
+When `n == 1`, *unique_in_window* is memoryless:
+
+    >>> list(unique_in_window('aab', n=1))
+    ['a', 'a', 'b']
+
+The items in *iterable* must be hashable.
+"""
 ```
 
-**Function**:
-It is an internal function of the `_ignore_unused_generator_pep380` and
-Wrapper function for fixtures that handles argument injection and parameter mapping.
+#### 105: `duplicates_everseen` Function
 
-**Parameter Description**:
-- `*args`: Variable positional arguments.
-- `**kwargs`: Variable keyword arguments.
+**Function Description**: 
+Yield duplicate elements after their first appearance.
 
-**Return Value**:
-Result of the wrapped fixture execution.
+**Core Algorithm**: 
+This function is analogous to :func:`unique_everseen` and is subject to the same performance considerations.
 
-#### 135. `_decorate_fixture_plus_generator_pep380()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _decorate_fixture_plus_generator_pep380(fixture_func, new_sig, map_arguments):  
+def duplicates_everseen(iterable, key=None):
+"""
+Yield duplicate elements after their first appearance.
+
+>>> list(duplicates_everseen('mississippi'))
+['s', 'i', 's', 's', 'i', 'p', 'i']
+>>> list(duplicates_everseen('AaaBbbCccAaa', str.lower))
+['a', 'a', 'b', 'b', 'c', 'c', 'A', 'a', 'a']
+
+This function is analogous to :func:`unique_everseen` and is subject to
+the same performance considerations.
+"""
 ```
 
-**Import Statement**:
+#### 106: `duplicates_justseen` Function
+
+**Function Description**: 
+Yields serially-duplicate elements after their first appearance.
+
+**Core Algorithm**: 
+This function is analogous to :func:`unique_justseen`.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.pep380 import _decorate_fixture_plus_generator_pep380
+def duplicates_justseen(iterable, key=None):
+"""
+Yields serially-duplicate elements after their first appearance.
+
+>>> list(duplicates_justseen('mississippi'))
+['s', 's', 'p']
+>>> list(duplicates_justseen('AaaBbbCccAaa', str.lower))
+['a', 'a', 'b', 'b', 'c', 'c', 'a', 'a']
+
+This function is analogous to :func:`unique_justseen`.
+"""
 ```
 
-**Function**:
-Applies fixture_plus decorator to generator fixtures following PEP 380 behavior.
+#### 107: `classify_unique` Function
 
-**Parameter Description**:
-- `fixture_func`: Generator fixture function.
-- `new_sig`: New function signature.
-- `map_arguments`: Argument mapping function.
+**Function Description**: 
+Classify each element in terms of its uniqueness.
 
-**Return Value**:
-Decorated generator fixture function.
+**Core Algorithm**: 
+For each element in the input iterable, return a 3-tuple consisting of:
 
-#### 136. `_parametrize_plus_decorate_generator_pep380()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _parametrize_plus_decorate_generator_pep380(test_func, new_sig, fixture_union_name, replace_paramfixture_with_values): ...
+def classify_unique(iterable, key=None):
+"""
+Classify each element in terms of its uniqueness.
+
+For each element in the input iterable, return a 3-tuple consisting of:
+
+1. The element itself
+2. ``False`` if the element is equal to the one preceding it in the input,
+   ``True`` otherwise (i.e. the equivalent of :func:`unique_justseen`)
+3. ``False`` if this element has been seen anywhere in the input before,
+   ``True`` otherwise (i.e. the equivalent of :func:`unique_everseen`)
+
+>>> list(classify_unique('otto'))    # doctest: +NORMALIZE_WHITESPACE
+[('o', True,  True),
+ ('t', True,  True),
+ ('t', False, False),
+ ('o', True,  False)]
+
+This function is analogous to :func:`unique_everseen` and is subject to
+the same performance considerations.
+"""
 ```
 
-**Import Statement**:
+#### 108: `constrained_batches` Function
+
+**Function Description**: 
+Yield batches of items from *iterable* with a combined size limited by *max_size*.
+
+**Core Algorithm**: 
+If a *max_count* is supplied, the number of items per batch is also limited:
+
+**Input/Output Example**:
 ```python
-from pytest_cases.pep380 import _parametrize_plus_decorate_generator_pep380
+def constrained_batches(
+"""
+Yield batches of items from *iterable* with a combined size limited by
+*max_size*.
+
+>>> iterable = [b'12345', b'123', b'12345678', b'1', b'1', b'12', b'1']
+>>> list(constrained_batches(iterable, 10))
+[(b'12345', b'123'), (b'12345678', b'1', b'1'), (b'12', b'1')]
+
+If a *max_count* is supplied, the number of items per batch is also
+limited:
+
+>>> iterable = [b'12345', b'123', b'12345678', b'1', b'1', b'12', b'1']
+>>> list(constrained_batches(iterable, 10, max_count = 2))
+[(b'12345', b'123'), (b'12345678', b'1'), (b'1', b'12'), (b'1',)]
+
+If a *get_len* function is supplied, use that instead of :func:`len` to
+determine item size.
+
+If *strict* is ``True``, raise ``ValueError`` if any single item is bigger
+than *max_size*. Otherwise, allow single items to exceed *max_size*.
+"""
 ```
 
-**Function**:
-Applies parametrize_plus to tests using generator fixtures with PEP 380 style.
+#### 109: `gray_product` Function
 
-**Parameter Description**:
-- `test_func`: Test function to decorate.
-- `new_sig`: New function signature.
-- `fixture_union_name`: Fixture union name.
-- `replace_paramfixture_with_values`: Whether to replace param fixtures.
+**Function Description**: 
+Like :func:`itertools.product`, but return tuples in an order such that only one element in the generated tuple changes from one iteration to the next.
 
-**Return Value**:
-Decorated test function.
+**Core Algorithm**: 
+This function consumes all of the input iterables before producing output. If any of the input iterables have fewer than two items, ``ValueError`` is raised.
 
-#### 137. `wrapped_test_func()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def wrapped_test_func(*args, **kwargs)
+def gray_product(*iterables):
+"""
+Like :func:`itertools.product`, but return tuples in an order such
+that only one element in the generated tuple changes from one iteration
+to the next.
+
+    >>> list(gray_product('AB','CD'))
+    [('A', 'C'), ('B', 'C'), ('B', 'D'), ('A', 'D')]
+
+This function consumes all of the input iterables before producing output.
+If any of the input iterables have fewer than two items, ``ValueError``
+is raised.
+
+For information on the algorithm, see
+`this section <https://www-cs-faculty.stanford.edu/~knuth/fasc2a.ps.gz>`__
+of Donald Knuth's *The Art of Computer Programming*.
+"""
 ```
 
-**Import Statement**:
+#### 110: `partial_product` Function
+
+**Function Description**: 
+Yields tuples containing one item from each iterator, with subsequent tuples changing a single item at a time by advancing each iterator until it is exhausted. This sequence guarantees every value in each iterable is output at least once without generating all possible combinations.
+
+**Core Algorithm**: 
+This may be useful, for example, when testing an expensive function.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture_parametrize_plus import wrapped_test_func
+def partial_product(*iterables):
+"""
+Yields tuples containing one item from each iterator, with subsequent
+tuples changing a single item at a time by advancing each iterator until it
+is exhausted. This sequence guarantees every value in each iterable is
+output at least once without generating all possible combinations.
+
+This may be useful, for example, when testing an expensive function.
+
+    >>> list(partial_product('AB', 'C', 'DEF'))
+    [('A', 'C', 'D'), ('B', 'C', 'D'), ('B', 'C', 'E'), ('B', 'C', 'F')]
+"""
 ```
 
-**Function**:
-It is an internal function of the `_parametrize_plus_decorate_generator_pep380` function
-Wrapper function for parametrized test functions using fixtures.
+#### 111: `takewhile_inclusive` Function
 
-**Parameter Description**:
-- `*args`: Variable positional arguments.
-- `**kwargs`: Variable keyword arguments.
+**Function Description**: 
+A variant of :func:`takewhile` that yields one additional element.
 
-**Return Value**:
-Result of the wrapped test function execution.
+**Core Algorithm**: 
+:func:`takewhile` would return ``[1, 4]``.
 
-#### 138. `_ignore_unused_coroutine_pep492()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _ignore_unused_coroutine_pep492(fixture_func, new_sig, func_needs_request): 
-    @wraps(fixture_func, new_sig=new_sig)
-    async def wrapped_fixture_func(*args, **kwargs): ...
+def takewhile_inclusive(predicate, iterable):
+"""
+A variant of :func:`takewhile` that yields one additional element.
+
+    >>> list(takewhile_inclusive(lambda x: x < 5, [1, 4, 6, 4, 1]))
+    [1, 4, 6]
+
+:func:`takewhile` would return ``[1, 4]``.
+"""
 ```
 
-**Import Statement**:
+#### 112: `outer_product` Function
+
+**Function Description**: 
+A generalized outer product that applies a binary function to all pairs of items. Returns a 2D matrix with ``len(xs)`` rows and ``len(ys)`` columns. Also accepts ``*args`` and ``**kwargs`` that are passed to ``func``.
+
+**Core Algorithm**: 
+Multiplication table:
+
+**Input/Output Example**:
 ```python
-from pytest_cases.pep492 import _ignore_unused_coroutine_pep492
+def outer_product(func, xs, ys, *args, **kwargs):
+"""
+A generalized outer product that applies a binary function to all
+pairs of items. Returns a 2D matrix with ``len(xs)`` rows and ``len(ys)``
+columns.
+Also accepts ``*args`` and ``**kwargs`` that are passed to ``func``.
+
+Multiplication table:
+
+>>> list(outer_product(mul, range(1, 4), range(1, 6)))
+[(1, 2, 3, 4, 5), (2, 4, 6, 8, 10), (3, 6, 9, 12, 15)]
+
+Cross tabulation:
+
+>>> xs = ['A', 'B', 'A', 'A', 'B', 'B', 'A', 'A', 'B', 'B']
+>>> ys = ['X', 'X', 'X', 'Y', 'Z', 'Z', 'Y', 'Y', 'Z', 'Z']
+>>> pair_counts = Counter(zip(xs, ys))
+>>> count_rows = lambda x, y: pair_counts[x, y]
+>>> list(outer_product(count_rows, sorted(set(xs)), sorted(set(ys))))
+[(2, 3, 0), (1, 0, 4)]
+
+Usage with ``*args`` and ``**kwargs``:
+
+>>> animals = ['cat', 'wolf', 'mouse']
+>>> list(outer_product(min, animals, animals, key=len))
+[('cat', 'cat', 'cat'), ('cat', 'wolf', 'wolf'), ('cat', 'wolf', 'mouse')]
+"""
 ```
 
-**Function**:
-Handles async coroutine fixtures (PEP 492) to suppress unused warnings.
+#### 113: `iter_suppress` Function
 
-**Parameter Description**:
-- `fixture_func`: Async coroutine fixture function.
-- `new_sig`: New function signature.
-- `func_needs_request`: Whether function needs request.
+**Function Description**: 
+Yield each of the items from *iterable*. If the iteration raises one of the specified *exceptions*, that exception will be suppressed and iteration will stop.
 
-**Return Value**:
-Wrapped async coroutine fixture function.
+**Core Algorithm**: 
+Yield each of the items from *iterable*. If the iteration raises one of the specified *exceptions*, that exception will be suppressed and iteration will stop.
 
-#### 139. `_decorate_fixture_plus_coroutine_pep492()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _decorate_fixture_plus_coroutine_pep492(fixture_func, new_sig, map_arguments):
-    @wraps(fixture_func, new_sig=new_sig)
-    async def wrapped_fixture_func(*_args, **_kwargs):
+def iter_suppress(iterable, *exceptions):
+"""
+Yield each of the items from *iterable*. If the iteration raises one of
+the specified *exceptions*, that exception will be suppressed and iteration
+will stop.
+
+>>> from itertools import chain
+>>> def breaks_at_five(x):
+...     while True:
+...         if x >= 5:
+...             raise RuntimeError
+...         yield x
+...         x += 1
+>>> it_1 = iter_suppress(breaks_at_five(1), RuntimeError)
+>>> it_2 = iter_suppress(breaks_at_five(2), RuntimeError)
+>>> list(chain(it_1, it_2))
+[1, 2, 3, 4, 2, 3, 4]
+"""
 ```
 
-**Import Statement**:
+#### 114: `filter_map` Function
+
+**Function Description**: 
+Apply *func* to every element of *iterable*, yielding only those which are not ``None``.
+
+**Core Algorithm**: 
+Apply *func* to every element of *iterable*, yielding only those which are not ``None``.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.pep492 import _decorate_fixture_plus_coroutine_pep492
+def filter_map(func, iterable):
+"""
+Apply *func* to every element of *iterable*, yielding only those which
+are not ``None``.
+
+>>> elems = ['1', 'a', '2', 'b', '3']
+>>> list(filter_map(lambda s: int(s) if s.isnumeric() else None, elems))
+[1, 2, 3]
+"""
 ```
 
-**Function**:
-Applies fixture_plus to async coroutine fixtures (PEP 492).
+#### 115: `powerset_of_sets` Function
 
-**Parameter Description**:
-- `fixture_func`: Async coroutine fixture function.
-- `new_sig`: New function signature.
-- `map_arguments`: Argument mapping function.
+**Function Description**: 
+Yields all possible subsets of the iterable.
 
-**Return Value**:
-Decorated async coroutine fixture function.
+**Core Algorithm**: 
+:func:`powerset_of_sets` takes care to minimize the number of hash operations performed.
 
-#### 140. `_parametrize_plus_decorate_coroutine_pep492()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _parametrize_plus_decorate_coroutine_pep492(test_func, new_sig, fixture_union_name, replace_paramfixture_with_values):
-    @wraps(test_func, new_sig=new_sig)
-    async def wrapped_test_func(*args, **kwargs):  ...# noqa
+def powerset_of_sets(iterable, *, baseset=set):
+"""
+Yields all possible subsets of the iterable.
+
+    >>> list(powerset_of_sets([1, 2, 3]))  # doctest: +SKIP
+    [set(), {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}]
+    >>> list(powerset_of_sets([1, 1, 0]))  # doctest: +SKIP
+    [set(), {1}, {0}, {0, 1}]
+
+:func:`powerset_of_sets` takes care to minimize the number
+of hash operations performed.
+
+The *baseset* parameter determines what kind of sets are
+constructed, either *set* or *frozenset*.
+"""
 ```
 
-**Import Statement**:
+#### 116: `join_mappings` Function
+
+**Function Description**: 
+Joins multiple mappings together using their common keys.
+
+**Core Algorithm**: 
+Joins multiple mappings together using their common keys.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.pep492 import _parametrize_plus_decorate_coroutine_pep492
+def join_mappings(**field_to_map):
+"""
+Joins multiple mappings together using their common keys.
+
+>>> user_scores = {'elliot': 50, 'claris': 60}
+>>> user_times = {'elliot': 30, 'claris': 40}
+>>> join_mappings(score=user_scores, time=user_times)
+{'elliot': {'score': 50, 'time': 30}, 'claris': {'score': 60, 'time': 40}}
+"""
 ```
 
-**Function**:
-Applies parametrize_plus to tests using async coroutine fixtures.
+#### 117: `_complex_sumprod` Function
+**Function Description**: 
+High precision sumprod() for complex numbers. Used by :func:`dft` and :func:`idft`.
 
-**Parameter Description**:
-- `test_func`: Test function to decorate.
-- `new_sig`: New function signature.
-- `fixture_union_name`: Fixture union name.
-- `replace_paramfixture_with_values`: Whether to replace param fixtures.
+**Core Algorithm**: 
+High precision sumprod() for complex numbers. Used by :func:`dft` and :func:`idft`.
 
-**Return Value**:
-Decorated async test function.
 
-#### 141. `_ignore_unused_asyncgen_pep525()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def _ignore_unused_asyncgen_pep525(fixture_func, new_sig, func_needs_request):
-    @wraps(fixture_func, new_sig=new_sig)
-    async def wrapped_fixture_func(*args, **kwargs): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.pep525 import _ignore_unused_asyncgen_pep525
-```
-
-**Function**:
-Handles async generator fixtures (PEP 525) to suppress unused parameter warnings.
-
-**Parameter Description**:
-- `fixture_func`: Async generator fixture function.
-- `new_sig`: New function signature.
-- `func_needs_request`: Whether function needs request.
-
-**Return Value**:
-Wrapped async generator fixture function.
-
-#### 142. `_decorate_fixture_plus_asyncgen_pep525()` - Function Name
-
-**Function Signature**:
-```python
-def _decorate_fixture_plus_asyncgen_pep525(fixture_func, new_sig, map_arguments):
-    @wraps(fixture_func, new_sig=new_sig)
-    async def wrapped_fixture_func(*_args, **_kwargs): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.pep525 import _decorate_fixture_plus_asyncgen_pep525
-```
-
-**Function**:
-Applies fixture_plus to async generator fixtures (PEP 525).
-
-**Parameter Description**:
-- `fixture_func`: Async generator fixture function.
-- `new_sig`: New function signature.
-- `map_arguments`: Argument mapping function.
-
-**Return Value**:
-Decorated async generator fixture function.
-
-#### 143. `_parametrize_plus_decorate_asyncgen_pep525()` - Function Name
-
-**Function Signature**:
-```python
-def _parametrize_plus_decorate_asyncgen_pep525(test_func, new_sig, fixture_union_name, replace_paramfixture_with_values):
-     @wraps(test_func, new_sig=new_sig)
-    async def wrapped_test_func(*args, **kwargs): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.pep525 import _parametrize_plus_decorate_asyncgen_pep525
-```
-
-**Function**:
-Applies parametrize_plus to tests using async generator fixtures.
-
-**Parameter Description**:
-- `test_func`: Test function to decorate.
-- `new_sig`: New function signature.
-- `fixture_union_name`: Fixture union name.
-- `replace_paramfixture_with_values`: Whether to replace param fixtures.
-
-**Return Value**:
-Decorated async test function.
-
-#### 144. `pytest_runtest_setup()` - Function Name
-
-**Function Signature**:
-```python
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_setup(item):
-    """ Resolve all `lazy_value` in the dictionary of function args """
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import pytest_runtest_setup
-```
-
-**Function**:
-Pytest hook that runs before each test item execution for fixture union setup.
-
-**Parameter Description**:
-- `item`: Pytest test item object.
-
-**Return Value**:
-None (hook function).
-
-#### 145. `pytest_collection()` - Function Name
-
-**Function Signature**:
-```python
-def pytest_collection(session):
-    session._fixturemanager.getfixtureclosure = partial(getfixtureclosure, session._fixturemanager)  # noqa
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import pytest_collection
-```
-
-**Function**:
-Pytest hook executed during test collection phase.
-
-**Parameter Description**:
-- `session`: Pytest session object.
-
-**Return Value**:
-None (hook function).
-
-#### 146. `_getfixtureclosure()` - Function Name
-
-**Function Signature**:
-```python
-def _getfixtureclosure(fm, fixturenames, parentnode, ignore_args = ()):
-    """
-    Replaces pytest's getfixtureclosure method to handle unions.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import _getfixtureclosure
-```
-
-**Function**:
-Internal helper to compute fixture closure dependencies for a test item.
-
-**Parameter Description**:
-- `fm`: Fixture manager object.
-- `fixturenames`: List of fixture names to resolve.
-- `parentnode`: Parent node in the test hierarchy.
-- `ignore_args`: Tuple of argument names to ignore.
-
-**Return Value**:
-Fixture closure dictionary mapping fixture names to their dependencies.
-
-#### 147. `create_super_closure()` - Function Name
-
-**Function Signature**:
-```python
-def create_super_closure(fm,
-                         parentnode,
-                         fixturenames,
-                         ignore_args
-                         ):
-    # type: (...) -> Tuple[List, Union[List, SuperClosure], Mapping]
-    """
-
-    :param fm:
-    :param parentnode:
-    :param fixturenames:
-    :param ignore_args:
-    :return:
-    """
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import create_super_closure
-```
-
-**Function**:
-Constructs a fixture closure considering super-class fixtures in class hierarchies.
-
-**Parameter Description**:
-- `fm`: Fixture manager object.
-- `parentnode`: Parent node in the test hierarchy.
-- `fixturenames`: List of fixture names to resolve.
-- `ignore_args`: Tuple of argument names to ignore.
-
-**Return Value**:
-Fixture closure dictionary including super-class fixtures.
-
-#### 148. `_merge()` - Function Name
-
-**Function Signature**:
-```python
-def _merge(new_items, into_list):
- """ Appends items from `new_items` into `into_list`, only if they are not already there. """
-     
-```
-
-**Import Statement**:
-```python
-from pytest_cases.fixture__creation import _merge
-```
-
-**Function**:
-It is an internal function of the `create_super_closure` function
-Merges new fixture items into an existing list without duplicates.
-
-**Parameter Description**:
-- `new_items`: New items to merge.
-- `into_list`: Existing list to merge into.
-
-**Return Value**:
-Updated list with merged items.
-
-#### 149. `pytest_generate_tests()` - Function Name
-
-**Function Signature**:
-```python
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_generate_tests(metafunc):
-    """
-    We use this hook to replace the 'parametrize' function of `metafunc` with our own below, before it is called
-    by pytest. Note we could do it in a static way in pytest_sessionstart or plugin init hook but
-    that way we can still access the original method using metafunc.__class__.parametrize
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import pytest_generate_tests
-```
-
-**Function**:
-Core pytest hook that generates test parametrization from fixtures.
-
-**Parameter Description**:
-- `metafunc`: Pytest metafunc object containing test function metadata.
-
-**Return Value**:
-None (modifies metafunc in place).
-
-#### 150. `get_calls_for_tree()` - Function Name
-
-**Function Signature**:
-```python
-def get_calls_for_tree(metafunc,
-                       fix_closure_tree,  # type: FixtureClosureNode
-                       pending_dct        # type: MutableMapping[str, Union[UnionParamz, NormalParamz]]
-                       ):
-    """
-    Creates the list of calls for `metafunc` based on
-    :param metafunc:
-    :param fix_closure_tree:
-    :param pending:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import get_calls_for_tree
-```
-
-**Function**:
-Builds fixture call sequences by traversing the fixture dependency tree.
-
-**Parameter Description**:
-- `metafunc`: Pytest metafunc object.
-- `fix_closure_tree`: Fixture closure dependency tree.
-- `pending_dct`: Dictionary of pending fixture calls.
-
-**Return Value**:
-List of fixture call sequences.
-
-#### 151. `_cleanup_calls_list()` - Function Name
-
-**Function Signature**:
-```python
-def _cleanup_calls_list(metafunc,
-                        fix_closure_tree,   # type: FixtureClosureNode
-                        calls,              # type: List[CallSpec2]
-                        nodes,              # type: List[FixtureClosureNode]
-                        pending_dct         # type: MutableMapping[str, Union[UnionParamz, NormalParamz]]
-                        ):
-    """
-    Cleans the calls list so that all calls contain a value for all parameters. This is basically
-    about adding "NOT_USED" parametrization everywhere relevant.
-
-    :param calls:
-    :param nodes:
-    :param pending:
-    :return:
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import _cleanup_calls_list
-```
-
-**Function**:
-Removes redundant fixture calls and optimizes the call sequence.
-
-**Parameter Description**:
-- `metafunc`: Pytest metafunc object.
-- `fix_closure_tree`: Fixture closure dependency tree.
-- `calls`: List of fixture calls to clean up.
-- `nodes`: Set of processed nodes.
-- `pending_dct`: Dictionary of pending fixture calls.
-
-**Return Value**:
-Cleaned up list of fixture calls.
-
-#### 152. `_parametrize_calls()` - Function Name
-
-**Function Signature**:
-```python
-def _parametrize_calls(metafunc, init_calls, argnames, argvalues, discard_id=False, indirect=False, ids=None,
-                       scope=None, **kwargs):
-    """Parametrizes the initial `calls` with the provided information and returns the resulting new calls"""
-
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import _parametrize_calls
-```
-
-**Function**:
-Applies parametrization to fixture calls with id generation options.
-
-**Parameter Description**:
-- `metafunc`: Pytest metafunc object.
-- `init_calls`: Initial fixture calls.
-- `argnames`: Argument names for parametrization.
-- `argvalues`: Argument values for parametrization.
-- `discard_id`: Whether to discard generated IDs.
-- `indirect`: Whether to use indirect parametrization.
-- `ids`: Custom ID generation function.
-- `scope`: Fixture scope.
-- `**kwargs`: Additional keyword arguments.
-
-**Return Value**:
-Parametrized fixture calls.
-
-#### 153. `_process_node()` - Function Name
-
-**Function Signature**:
-```python
-def _process_node(metafunc,
-                  current_node,  # type: FixtureClosureNode
-                  pending,       # type: MutableMapping[str, Union[UnionParamz, NormalParamz]]
-                  calls          # type: List[CallSpec2]
-                  ):
-    """
-    Routine to apply all the parametrization tasks in `pending` that are relevant to `current_node`,
-    to `calls` (a list of pytest CallSpec2).
-
-    It first applies all parametrization that correspond to current node (normal parameters),
-    then applies the "split" parametrization if needed and recurses into each tree branch.
-
-    It returns a tuple containing a list of calls and a list of same length containing which leaf node each one
-    corresponds to.
-
-    :param metafunc:
-    :param current_node: the closure tree node we're focusing on
-    :param pending: a list of parametrization orders to apply
-    :param calls:
-    :return: a tuple (calls, nodes) of two lists of the same length. So that for each CallSpec calls[i], you can see
-        the corresponding leaf node in nodes[i]
+def _complex_sumprod(v1, v2):
+    """High precision sumprod() for complex numbers.
+    Used by :func:`dft` and :func:`idft`.
     """
 ```
 
-**Import Statement**:
+#### 118: `dft` Function
+
+**Function Description**: 
+Discrete Fourier Transform. *xarr* is a sequence of complex numbers. Yields the components of the corresponding transformed output vector.
+
+**Core Algorithm**: 
+Inputs are restricted to numeric types that can add and multiply with a complex number. This includes int, float, complex, and Fraction, but excludes Decimal.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.plugin import _process_node
+def dft(xarr):
+"""
+Discrete Fourier Transform. *xarr* is a sequence of complex numbers.
+Yields the components of the corresponding transformed output vector.
+
+>>> import cmath
+>>> xarr = [1, 2-1j, -1j, -1+2j]  # time domain
+>>> Xarr = [2, -2-2j, -2j, 4+4j]  # frequency domain
+>>> magnitudes, phases = zip(*map(cmath.polar, Xarr))
+>>> all(map(cmath.isclose, dft(xarr), Xarr))
+True
+
+Inputs are restricted to numeric types that can add and multiply
+with a complex number.  This includes int, float, complex, and
+Fraction, but excludes Decimal.
+
+See :func:`idft` for the inverse Discrete Fourier Transform.
+"""
 ```
 
-**Function**:
-Processes a fixture node in the dependency tree, updating pending and calls.
+#### 119: `idft` Function
 
-**Parameter Description**:
-- `metafunc`: Pytest metafunc object.
-- `current_node`: Current fixture node to process.
-- `pending`: Dictionary of pending fixture calls.
-- `calls`: List of fixture calls.
+**Function Description**: 
+Inverse Discrete Fourier Transform. *Xarr* is a sequence of complex numbers. Yields the components of the corresponding inverse-transformed output vector.
 
-**Return Value**:
-Updated pending and calls dictionaries.
+**Core Algorithm**: 
+Inputs are restricted to numeric types that can add and multiply with a complex number. This includes int, float, complex, and Fraction, but excludes Decimal.
 
-#### 154. `flatten_list()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def flatten_list(lst):
-    return [v for nested_list in lst for v in nested_list]
+def idft(Xarr):
+"""
+Inverse Discrete Fourier Transform. *Xarr* is a sequence of
+complex numbers. Yields the components of the corresponding
+inverse-transformed output vector.
 
+>>> import cmath
+>>> xarr = [1, 2-1j, -1j, -1+2j]  # time domain
+>>> Xarr = [2, -2-2j, -2j, 4+4j]  # frequency domain
+>>> all(map(cmath.isclose, idft(Xarr), xarr))
+True
+
+Inputs are restricted to numeric types that can add and multiply
+with a complex number.  This includes int, float, complex, and
+Fraction, but excludes Decimal.
+
+See :func:`dft` for the Discrete Fourier Transform.
+"""
 ```
 
-**Import Statement**:
+#### 120: `doublestarmap` Function
+
+**Function Description**: 
+Apply *func* to every item of *iterable* by dictionary unpacking the item into *func*.
+
+**Core Algorithm**: 
+The difference between :func:`itertools.starmap` and :func:`doublestarmap` parallels the distinction between ``func(*a)`` and ``func(**a)``.
+
+**Input/Output Example**:
 ```python
-from pytest_cases.plugin import flatten_list
+def doublestarmap(func, iterable):
+"""
+Apply *func* to every item of *iterable* by dictionary unpacking
+the item into *func*.
+
+The difference between :func:`itertools.starmap` and :func:`doublestarmap`
+parallels the distinction between ``func(*a)`` and ``func(**a)``.
+
+>>> iterable = [{'a': 1, 'b': 2}, {'a': 40, 'b': 60}]
+>>> list(doublestarmap(lambda a, b: a + b, iterable))
+[3, 100]
+
+``TypeError`` will be raised if *func*'s signature doesn't match the
+mapping contained in *iterable* or if *iterable* does not contain mappings.
+"""
 ```
 
-**Function**:
-Flattens a nested list of fixture calls into a single level sequence.
+#### 121: `_nth_prime_bounds` Function
+**Function Description**: 
+Bounds for the nth prime (counting from 1): lb < p_n < ub.
 
-**Parameter Description**:
-- `lst`: Nested list to flatten.
+**Core Algorithm**: 
+Bounds for the nth prime (counting from 1): lb < p_n < ub.
 
-**Return Value**:
-Flattened list.
 
-#### 155. `sort_according_to_ref_list()` - Function Name
-
-**Function Signature**:
+**Input/Output Example**:
 ```python
-def sort_according_to_ref_list(fixturenames, param_names):
+
+def _nth_prime_bounds(n):
+    """Bounds for the nth prime (counting from 1): lb < p_n < ub."""
+    # At and above 688,383, the lb/ub spread is under 0.003 * p_n.
+```
+
+#### 122: `nth_prime` Function
+
+**Function Description**: 
+Return the nth prime (counting from 0).
+
+**Core Algorithm**: 
+If *approximate* is set to True, will return a prime close to the nth prime. The estimation is much faster than computing an exact result.
+
+**Input/Output Example**:
+```python
+def nth_prime(n, *, approximate=False):
+"""
+Return the nth prime (counting from 0).
+
+>>> nth_prime(0)
+2
+>>> nth_prime(100)
+547
+
+If *approximate* is set to True, will return a prime close
+to the nth prime.  The estimation is much faster than computing
+an exact result.
+
+>>> nth_prime(200_000_000, approximate=True)  # Exact result is 4222234763
+4217820427
+"""
+```
+
+#### 123: `argmin` Function
+
+**Function Description**: 
+Index of the first occurrence of a minimum value in an iterable.
+
+**Core Algorithm**: 
+For example, look up a label corresponding to the position of a value that minimizes a cost function::
+
+**Input/Output Example**:
+```python
+def argmin(iterable, *, key=None):
+"""
+Index of the first occurrence of a minimum value in an iterable.
+
+    >>> argmin('efghabcdijkl')
+    4
+    >>> argmin([3, 2, 1, 0, 4, 2, 1, 0])
+    3
+
+For example, look up a label corresponding to the position
+of a value that minimizes a cost function::
+
+    >>> def cost(x):
+    ...     "Days for a wound to heal given a subject's age."
+    ...     return x**2 - 20*x + 150
+    ...
+    >>> labels =  ['homer', 'marge', 'bart', 'lisa', 'maggie']
+    >>> ages =    [  35,      30,      10,      9,      1    ]
+
+    # Fastest healing family member
+    >>> labels[argmin(ages, key=cost)]
+    'bart'
+
+    # Age with fastest healing
+    >>> min(ages, key=cost)
+    10
+"""
+```
+
+#### 124: `argmax` Function
+
+**Function Description**: 
+Index of the first occurrence of a maximum value in an iterable.
+
+**Core Algorithm**: 
+For example, identify the best machine learning model::
+
+**Input/Output Example**:
+```python
+def argmax(iterable, *, key=None):
+"""
+Index of the first occurrence of a maximum value in an iterable.
+
+    >>> argmax('abcdefghabcd')
+    7
+    >>> argmax([0, 1, 2, 3, 3, 2, 1, 0])
+    3
+
+For example, identify the best machine learning model::
+
+    >>> models =   ['svm', 'random forest', 'knn', 'naïve bayes']
+    >>> accuracy = [  68,        61,          84,       72      ]
+
+    # Most accurate model
+    >>> models[argmax(accuracy)]
+    'knn'
+
+    # Best accuracy
+    >>> max(accuracy)
+    84
+"""
+```
+
+#### 125: `extract` Function
+
+**Function Description**: 
+Yield values at the specified indices.
+
+**Core Algorithm**: 
+Example:
+
+**Input/Output Example**:
+```python
+def extract(iterable, indices):
+"""
+Yield values at the specified indices.
+
+Example:
+
+    >>> data = 'abcdefghijklmnopqrstuvwxyz'
+    >>> list(extract(data, [7, 4, 11, 11, 14]))
+    ['h', 'e', 'l', 'l', 'o']
+
+The *iterable* is consumed lazily and can be infinite.
+The *indices* are consumed immediately and must be finite.
+
+Raises ``IndexError`` if an index lies beyond the iterable.
+Raises ``ValueError`` for negative indices.
+"""
+```
+
+#### 126: `tabulate` Function
+**Function Description**: 
+Return an iterator over the results of ``func(start)``, ``func(start + 1)``, ``func(start + 2)``...
+
+**Core Algorithm**: 
+*func* should be a function that accepts one integer argument.
+
+**Input/Output Example**:
+```python
+def tabulate(function, start=0):
+"""
+Return an iterator over the results of ``func(start)``,
+``func(start + 1)``, ``func(start + 2)``...
+
+*func* should be a function that accepts one integer argument.
+
+If *start* is not specified it defaults to 0. It will be incremented each
+time the iterator is advanced.
+
+    >>> square = lambda x: x ** 2
+    >>> iterator = tabulate(square, -3)
+    >>> take(4, iterator)
+    [9, 4, 1, 0]
+"""
+```
+
+#### 127: `all_equal` Function
+**Function Description**: 
+Returns ``True`` if all the elements are equal to each other.
+
+**Core Algorithm**: 
+A function that accepts a single argument and returns a transformed version of each input item can be specified with *key*:
+
+**Input/Output Example**:
+```python
+def all_equal(iterable, key=None):
+"""
+Returns ``True`` if all the elements are equal to each other.
+
+    >>> all_equal('aaaa')
+    True
+    >>> all_equal('aaab')
+    False
+
+A function that accepts a single argument and returns a transformed version
+of each input item can be specified with *key*:
+
+    >>> all_equal('AaaA', key=str.casefold)
+    True
+    >>> all_equal([1, 2, 3], key=lambda x: x < 10)
+    True
+"""
+```
+
+#### 128: `quantify` Function
+**Function Description**: 
+Return the how many times the predicate is true.
+
+**Core Algorithm**: 
+Return the how many times the predicate is true.
+
+**Input/Output Example**:
+```python
+def quantify(iterable, pred=bool):
+"""
+Return the how many times the predicate is true.
+
+>>> quantify([True, False, True])
+2
+"""
+```
+
+#### 129: `pad_none` Function
+**Function Description**: 
+Returns the sequence of elements and then returns ``None`` indefinitely.
+
+**Core Algorithm**: 
+Useful for emulating the behavior of the built-in :func:`map` function.
+
+**Input/Output Example**:
+```python
+def pad_none(iterable):
+"""
+Returns the sequence of elements and then returns ``None`` indefinitely.
+
+    >>> take(5, pad_none(range(3)))
+    [0, 1, 2, None, None]
+
+Useful for emulating the behavior of the built-in :func:`map` function.
+
+See also :func:`padded`.
+"""
+```
+
+#### 130: `ncycles` Function
+**Function Description**: 
+Returns the sequence elements *n* times
+
+**Core Algorithm**: 
+Returns the sequence elements *n* times
+
+**Input/Output Example**:
+```python
+def ncycles(iterable, n):
+"""
+Returns the sequence elements *n* times
+
+>>> list(ncycles(["a", "b"], 3))
+['a', 'b', 'a', 'b', 'a', 'b']
+"""
+```
+
+#### 131: `dotproduct` Function
+**Function Description**: 
+Returns the dot product of the two iterables.
+
+**Core Algorithm**: 
+In Python 3.12 and later, use ``math.sumprod()`` instead.
+
+**Input/Output Example**:
+```python
+def dotproduct(vec1, vec2):
+"""
+Returns the dot product of the two iterables.
+
+>>> dotproduct([10, 15, 12], [0.65, 0.80, 1.25])
+33.5
+>>> 10 * 0.65 + 15 * 0.80 + 12 * 1.25
+33.5
+
+In Python 3.12 and later, use ``math.sumprod()`` instead.
+"""
+```
+
+#### 132: `repeatfunc` Function
+**Function Description**: 
+Call *func* with *args* repeatedly, returning an iterable over the results.
+
+**Core Algorithm**: 
+If *times* is specified, the iterable will terminate after that many repetitions:
+
+**Input/Output Example**:
+```python
+def repeatfunc(func, times=None, *args):
+"""
+Call *func* with *args* repeatedly, returning an iterable over the
+results.
+
+If *times* is specified, the iterable will terminate after that many
+repetitions:
+
+    >>> from operator import add
+    >>> times = 4
+    >>> args = 3, 5
+    >>> list(repeatfunc(add, times, *args))
+    [8, 8, 8, 8]
+
+If *times* is ``None`` the iterable will not terminate:
+
+    >>> from random import randrange
+    >>> times = None
+    >>> args = 1, 11
+    >>> take(6, repeatfunc(randrange, times, *args))  # doctest:+SKIP
+    [2, 4, 8, 1, 8, 4]
+"""
+```
+
+#### 133: `partition` Function
+**Function Description**: 
+Returns a 2-tuple of iterables derived from the input iterable. The first yields the items that have ``pred(item) == False``. The second yields the items that have ``pred(item) == True``.
+
+**Core Algorithm**: 
+If *pred* is None, :func:`bool` is used.
+
+**Input/Output Example**:
+```python
+def partition(pred, iterable):
+"""
+Returns a 2-tuple of iterables derived from the input iterable.
+The first yields the items that have ``pred(item) == False``.
+The second yields the items that have ``pred(item) == True``.
+
+    >>> is_odd = lambda x: x % 2 != 0
+    >>> iterable = range(10)
+    >>> even_items, odd_items = partition(is_odd, iterable)
+    >>> list(even_items), list(odd_items)
+    ([0, 2, 4, 6, 8], [1, 3, 5, 7, 9])
+
+If *pred* is None, :func:`bool` is used.
+
+    >>> iterable = [0, 1, False, True, '', ' ']
+    >>> false_items, true_items = partition(None, iterable)
+    >>> list(false_items), list(true_items)
+    ([0, False, ''], [1, True, ' '])
+"""
+```
+
+#### 134: `unique_justseen` Function
+**Function Description**: 
+Yields elements in order, ignoring serial duplicates
+
+**Core Algorithm**: 
+Yields elements in order, ignoring serial duplicates
+
+**Input/Output Example**:
+```python
+def unique_justseen(iterable, key=None):
+"""
+Yields elements in order, ignoring serial duplicates
+
+>>> list(unique_justseen('AAAABBBCCDAABBB'))
+['A', 'B', 'C', 'D', 'A', 'B']
+>>> list(unique_justseen('ABBCcAD', str.lower))
+['A', 'B', 'C', 'A', 'D']
+"""
+```
+
+#### 135: `iter_except` Function
+**Function Description**: 
+Yields results from a function repeatedly until an exception is raised.
+
+**Core Algorithm**: 
+Converts a call-until-exception interface to an iterator interface. Like ``iter(func, sentinel)``, but uses an exception instead of a sentinel to end the loop.
+
+**Input/Output Example**:
+```python
+def iter_except(func, exception, first=None):
+"""
+Yields results from a function repeatedly until an exception is raised.
+
+Converts a call-until-exception interface to an iterator interface.
+Like ``iter(func, sentinel)``, but uses an exception instead of a sentinel
+to end the loop.
+
+    >>> l = [0, 1, 2]
+    >>> list(iter_except(l.pop, IndexError))
+    [2, 1, 0]
+
+Multiple exceptions can be specified as a stopping condition:
+
+    >>> l = [1, 2, 3, '...', 4, 5, 6]
+    >>> list(iter_except(lambda: 1 + l.pop(), (IndexError, TypeError)))
+    [7, 6, 5]
+    >>> list(iter_except(lambda: 1 + l.pop(), (IndexError, TypeError)))
+    [4, 3, 2]
+    >>> list(iter_except(lambda: 1 + l.pop(), (IndexError, TypeError)))
+    []
+"""
+```
+
+#### 136: `random_product` Function
+**Function Description**: 
+Draw an item at random from each of the input iterables.
+
+**Core Algorithm**: 
+If *repeat* is provided as a keyword argument, that many items will be drawn from each iterable.
+
+**Input/Output Example**:
+```python
+def random_product(*args, repeat=1):
+"""
+Draw an item at random from each of the input iterables.
+
+    >>> random_product('abc', range(4), 'XYZ')  # doctest:+SKIP
+    ('c', 3, 'Z')
+
+If *repeat* is provided as a keyword argument, that many items will be
+drawn from each iterable.
+
+    >>> random_product('abcd', range(4), repeat=2)  # doctest:+SKIP
+    ('a', 2, 'd', 3)
+
+This equivalent to taking a random selection from
+``itertools.product(*args, repeat=repeat)``.
+"""
+```
+
+#### 137: `random_permutation` Function
+**Function Description**: 
+Return a random *r* length permutation of the elements in *iterable*.
+
+**Core Algorithm**: 
+If *r* is not specified or is ``None``, then *r* defaults to the length of *iterable*.
+
+**Input/Output Example**:
+```python
+def random_permutation(iterable, r=None):
+"""
+Return a random *r* length permutation of the elements in *iterable*.
+
+If *r* is not specified or is ``None``, then *r* defaults to the length of
+*iterable*.
+
+    >>> random_permutation(range(5))  # doctest:+SKIP
+    (3, 4, 0, 1, 2)
+
+This equivalent to taking a random selection from
+``itertools.permutations(iterable, r)``.
+"""
+```
+
+#### 138: `random_combination_with_replacement` Function
+**Function Description**: 
+Return a random *r* length subsequence of elements in *iterable*, allowing individual elements to be repeated.
+
+**Core Algorithm**: 
+This equivalent to taking a random selection from ``itertools.combinations_with_replacement(iterable, r)``.
+
+**Input/Output Example**:
+```python
+def random_combination_with_replacement(iterable, r):
+"""
+Return a random *r* length subsequence of elements in *iterable*,
+allowing individual elements to be repeated.
+
+    >>> random_combination_with_replacement(range(3), 5) # doctest:+SKIP
+    (0, 0, 1, 2, 2)
+
+This equivalent to taking a random selection from
+``itertools.combinations_with_replacement(iterable, r)``.
+"""
+```
+
+#### 139: `convolve` Function
+**Function Description**: 
+Discrete linear convolution of two iterables. Equivalent to polynomial multiplication.
+
+**Core Algorithm**: 
+For example, multiplying ``(x² -x - 20)`` by ``(x - 3)`` gives ``(x³ -4x² -17x + 60)``.
+
+**Input/Output Example**:
+```python
+def convolve(signal, kernel):
+"""
+Discrete linear convolution of two iterables.
+Equivalent to polynomial multiplication.
+
+For example, multiplying ``(x² -x - 20)`` by ``(x - 3)``
+gives ``(x³ -4x² -17x + 60)``.
+
+    >>> list(convolve([1, -1, -20], [1, -3]))
+    [1, -4, -17, 60]
+
+Examples of popular kinds of kernels:
+
+* The kernel ``[0.25, 0.25, 0.25, 0.25]`` computes a moving average.
+  For image data, this blurs the image and reduces noise.
+* The kernel ``[1/2, 0, -1/2]`` estimates the first derivative of
+  a function evaluated at evenly spaced inputs.
+* The kernel ``[1, -2, 1]`` estimates the second derivative of a
+  function evaluated at evenly spaced inputs.
+
+Convolutions are mathematically commutative; however, the inputs are
+evaluated differently.  The signal is consumed lazily and can be
+infinite. The kernel is fully consumed before the calculations begin.
+
+Supports all numeric types: int, float, complex, Decimal, Fraction.
+
+References:
+
+* Article:  https://betterexplained.com/articles/intuitive-convolution/
+* Video by 3Blue1Brown:  https://www.youtube.com/watch?v=KuXjwB4LzSA
+"""
+```
+
+#### 140: `before_and_after` Function
+**Function Description**: 
+A variant of :func:`takewhile` that allows complete access to the remainder of the iterator.
+
+**Core Algorithm**: 
+Note that the first iterator must be fully consumed before the second iterator can generate valid results.
+
+**Input/Output Example**:
+```python
+def before_and_after(predicate, it):
+"""
+A variant of :func:`takewhile` that allows complete access to the
+remainder of the iterator.
+
+     >>> it = iter('ABCdEfGhI')
+     >>> all_upper, remainder = before_and_after(str.isupper, it)
+     >>> ''.join(all_upper)
+     'ABC'
+     >>> ''.join(remainder) # takewhile() would lose the 'd'
+     'dEfGhI'
+
+Note that the first iterator must be fully consumed before the second
+iterator can generate valid results.
+"""
+```
+
+#### 141: `_sliding_window_islice` Function
+Recipe helper that yields windows using ``itertools.islice``.
+
+**Core Algorithm**: 
+Builds tuples of length ``n`` by repeatedly slicing successive prefixes of the iterable.
+
+**Input/Output Example**:
+```python
+def _sliding_window_islice(iterable, n):
+    # Fast path for small, non-zero values of n.
+from more_itertools.recipes import _sliding_window_islice
+
+list(_sliding_window_islice(range(5), 3))
+# -> [(0, 1, 2), (1, 2, 3), (2, 3, 4)]
+```
+
+#### 142: `_sliding_window_deque` Function
+Deque-based sliding window recipe used by ``sliding_window``.
+
+**Core Algorithm**: 
+Maintains a fixed-length deque to emit overlapping windows in amortized constant time.
+
+**Input/Output Example**:
+```python
+def _sliding_window_deque(iterable, n):
+    # Normal path for other values of n.
+from more_itertools.recipes import _sliding_window_deque
+
+list(_sliding_window_deque(range(5), 3))
+# -> [(0, 1, 2), (1, 2, 3), (2, 3, 4)]
+```
+
+#### 143: `sliding_window` Function
+**Function Description**: 
+Return a sliding window of width *n* over *iterable*.
+
+**Core Algorithm**: 
+If *iterable* has fewer than *n* items, then nothing is yielded:
+
+**Input/Output Example**:
+```python
+def sliding_window(iterable, n):
+"""
+Return a sliding window of width *n* over *iterable*.
+
+    >>> list(sliding_window(range(6), 4))
+    [(0, 1, 2, 3), (1, 2, 3, 4), (2, 3, 4, 5)]
+
+If *iterable* has fewer than *n* items, then nothing is yielded:
+
+    >>> list(sliding_window(range(3), 4))
+    []
+
+For a variant with more features, see :func:`windowed`.
+"""
+```
+
+#### 144: `subslices` Function
+**Function Description**: 
+Return all contiguous non-empty subslices of *iterable*.
+
+**Core Algorithm**: 
+This is similar to :func:`substrings`, but emits items in a different order.
+
+**Input/Output Example**:
+```python
+def subslices(iterable):
+"""
+Return all contiguous non-empty subslices of *iterable*.
+
+    >>> list(subslices('ABC'))
+    [['A'], ['A', 'B'], ['A', 'B', 'C'], ['B'], ['B', 'C'], ['C']]
+
+This is similar to :func:`substrings`, but emits items in a different
+order.
+"""
+```
+
+#### 145: `polynomial_from_roots` Function
+**Function Description**: 
+Compute a polynomial's coefficients from its roots.
+
+**Core Algorithm**: 
+Note that polynomial coefficients are specified in descending power order.
+
+**Input/Output Example**:
+```python
+def polynomial_from_roots(roots):
+"""
+Compute a polynomial's coefficients from its roots.
+
+>>> roots = [5, -4, 3]            # (x - 5) * (x + 4) * (x - 3)
+>>> polynomial_from_roots(roots)  # x³ - 4 x² - 17 x + 60
+[1, -4, -17, 60]
+
+Note that polynomial coefficients are specified in descending power order.
+
+Supports all numeric types: int, float, complex, Decimal, Fraction.
+"""
+```
+
+#### 146: `iter_index` Function
+**Function Description**: 
+Yield the index of each place in *iterable* that *value* occurs, beginning with index *start* and ending before index *stop*.
+
+**Core Algorithm**: 
+The behavior for non-scalar *values* matches the built-in Python types.
+
+**Input/Output Example**:
+```python
+def iter_index(iterable, value, start=0, stop=None):
+"""
+Yield the index of each place in *iterable* that *value* occurs,
+beginning with index *start* and ending before index *stop*.
+
+
+>>> list(iter_index('AABCADEAF', 'A'))
+[0, 1, 4, 7]
+>>> list(iter_index('AABCADEAF', 'A', 1))  # start index is inclusive
+[1, 4, 7]
+>>> list(iter_index('AABCADEAF', 'A', 1, 7))  # stop index is not inclusive
+[1, 4]
+
+The behavior for non-scalar *values* matches the built-in Python types.
+
+>>> list(iter_index('ABCDABCD', 'AB'))
+[0, 4]
+>>> list(iter_index([0, 1, 2, 3, 0, 1, 2, 3], [0, 1]))
+[]
+>>> list(iter_index([[0, 1], [2, 3], [0, 1], [2, 3]], [0, 1]))
+[0, 2]
+
+See :func:`locate` for a more general means of finding the indexes
+associated with particular values.
+"""
+```
+
+#### 147: `_batched` Function
+Batch data into tuples of length *n*. If the number of items in *iterable* is not divisible by *n*: * The last batch will be shorter if *strict* is ``False``. * :exc:`ValueError` will be raised if *strict* is ``True``.
+
+**Core Algorithm**: 
+On Python 3.13 and above, this is an alias for :func:`itertools.batched`.
+
+**Input/Output Example**:
+```python
+def _batched(iterable, n, *, strict=False):  # pragma: no cover
+    """Batch data into tuples of length *n*. If the number of items in
+    *iterable* is not divisible by *n*:
+    * The last batch will be shorter if *strict* is ``False``.
+    * :exc:`ValueError` will be raised if *strict* is ``True``.
+
+    >>> list(batched('ABCDEFG', 3))
+    [('A', 'B', 'C'), ('D', 'E', 'F'), ('G',)]
+
+    On Python 3.13 and above, this is an alias for :func:`itertools.batched`.
     """
-    Sorts items in the first list, according to their position in the second.
-    Items that are not in the second list stay in the same position, the others are just swapped.
-    A new list is returned.
+```
 
-    :param fixturenames:
-    :param param_names:
-    :return:
+#### 148: `_is_scalar` Function
+Scalars are bytes, strings, and non-iterables.
+
+**Core Algorithm**: 
+Scalars are bytes, strings, and non-iterables.
+
+
+**Input/Output Example**:
+```python
+def _is_scalar(value, stringlike=(str, bytes)):
+    "Scalars are bytes, strings, and non-iterables."
+```
+
+#### 149: `_flatten_tensor` Function
+Depth-first iterator over scalars in a tensor.
+
+**Core Algorithm**: 
+Depth-first iterator over scalars in a tensor.
+
+
+**Input/Output Example**:
+```python
+def _flatten_tensor(tensor):
+    "Depth-first iterator over scalars in a tensor."
+```
+
+#### 150: `reshape` Function
+**Function Description**: 
+Change the shape of a *matrix*.
+
+**Core Algorithm**: 
+If *shape* is an integer, the matrix must be two dimensional and the shape is interpreted as the desired number of columns:
+
+**Input/Output Example**:
+```python
+def reshape(matrix, shape):
+"""
+Change the shape of a *matrix*.
+
+If *shape* is an integer, the matrix must be two dimensional
+and the shape is interpreted as the desired number of columns:
+
+    >>> matrix = [(0, 1), (2, 3), (4, 5)]
+    >>> cols = 3
+    >>> list(reshape(matrix, cols))
+    [(0, 1, 2), (3, 4, 5)]
+
+If *shape* is a tuple (or other iterable), the input matrix can have
+any number of dimensions. It will first be flattened and then rebuilt
+to the desired shape which can also be multidimensional:
+
+    >>> matrix = [(0, 1), (2, 3), (4, 5)]    # Start with a 3 x 2 matrix
+
+    >>> list(reshape(matrix, (2, 3)))        # Make a 2 x 3 matrix
+    [(0, 1, 2), (3, 4, 5)]
+
+    >>> list(reshape(matrix, (6,)))          # Make a vector of length six
+    [0, 1, 2, 3, 4, 5]
+
+    >>> list(reshape(matrix, (2, 1, 3, 1)))  # Make 2 x 1 x 3 x 1 tensor
+    [(((0,), (1,), (2,)),), (((3,), (4,), (5,)),)]
+
+Each dimension is assumed to be uniform, either all arrays or all scalars.
+Flattening stops when the first value in a dimension is a scalar.
+Scalars are bytes, strings, and non-iterables.
+The reshape iterator stops when the requested shape is complete
+or when the input is exhausted, whichever comes first.
+"""
+```
+
+#### 151: `matmul` Function
+**Function Description**: 
+Multiply two matrices.
+
+**Core Algorithm**: 
+The caller should ensure that the dimensions of the input matrices are compatible with each other.
+
+**Input/Output Example**:
+```python
+def matmul(m1, m2):
+"""
+Multiply two matrices.
+
+>>> list(matmul([(7, 5), (3, 5)], [(2, 5), (7, 9)]))
+[(49, 80), (41, 60)]
+
+The caller should ensure that the dimensions of the input matrices are
+compatible with each other.
+
+Supports all numeric types: int, float, complex, Decimal, Fraction.
+"""
+```
+
+#### 152: `_factor_pollard` Function
+Pollard's rho helper that finds a non-trivial factor of an odd composite.
+
+**Core Algorithm**: 
+Iteratively searches using the rho method and retries with different seeds when the cycle length stalls.
+
+**Input/Output Example**:
+```python
+def _factor_pollard(n):
+    # Return a factor of n using Pollard's rho algorithm.
+    # Efficient when n is odd and composite.
+from more_itertools.recipes import _factor_pollard
+
+_factor_pollard(91)  # -> 7
+```
+
+#### 153: `factor` Function
+**Function Description**: 
+Yield the prime factors of n.
+
+**Core Algorithm**: 
+Finds small factors with trial division. Larger factors are either verified as prime with ``is_prime`` or split into smaller factors with Pollard's rho algorithm.
+
+**Input/Output Example**:
+```python
+def factor(n):
+"""
+Yield the prime factors of n.
+
+>>> list(factor(360))
+[2, 2, 2, 3, 3, 5]
+
+Finds small factors with trial division.  Larger factors are
+either verified as prime with ``is_prime`` or split into
+smaller factors with Pollard's rho algorithm.
+"""
+```
+
+#### 154: `polynomial_eval` Function
+**Function Description**: 
+Evaluate a polynomial at a specific value.
+
+**Core Algorithm**: 
+Computes with better numeric stability than Horner's method.
+
+**Input/Output Example**:
+```python
+def polynomial_eval(coefficients, x):
+"""
+Evaluate a polynomial at a specific value.
+
+Computes with better numeric stability than Horner's method.
+
+Evaluate ``x^3 - 4 * x^2 - 17 * x + 60`` at ``x = 2.5``:
+
+>>> coefficients = [1, -4, -17, 60]
+>>> x = 2.5
+>>> polynomial_eval(coefficients, x)
+8.125
+
+Note that polynomial coefficients are specified in descending power order.
+
+Supports all numeric types: int, float, complex, Decimal, Fraction.
+"""
+```
+
+#### 155: `sum_of_squares` Function
+**Function Description**: 
+Return the sum of the squares of the input values.
+
+**Core Algorithm**: 
+Supports all numeric types: int, float, complex, Decimal, Fraction.
+
+**Input/Output Example**:
+```python
+def sum_of_squares(it):
+"""
+Return the sum of the squares of the input values.
+
+>>> sum_of_squares([10, 20, 30])
+1400
+
+Supports all numeric types: int, float, complex, Decimal, Fraction.
+"""
+```
+
+#### 156: `polynomial_derivative` Function
+**Function Description**: 
+Compute the first derivative of a polynomial.
+
+**Core Algorithm**: 
+Evaluate the derivative of ``x³ - 4 x² - 17 x + 60``:
+
+**Input/Output Example**:
+```python
+def polynomial_derivative(coefficients):
+"""
+Compute the first derivative of a polynomial.
+
+Evaluate the derivative of ``x³ - 4 x² - 17 x + 60``:
+
+>>> coefficients = [1, -4, -17, 60]
+>>> derivative_coefficients = polynomial_derivative(coefficients)
+>>> derivative_coefficients
+[3, -8, -17]
+
+Note that polynomial coefficients are specified in descending power order.
+
+Supports all numeric types: int, float, complex, Decimal, Fraction.
+"""
+```
+
+#### 157: `totient` Function
+**Function Description**: 
+Return the count of natural numbers up to *n* that are coprime with *n*.
+
+**Core Algorithm**: 
+Euler's totient function φ(n) gives the number of totatives. Totative are integers k in the range 1 ≤ k ≤ n such that gcd(n, k) = 1.
+
+**Input/Output Example**:
+```python
+def totient(n):
+"""
+Return the count of natural numbers up to *n* that are coprime with *n*.
+
+Euler's totient function φ(n) gives the number of totatives.
+Totative are integers k in the range 1 ≤ k ≤ n such that gcd(n, k) = 1.
+
+>>> n = 9
+>>> totient(n)
+6
+
+>>> totatives = [x for x in range(1, n) if gcd(n, x) == 1]
+>>> totatives
+[1, 2, 4, 5, 7, 8]
+>>> len(totatives)
+6
+
+Reference:  https://en.wikipedia.org/wiki/Euler%27s_totient_function
+"""
+```
+
+#### 158: `_shift_to_odd` Function
+Return s, d such that 2**s * d == n
+
+**Core Algorithm**: 
+Return s, d such that 2**s * d == n
+
+
+**Input/Output Example**:
+```python
+@lru_cache
+def _shift_to_odd(n):
+    'Return s, d such that 2**s * d == n'
+from more_itertools.recipes import _shift_to_odd
+
+_shift_to_odd(40)
+(3, 5)
+```
+
+#### 159: `_strong_probable_prime` Function
+Performs a single strong probable-prime test for the given base.
+
+**Core Algorithm**: 
+Checks a candidate integer against the Miller–Rabin conditions for a supplied base.
+
+**Input/Output Example**:
+```python
+def _strong_probable_prime(n, base)
+from more_itertools.recipes import _strong_probable_prime
+
+_strong_probable_prime(561, 2)  # -> False; 561 is a Carmichael number
+```
+
+#### 160: `is_prime` Function
+**Function Description**: 
+Return ``True`` if *n* is prime and ``False`` otherwise.
+
+**Core Algorithm**: 
+Basic examples:
+
+**Input/Output Example**:
+```python
+def is_prime(n):
+"""
+Return ``True`` if *n* is prime and ``False`` otherwise.
+
+Basic examples:
+
+    >>> is_prime(37)
+    True
+    >>> is_prime(3 * 13)
+    False
+    >>> is_prime(18_446_744_073_709_551_557)
+    True
+
+Find the next prime over one billion:
+
+    >>> next(filter(is_prime, count(10**9)))
+    1000000007
+
+Generate random primes up to 200 bits and up to 60 decimal digits:
+
+    >>> from random import seed, randrange, getrandbits
+    >>> seed(18675309)
+
+    >>> next(filter(is_prime, map(getrandbits, repeat(200))))
+    893303929355758292373272075469392561129886005037663238028407
+
+    >>> next(filter(is_prime, map(randrange, repeat(10**60))))
+    269638077304026462407872868003560484232362454342414618963649
+
+This function is exact for values of *n* below 10**24.  For larger inputs,
+the probabilistic Miller-Rabin primality test has a less than 1 in 2**128
+chance of a false positive.
+"""
+```
+
+#### 161: `loops` Function
+**Function Description**: 
+Returns an iterable with *n* elements for efficient looping. Like ``range(n)`` but doesn't create integers.
+
+**Core Algorithm**: 
+Returns an iterable with *n* elements for efficient looping. Like ``range(n)`` but doesn't create integers.
+
+**Input/Output Example**:
+```python
+def loops(n):
+"""
+Returns an iterable with *n* elements for efficient looping.
+Like ``range(n)`` but doesn't create integers.
+
+>>> i = 0
+>>> for _ in loops(5):
+...     i += 1
+>>> i
+5
+"""
+```
+
+#### 162: `multinomial` Function
+**Function Description**: 
+Number of distinct arrangements of a multiset.
+
+**Core Algorithm**: 
+The expression ``multinomial(3, 4, 2)`` has several equivalent interpretations:
+
+**Input/Output Example**:
+```python
+def multinomial(*counts):
+"""
+Number of distinct arrangements of a multiset.
+
+The expression ``multinomial(3, 4, 2)`` has several equivalent
+interpretations:
+
+* In the expansion of ``(a + b + c)⁹``, the coefficient of the
+  ``a³b⁴c²`` term is 1260.
+
+* There are 1260 distinct ways to arrange 9 balls consisting of 3 reds, 4
+  greens, and 2 blues.
+
+* There are 1260 unique ways to place 9 distinct objects into three bins
+  with sizes 3, 4, and 2.
+
+The :func:`multinomial` function computes the length of
+:func:`distinct_permutations`.  For example, there are 83,160 distinct
+anagrams of the word "abracadabra":
+
+    >>> from more_itertools import distinct_permutations, ilen
+    >>> ilen(distinct_permutations('abracadabra'))
+    83160
+
+This can be computed directly from the letter counts, 5a 2b 2r 1c 1d:
+
+    >>> from collections import Counter
+    >>> list(Counter('abracadabra').values())
+    [5, 2, 2, 1, 1]
+    >>> multinomial(5, 2, 2, 1, 1)
+    83160
+
+A binomial coefficient is a special case of multinomial where there are
+only two categories.  For example, the number of ways to arrange 12 balls
+with 5 reds and 7 blues is ``multinomial(5, 7)`` or ``math.comb(12, 5)``.
+
+Likewise, factorial is a special case of multinomial where
+the multiplicities are all just 1 so that
+``multinomial(1, 1, 1, 1, 1, 1, 1) == math.factorial(7)``.
+
+Reference:  https://en.wikipedia.org/wiki/Multinomial_theorem
+"""
+```
+
+#### 163: `_running_median_minheap_and_maxheap` Function
+Non-windowed running_median() for Python 3.14+
+
+**Core Algorithm**: 
+Non-windowed running_median() for Python 3.14+
+
+
+**Input/Output Example**:
+```python
+
+def _running_median_minheap_and_maxheap(iterator):  # pragma: no cover
+    "Non-windowed running_median() for Python 3.14+"
+
+from more_itertools import recipes as mi_recipes
+
+stream = mi_recipes._running_median_minheap_and_maxheap(iter([5.0, 9.0, 4.0, 12.0]))
+[next(stream) for _ in range(4)]
+[5.0, 7.0, 5.0, 7.0]
+```
+
+#### 164: `_running_median_minheap_only` Function
+Backport of non-windowed running_median() for Python 3.13 and prior.
+
+**Core Algorithm**: 
+Backport of non-windowed running_median() for Python 3.13 and prior.
+
+
+**Input/Output Example**:
+```python
+def _running_median_minheap_only(iterator):  # pragma: no cover
+    "Backport of non-windowed running_median() for Python 3.13 and prior."
+from more_itertools.recipes import _running_median_minheap_only
+
+stream = _running_median_minheap_only(iter([5.0, 9.0, 4.0, 12.0]))
+[next(stream) for _ in range(4)]
+[5.0, 7.0, 5.0, 7.0]
+```
+
+#### 165: `_running_median_windowed` Function
+Yield median of values in a sliding window.
+
+**Core Algorithm**: 
+Yield median of values in a sliding window.
+
+
+**Input/Output Example**:
+```python
+def _running_median_windowed(iterator, maxlen):
+    "Yield median of values in a sliding window."
+
+from more_itertools.recipes import _running_median_windowed
+
+stream = _running_median_windowed(iter([5.0, 9.0, 4.0, 12.0]), 3)
+[next(stream) for _ in range(4)]
+[5.0, 7.0, 5.0, 9.0]
+```
+
+#### 166: `running_median` Function
+**Function Description**: 
+Cumulative median of values seen so far or values in a sliding window.
+
+**Core Algorithm**: 
+Set *maxlen* to a positive integer to specify the maximum size of the sliding window. The default of *None* is equivalent to an unbounded window.
+
+**Input/Output Example**:
+```python
+def running_median(iterable, *, maxlen=None):
+"""
+Cumulative median of values seen so far or values in a sliding window.
+
+Set *maxlen* to a positive integer to specify the maximum size
+of the sliding window.  The default of *None* is equivalent to
+an unbounded window.
+
+For example:
+
+    >>> list(running_median([5.0, 9.0, 4.0, 12.0, 8.0, 9.0]))
+    [5.0, 7.0, 5.0, 7.0, 8.0, 8.5]
+    >>> list(running_median([5.0, 9.0, 4.0, 12.0, 8.0, 9.0], maxlen=3))
+    [5.0, 7.0, 5.0, 9.0, 8.0, 9.0]
+
+Supports numeric types such as int, float, Decimal, and Fraction,
+but not complex numbers which are unorderable.
+
+On version Python 3.13 and prior, max-heaps are simulated with
+negative values. The negation causes Decimal inputs to apply context
+rounding, making the results slightly different than that obtained
+by statistics.median().
+"""
+```
+
+#### 167 `_nth_prime_ub` Function
+
+**Function Description**: 
+Calculate the upper bound for the nth prime number (counting from 1).
+
+**Core Algorithm**: 
+Returns an upper bound estimate for the nth prime using logarithmic approximations. For small values (n < 6), uses a simple multiplier. For larger values, applies the prime counting function inequalities with logarithmic corrections.
+
+**Input/Output Example**:
+```python
+def _nth_prime_ub(n: int) -> float: ...
+from more_itertools.more import _nth_prime_ub
+
+_nth_prime_ub(25)
+97.5
+```
+
+#### 168 `random_derangement` Function
+
+**Function Description**: 
+Return a random derangement of elements in the iterable. A derangement is a permutation where no element appears in its original position.
+
+**Core Algorithm**: 
+Equivalent to but much faster than ``choice(list(derangements(iterable)))``. Uses Fisher-Yates shuffle algorithm to randomly permute indices until a valid derangement is found, then applies the permutation to the original sequence.
+
+**Input/Output Example**:
+```python
+def random_derangement(iterable):
+    """Return a random derangement of elements in the iterable.
+
+    Equivalent to but much faster than ``choice(list(derangements(iterable)))``.
+
     """
 ```
 
-**Import Statement**:
-```python
-from pytest_cases.plugin import sort_according_to_ref_list
-```
-
-**Function**:
-Orders fixture names to match the order specified by a reference parameter list.
-
-**Parameter Description**:
-- `fixturenames`: List of fixture names to sort.
-- `param_names`: Reference parameter list for ordering.
-
-**Return Value**:
-Sorted list of fixture names.
-
-#### 156. `pytest_addoption()` - Function Name
-
-**Function Signature**:
-```python
-def pytest_addoption(parser): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import pytest_addoption
-```
-
-**Function**:
-Pytest hook to add command-line options for the pytest-cases plugin.
-
-**Parameter Description**:
-- `parser`: Pytest argument parser object.
-
-**Return Value**:
-None (adds options to parser).
-
-#### 157. `pytest_load_initial_conftests()` - Function Name
-
-**Function Signature**:
-```python
-def pytest_load_initial_conftests(early_config): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import pytest_load_initial_conftests
-```
-
-**Function**:
-Pytest hook that loads initial conftest modules early in the session.
-
-**Parameter Description**:
-- `early_config`: Early pytest configuration object.
-
-**Return Value**:
-None (loads conftest modules).
-
-#### 158. `pytest_configure()` - Function Name
-
-**Function Signature**:
-```python
-def pytest_configure(config): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import pytest_configure
-```
-
-**Function**:
-Pytest hook that configures the plugin during pytest initialization.
-
-**Parameter Description**:
-- `config`: Pytest configuration object.
-
-**Return Value**:
-None (configures plugin).
-
-#### 159. `pytest_collection_modifyitems()` - Function Name
-
-**Function Signature**:
-```python
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_collection_modifyitems(session, config, items): ...
-```
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import pytest_collection_modifyitems
-```
-
-**Function**:
-Pytest hook that modifies collected test items after collection.
-
-**Parameter Description**:
-- `session`: Pytest session object.
-- `config`: Pytest configuration object.
-- `items`: List of collected test items.
-
-**Return Value**:
-None (modifies items in place).
-
-
-#### 160. Module Import
-
-```python
-from pytest_cases.case_parametrizer_new import parametrize_with_cases
-```
-
-#### 161. `parametrize_with_cases()` Decorator - Parameterizing Test Cases
-
-**Function**: Parametrize test functions using test case functions to separate test code from test data.
-
-**Function Signature**:
-```python
-def parametrize_with_cases(argnames,                # type: Union[str, List[str], Tuple[str, ...]]
-                           cases=AUTO,              # type: Union[CaseType, List[CaseType]]
-                           prefix=CASE_PREFIX_FUN,  # type: str
-                           glob=None,               # type: str
-                           has_tag=None,            # type: Any
-                           filter=None,             # type: Callable[..., bool]  # noqa
-                           ids=None,                # type: Union[Callable, Iterable[str]]
-                           idstyle=None,            # type: Union[str, Callable]
-                           # idgen=_IDGEN,            # type: Union[str, Callable]
-                           debug=False,             # type: bool
-                           scope="function",        # type: str
-                           import_fixtures=False    # type: bool
-                           ):
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import parametrize_with_cases
-```
-
-**Parameter Description**:
-- `argnames` (str): Names of the test function parameters, a comma-separated string
-- `cases` (Union[CaseType, List[CaseType]]): Source of test cases, default is AUTO (auto-discovery)
-- `prefix` (str): Prefix of test case functions, default is 'case_'
-- `glob` (str): File matching pattern for filtering test case files
-- `has_tag` (Union[str, Iterable[str]]): Tag filtering condition
-- `filter` (Callable): Custom filtering function
-- `ids` (Union[Callable, Iterable[str]]): Test case ID generator
-- `idstyle` (Union[str, Callable]): ID style configuration
-- `debug=False` (bool): choice of debug
-- `scope` (str): Parametrization scope, default is "function"
-- `import_fixtures` (bool): Whether to import fixtures, default is False
-
-**Return Value**: Decorator function
-
-#### 162. `case()` Decorator - Marking Test Cases
-
-**Function**: Add markers and metadata to test case functions.
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import case
-```
-
-**Function Signature**:
-```python
-@function_decorator
-def case(id=None,             # type: str  # noqa
-         tags=None,           # type: Union[Any, Iterable[Any]]
-         marks=(),            # type: Union[MarkDecorator, SeveralMarkDecorators]
-         case_func=DECORATED  # noqa
-         ):
-    marks = markdecorators_as_tuple(marks)
-    case_info = _CaseInfo(id, marks, tags)
-    case_info.attach_to(case_func)
-    return case_func
-```
-
-**Parameter Description**:
-- `id` (str): Unique identifier of the test case
-- `tags` (Union[str, Iterable[str]]): List of tags for filtering and classification
-- `marks` (Union[MarkDecorator, Iterable[MarkDecorator]]): Pytest markers
-- `case_func` Case function
-
-**Return Value**: Decorator function
-
-#### 163. `get_current_cases()` Function - Getting Information about the Current Test Case
-
-**Function**: Get detailed information about the current test case, including case ID, function object, and parameters.
-
-**Function Signature**:
-```python
-def get_current_cases(request_or_item):
-    """
-    Returns a dictionary containing all case parameters for the currently active `pytest` item.
-    You can either pass the `pytest` item (available in some hooks) or the `request` (available in hooks, and also
-    directly as a fixture).
-
-    For each test function argument parametrized using a `@parametrize_with_case(<argname>, ...)` this dictionary
-    contains an entry `{<argname>: (case_id, case_function, case_params)}`. If several argnames are parametrized this
-    way, a dedicated entry will be present for each argname. The tuple is a `namedtuple` containing
-
-     - `id` a string containing the actual case id constructed by `@parametrize_with_cases`.
-     - `function` the original case function.
-     - `params` a dictionary, containing the parameters of the case, if itself is parametrized. Note that if the
-    case is parametrized with `@parametrize_with_cases`, the associated parameter value in the dictionary will also be
-    `(actual_id, case_function, case_params)`.
-
-    If a fixture parametrized with cases is active, the dictionary will contain an entry `{<fixturename>: <dct>}` where
-    `<dct>` is a dictionary `{<argname>: (case_id, case_function, case_params)}`.
-
-    To get more information on a case function, you can use `get_case_marks(f)`, `get_case_tags(f)`.
-    You can also use `matches_tag_query` to check if a case function matches some expectations either concerning its id
-    or its tags. See https://smarie.github.io/python-pytest-cases/#filters-and-tags
-
-    Note that you can get the same contents directly by using the `current_cases` fixture.
-    """
-```
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import get_current_cases
-```
-
-**Parameter Description**:
-- `request_or_item: Pytest request object
-
-**Return Value**: Dictionary containing information about the current test case
-
-
-#### 164. `flake8()` - Function Name
-
-**Function Signature**:
-```python
-@nox.session(python=PY311)
-def flake8(session):
-    """Launch flake8 qualimetry."""
-```
-
-**Import Statement**:
-```python
-from noxfile import flake8
-```
-
-**Function**:
-Launch flake8 qualimetry for the project, generating HTML reports and a badge.
-
-**Parameter Description**:
-- `session`: Nox session object used to run installations and flake8 commands.
-
-
-### Detailed Implementation Constants
-
-#### 1. `ENVS` Constant - Test Environment Configuration
-
-**Description**:
-Dictionary defining test environments for different Python versions and pytest versions. Each environment specifies coverage settings and package specifications for comprehensive testing across multiple Python and pytest versions.
-
-**Import Statement**:
-```python
-from noxfile import ENVS
-```
-
-**Constant**:
-```python
-ENVS = {
-    # python 3.14
-    (PY314, "pytest-latest"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": ""}},
-    (PY314, "pytest7.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<8"}},
-    (PY314, "pytest6.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<7"}},
-    # python 3.13
-    (PY313, "pytest-latest"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": ""}},
-    (PY313, "pytest7.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<8"}},
-    (PY313, "pytest6.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<7"}},
-    # python 3.12
-    (PY312, "pytest-latest"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": ""}},
-    (PY312, "pytest7.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<8"}},
-    (PY312, "pytest6.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<7"}},
-    # python 3.11
-    (PY311, "pytest7.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<8"}},
-    (PY311, "pytest6.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<7"}},
-    # python 3.10
-    (PY310, "pytest-latest"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": ""}},
-    (PY310, "pytest7.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<8"}},
-    (PY310, "pytest6.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<7"}},
-    # python 3.9
-    (PY39, "pytest-latest"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": ""}},
-    (PY39, "pytest7.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<8"}},
-    (PY39, "pytest6.x"): {"coverage": False, "pkg_specs": {"pip": ">19", "pytest": "<7"}},
-    # IMPORTANT: this should be last so that the folder docs/reports is not deleted afterwards
-    (PY311, "pytest-latest"): {"coverage": True, "pkg_specs": {"pip": ">19", "pytest": ""}},
-}
-```
-
----
-
-#### 2. `ENV_PARAMS` Constant - Environment Parameters Tuple
-
-**Description**:
-Tuple containing environment parameters derived from ENVS dictionary. Extracts Python version, coverage flag, and package specifications for each test environment.
-
-**Import Statement**:
-```python
-from noxfile import ENV_PARAMS
-```
-
-**Constant**:
-```python
-ENV_PARAMS = tuple((k[0], v["coverage"], v["pkg_specs"]) for k, v in ENVS.items())
-```
-
----
-
-#### 3. `ENV_IDS` Constant - Environment IDs Tuple
-
-**Description**:
-Tuple containing environment IDs generated from ENVS dictionary. Creates unique identifiers for each test environment by combining Python version and pytest version.
-
-**Import Statement**:
-```python
-from noxfile import ENV_IDS
-```
-
-**Constant**:
-```python
-ENV_IDS = tuple(f"{k[0].replace('.', '-')}-env-{k[1]}" for k in ENVS)
-```
-
----
-
-#### 4. `DOWNLOAD_URL` Constant - Package Download URL
-
-**Description**:
-URL for downloading the package distribution files.
-
-**Import Statement**:
-```python
-from setup import DOWNLOAD_URL
-```
-
-**Constant**:
-Reference to package download URL configuration.
-
----
-
-#### 5. `DONT_INSTALL` Constant - Installation Skip Indicator
-
-**Description**:
-Configuration constant indicating whether installation should be skipped for specific dependencies.
-
-**Import Statement**:
-```python
-from ci_tools.nox_utils import DONT_INSTALL
-```
-
-**Constant**:
-Boolean or list value indicating packages that should not be installed.
-
----
-
-#### 6. `CASE_FIELD` Constant - Case Field Identifier
-
-**Description**:
-Constant used to identify the case field in case function definitions.
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import CASE_FIELD
-```
-
-**Constant**:
-String identifier for case field.
-
----
-
-#### 7. `GEN_BY_US` Constant - Generation Marker
-
-**Description**:
-Marker indicating that a case or fixture was generated by the pytest-cases library.
-
-**Import Statement**:
-```python
-from pytest_cases.case_funcs import GEN_BY_US
-```
-
-**Constant**:
-String marker for generated test components.
-
----
-
-#### 8. `THIS_MODULE` Constant - Current Module Reference
-
-**Description**:
-Reference to the current module being processed, used for module-level operations.
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import THIS_MODULE
-```
-
-**Constant**:
-Module reference constant.
-
----
-
-#### 9. `_HOST_CLS_ATTR` Constant - Host Class Attribute
-
-**Description**:
-Internal constant marking the host class attribute in parametrizer classes.
-
-**Import Statement**:
-```python
-from pytest_cases.case_parametrizer_new import _HOST_CLS_ATTR
-```
-
-**Constant**:
-String identifier for host class attribute.
-
----
-
-#### 10. `PY3` Constant - Python 3 Detection
-
-**Description**:
-Boolean constant indicating whether running on Python 3.
-
-**Import Statement**:
-```python
-from pytest_cases.common_mini_six import PY3
-```
-
-**Constant**:
-Boolean value (True for Python 3, False for Python 2).
-
----
-
-#### 11. `PY34` Constant - Python 3.4 Detection
-
-**Description**:
-Boolean constant indicating whether running on Python 3.4 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_mini_six import PY34
-```
-
-**Constant**:
-Boolean value for Python 3.4+ detection.
-
----
-
-#### 12. `PYTEST_VERSION` Constant - Pytest Version
-
-**Description**:
-Constant storing the current pytest version.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST_VERSION
-```
-
-**Constant**:
-Pytest version string.
-
----
-
-#### 13. `PYTEST3_OR_GREATER` Constant - Pytest 3+ Check
-
-**Description**:
-Boolean constant indicating pytest version 3 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST3_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 3+ compatibility.
-
----
-
-#### 14. `PYTEST32_OR_GREATER` Constant - Pytest 3.2+ Check
-
-**Description**:
-Boolean constant indicating pytest version 3.2 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST32_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 3.2+ compatibility.
-
----
-
-#### 15. `PYTEST33_OR_GREATER` Constant - Pytest 3.3+ Check
-
-**Description**:
-Boolean constant indicating pytest version 3.3 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST33_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 3.3+ compatibility.
-
----
-
-#### 16. `PYTEST34_OR_GREATER` Constant - Pytest 3.4+ Check
-
-**Description**:
-Boolean constant indicating pytest version 3.4 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST34_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 3.4+ compatibility.
-
----
-
-#### 17. `PYTEST35_OR_GREATER` Constant - Pytest 3.5+ Check
-
-**Description**:
-Boolean constant indicating pytest version 3.5 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST35_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 3.5+ compatibility.
-
----
-
-#### 18. `PYTEST361_36X` Constant - Pytest 3.6.1-3.6.x Check
-
-**Description**:
-Boolean constant indicating pytest version 3.6.1 through 3.6.x.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST361_36X
-```
-
-**Constant**:
-Boolean marker for pytest 3.6.1-3.6.x compatibility.
-
----
-
-#### 19. `PYTEST37_OR_GREATER` Constant - Pytest 3.7+ Check
-
-**Description**:
-Boolean constant indicating pytest version 3.7 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST37_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 3.7+ compatibility.
-
----
-
-#### 20. `PYTEST38_OR_GREATER` Constant - Pytest 3.8+ Check
-
-**Description**:
-Boolean constant indicating pytest version 3.8 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST38_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 3.8+ compatibility.
-
----
-
-#### 21. `PYTEST46_OR_GREATER` Constant - Pytest 4.6+ Check
-
-**Description**:
-Boolean constant indicating pytest version 4.6 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST46_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 4.6+ compatibility.
-
----
-
-#### 22. `PYTEST53_OR_GREATER` Constant - Pytest 5.3+ Check
-
-**Description**:
-Boolean constant indicating pytest version 5.3 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST53_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 5.3+ compatibility.
-
----
-
-#### 23. `PYTEST54_OR_GREATER` Constant - Pytest 5.4+ Check
-
-**Description**:
-Boolean constant indicating pytest version 5.4 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST54_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 5.4+ compatibility.
-
----
-
-#### 24. `PYTEST421_OR_GREATER` Constant - Pytest 4.21+ Check
-
-**Description**:
-Boolean constant indicating pytest version 4.21 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST421_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 4.21+ compatibility.
-
----
-
-#### 25. `PYTEST6_OR_GREATER` Constant - Pytest 6+ Check
-
-**Description**:
-Boolean constant indicating pytest version 6 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST6_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 6+ compatibility.
-
----
-
-#### 26. `PYTEST7_OR_GREATER` Constant - Pytest 7+ Check
-
-**Description**:
-Boolean constant indicating pytest version 7 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST7_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 7+ compatibility.
-
----
-
-#### 27. `PYTEST71_OR_GREATER` Constant - Pytest 7.1+ Check
-
-**Description**:
-Boolean constant indicating pytest version 7.1 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST71_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 7.1+ compatibility.
-
----
-
-#### 28. `PYTEST8_OR_GREATER` Constant - Pytest 8+ Check
+#### 169 `padnone` Function
 
-**Description**:
-Boolean constant indicating pytest version 8 or greater.
+**Function Description**: 
+Returns the sequence of elements and then returns ``None`` indefinitely. This is an alias for ``pad_none``.
 
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST8_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 8+ compatibility.
-
----
-
-#### 29. `PYTEST81_OR_GREATER` Constant - Pytest 8.1+ Check
-
-**Description**:
-Boolean constant indicating pytest version 8.1 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST81_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 8.1+ compatibility.
-
----
-
-#### 30. `PYTEST84_OR_GREATER` Constant - Pytest 8.4+ Check
-
-**Description**:
-Boolean constant indicating pytest version 8.4 or greater.
-
-**Import Statement**:
-```python
-from pytest_cases.common_pytest_marks import PYTEST84_OR_GREATER
-```
-
-**Constant**:
-Boolean marker for pytest 8.4+ compatibility.
-
----
-
-#### 31. `NOT_USED` Constant - Fixture Not Used
-
-**Description**:
-Constant indicating that a fixture is not currently used in the fixture union.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import NOT_USED
-```
-
-**Constant**:
-Marker value for unused fixtures.
-
----
-
-#### 32. `USED` Constant - Fixture Used
-
-**Description**:
-Constant indicating that a fixture is currently used in the fixture union.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_core1_unions import USED
-```
-
-**Constant**:
-Marker value for used fixtures.
-
----
-
-#### 33. `EMPTY_ID` Constant - Empty ID Marker
-
-**Description**:
-Constant representing an empty ID string for parametrized test cases.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture_parametrize_plus import EMPTY_ID
-```
-
-**Constant**:
-Empty string or null ID marker.
-
----
-
-#### 34. `WARN` Constant - Warning Level
-
-**Description**:
-Constant representing warning level in fixture creation process.
-
-**Import Statement**:
-```python
-from pytest_cases.fixture__creation import WARN
-```
-
-**Constant**:
-Warning level constant.
-
----
-
-#### 35. `CHANGE` Constant - Change Level
+**Core Algorithm**: 
+Useful for emulating the behavior of the built-in :func:`map` function. Uses ``chain(iterable, repeat(None))`` to concatenate the original iterable with an infinite sequence of ``None`` values.
 
-**Description**:
-Constant representing change level in fixture creation process.
-
-**Import Statement**:
+**Input/Output Example**:
 ```python
-from pytest_cases.fixture__creation import CHANGE
-```
-
-**Constant**:
-Change level constant.
-
----
-
-#### 36. `_DEBUG` Constant - Debug Mode
-
-**Description**:
-Boolean constant enabling debug mode for the pytest-cases plugin.
+def padnone(iterable: Iterable[_T]) -> Iterator[_T | None]: ...
+from more_itertools.more import padnone
 
-**Import Statement**:
-```python
-from pytest_cases.plugin import _DEBUG
+list(take(5, padnone(range(3))))
+[0, 1, 2, None, None]
 ```
 
-**Constant**:
-Boolean debug mode flag.
+#### 170 `_factor_trial` Function
 
----
+**Function Description**: 
+Yield prime factors of n using trial division method. This is a helper function for the main factorization algorithm.
 
-#### 37. `_OPTION_NAME` Constant - Option Name
+**Core Algorithm**: 
+Uses trial division to find small prime factors by testing divisibility against a predefined set of small primes. This method is efficient for finding small factors before applying more complex algorithms like Pollard's rho for larger factors.
 
-**Description**:
-Constant defining the option name for the pytest-cases plugin configuration.
-
-**Import Statement**:
+**Input/Output Example**:
 ```python
-from pytest_cases.plugin import _OPTION_NAME
-```
-
-**Constant**:
-String option name identifier.
-
----
-
-#### 38. `_SKIP` Constant - Skip Mode
+def _factor_trial(n: int) -> Iterator[int]: ...
 
-**Description**:
-Constant representing skip mode in plugin configuration.
+from more_itertools.recipes import _factor_trial
 
-**Import Statement**:
-```python
-from pytest_cases.plugin import _SKIP
+list(_factor_trial(360))
+[2, 2, 2, 3, 3, 5]
 ```
 
-**Constant**:
-Skip mode constant.
+#### 171 `_SizedIterable` Protocol
 
----
+**Function Description**: 
+A type protocol that combines Sized and Iterable interfaces for type checking purposes.
 
-#### 39. `_NORMAL` Constant - Normal Mode
+**Core Algorithm**: 
+Defines a protocol for objects that are both sized (have a length) and iterable. This is used in type hints to specify that a function expects an object that can be both measured and iterated over.
 
-**Description**:
-Constant representing normal mode in plugin configuration.
-
-**Import Statement**:
+**Input/Output Example**:
 ```python
-from pytest_cases.plugin import _NORMAL
-```
-
-**Constant**:
-Normal mode constant.
-
----
-
-#### 40. `_OPTIONS` Constant - Options Dictionary
+from more_itertools.more import _SizedIterable
+from typing import TYPE_CHECKING
 
-**Description**:
-Dictionary containing configuration options for the pytest-cases plugin.
-
-**Import Statement**:
-```python
-from pytest_cases.plugin import _OPTIONS
+if TYPE_CHECKING:
+    # Used for type checking only
+    sized_iter: _SizedIterable[int] = [1, 2, 3, 4, 5]
 ```
-
-**Constant**:
-Dictionary of configuration options.
 
----
+#### 172 `_SizedReversible` Protocol
 
-#### 41. `PYTEST_CONFIG` Constant - Pytest Configuration
+**Function Description**: 
+A type protocol that combines Sized and Reversible interfaces for type checking purposes.
 
-**Description**:
-Constant storing pytest configuration information.
+**Core Algorithm**: 
+Defines a protocol for objects that are sized (have a length) and reversible (can be iterated in reverse). This is used in type hints to specify that a function expects an object that can be measured and reversed.
 
-**Import Statement**:
+**Input/Output Example**:
 ```python
-from pytest_cases.plugin import PYTEST_CONFIG
-```
-
-**Constant**:
-Pytest configuration object reference.
-
----
+from more_itertools.more import _SizedReversible
+from typing import TYPE_CHECKING
 
-#### 42. `AUTO2` Constant - Auto Mode 2
-
-**Description**:
-Constant defining auto mode 2 for parameterization.
-
-**Import Statement**:
-```python
-from pytest_cases.__init__ import AUTO2
+if TYPE_CHECKING:
+    # Used for type checking only
+    sized_rev: _SizedReversible[int] = [1, 2, 3, 4, 5]
 ```
 
-**Constant**:
-Auto mode 2 identifier.
+#### 173 `_SupportsSlicing` Protocol
 
----
+**Function Description**: 
+A type protocol that defines objects supporting slicing operations with __getitem__ method.
 
-#### 43. `THIS_MODULE` Constant - Module Reference (Tests)
+**Core Algorithm**: 
+Defines a protocol for objects that support slicing operations through the __getitem__ method with slice arguments. This is used in type hints to specify that a function expects an object that can be sliced.
 
-**Description**:
-Reference to the current module in test context.
-
-**Import Statement**:
+**Input/Output Example**:
 ```python
-from pytest_cases.case_parametrizer_new import THIS_MODULE
-```
-
-**Constant**:
-Module reference for testing.
+from more_itertools.more import _SupportsSlicing
+from typing import TYPE_CHECKING
 
----
-
-#### 55. `__all__` - Constant
-
-**Description**:
-Export list defining the public API of the `pytest_cases` package.
-
-**Import Statement**:
-```python
-from python-pytest-cases-main.src.pytest_cases.__init__ import __all__
+if TYPE_CHECKING:
+    # Used for type checking only
+    sliceable: _SupportsSlicing[int] = [1, 2, 3, 4, 5]
+    # Supports operations like: sliceable[1:4]
 ```
 
-**Constant**:
-Definition present in `pytest_cases/__init__.py`.
+#### 174 `_SupportsLessThan` Protocol
 
-#### 56. `SetupCfg` - Type Alias
+**Function Description**: 
+A type protocol that defines objects supporting less-than comparison operations with __lt__ method.
 
-**Description**:
-Named tuple alias representing parsed setup configuration sections.
-
-**Import Statement**:
-```python
-from python-pytest-cases-main.ci_tools.nox_utils import SetupCfg
-```
+**Core Algorithm**: 
+Defines a protocol for objects that support less-than comparison through the __lt__ method. This is used in type hints to specify that a function expects an object that can be compared using the < operator.
 
-**Type Alias**:
+**Input/Output Example**:
 ```python
-SetupCfg = namedtuple('SetupCfg', ('setup_requires', 'install_requires', 'tests_requires', 'extras_require'))
-```
-
----
+from more_itertools.more import _SupportsLessThan
+from typing import TYPE_CHECKING
 
-#### 57. `_make_fixture_union` - Type Alias
-
-**Description**:
-Internal alias pointing to the fixture union builder.
-
-**Import Statement**:
-```python
-from python-pytest-cases-main.src.pytest_cases.fixture_parametrize_plus import _make_fixture_union
+if TYPE_CHECKING:
+    # Used for type checking only
+    comparable: _SupportsLessThan = 42
+    # Supports operations like: comparable < 50
 ```
 
-**Type Alias**:
-```python
-_make_fixture_union = _fixture_union
-```
----
+#### 175 `_SupportsLessThanT` TypeVar
 
-#### 58. `_make_unpack_fixture` - Type Alias
+**Function Description**: 
+A type variable bound to the _SupportsLessThan protocol for generic type checking.
 
-**Description**:
-Internal alias pointing to the fixture unpacking helper.
+**Core Algorithm**: 
+Defines a type variable that can represent any type that supports less-than comparison operations. This is used in generic functions to ensure type safety when working with comparable objects.
 
-**Import Statement**:
+**Input/Output Example**:
 ```python
-from python-pytest-cases-main.src.pytest_cases.fixture_core1_unions import _make_unpack_fixture
-```
+from more_itertools.more import _SupportsLessThanT
+from typing import TYPE_CHECKING
 
-**Type Alias**:
-```python
-_make_unpack_fixture = _unpack_fixture
+if TYPE_CHECKING:
+    # Used for type checking only
+    def min_value(a: _SupportsLessThanT, b: _SupportsLessThanT) -> _SupportsLessThanT:
+        return a if a < b else b
 ```
 
----
+#### 176 Type Variables and Constants
 
-#### 59. `_make_fixture_product` - Type Alias
+**Function Description**: 
+Type variables and constants used throughout the more_itertools library for generic type checking and internal functionality.
 
-**Description**:
-Internal alias pointing to the fixture cartesian product helper.
+**Core Algorithm**: 
+- `_T`, `_T1`, `_T2`, `_T3`, `_T4`, `_T5`, `_U`, `_V`, `_W`: Generic type variables for different data types
+- `_T_co`: Covariant type variable for read-only operations
+- `_GenFn`: Type variable bound to generator functions
+- `_NumberT`: Type variable for numeric types (float, Decimal, Fraction)
+- `_Raisable`: Union type for exceptions and exception types
+- `_marker`: Sentinel object for internal use
+- `_primes_below_211`: Precomputed small primes for factorization
+- `_perfect_tests`: Primality test parameters
+- `_private_randrange`: Private random number generator instance
+- `__version__`: Library version string ('10.8.0')
+- `__all__`: List of all public functions, classes, and constants exported by the module
 
-**Import Statement**:
+**Input/Output Example**:
 ```python
-from python-pytest-cases-main.src.pytest_cases.fixture_parametrize_plus import _make_fixture_product
-```
+from more_itertools.more import _T, _T_co, _marker
 
-**Type Alias**:
-```python
-_make_fixture_product = _fixture_product
+# Type variables used in function signatures
+def first(iterable: Iterable[_T]) -> _T: ...
+def map_except(func: Callable[[_T], _U], iterable: Iterable[_T]) -> Iterator[_U]: ...
 ```
----
