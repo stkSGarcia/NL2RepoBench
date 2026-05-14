@@ -11,6 +11,8 @@ DEFAULT_BASELINE="claude_vanilla"
 DEFAULT_CONCURRENCY=4
 DEFAULT_TIMEOUT=900  # seconds per project
 
+MODEL="${MODEL:-unknown}"
+
 VALID_BASELINES=(claude_vanilla claude_spec opencode_vanilla opencode_spec)
 
 # ─── Usage ────────────────────────────────────────────────────────────────────
@@ -125,8 +127,11 @@ if [[ ${#PROJECTS[@]} -eq 0 ]]; then
     exit 1
 fi
 
+# ─── Baseline directory name (append model if set) ───────────────────────────
+BASELINE_DIR="${BASELINE}_${MODEL}"
+
 # ─── Logging helpers ──────────────────────────────────────────────────────────
-LOG_DIR="$WORKSPACES_DIR/$BASELINE/logs"
+LOG_DIR="$WORKSPACES_DIR/$BASELINE_DIR/logs"
 mkdir -p "$LOG_DIR"
 SUMMARY_LOG="$LOG_DIR/benchmark_$(date +%Y%m%d_%H%M%S).log"
 
@@ -137,7 +142,7 @@ log_project() { local project="$1" level="$2"; shift 2; echo "[$(date '+%H:%M:%S
 run_project() {
     local project="$1"
     local src_dir="$TEST_FILES_DIR/$project"
-    local workspace_dir="$WORKSPACES_DIR/$BASELINE/$project/workspace"
+    local workspace_dir="$WORKSPACES_DIR/$BASELINE_DIR/$project/workspace"
     local project_log="$LOG_DIR/${project}.log"
 
     {
@@ -198,8 +203,8 @@ run_parallel() {
     local -a pids=()
     local -a pid_projects=()
 
-    log "Starting benchmark: baseline=$BASELINE, projects=$total, concurrency=$concurrency"
-    log "Workspace root: $WORKSPACES_DIR/$BASELINE"
+    log "Starting benchmark: baseline=$BASELINE_DIR, projects=$total, concurrency=$concurrency"
+    log "Workspace root: $WORKSPACES_DIR/$BASELINE_DIR"
     log "Log directory: $LOG_DIR"
     echo ""
 
@@ -242,7 +247,7 @@ run_parallel() {
     local -i success=0 failed=0 timeout=0 unknown=0
     echo ""
     log "═══════════════════════════════════════════"
-    log "Benchmark complete: $BASELINE"
+    log "Benchmark complete: $BASELINE_DIR"
     log "═══════════════════════════════════════════"
 
     for project in "${PROJECTS[@]}"; do
