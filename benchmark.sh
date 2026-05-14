@@ -128,7 +128,7 @@ if [[ ${#PROJECTS[@]} -eq 0 ]]; then
 fi
 
 # ─── Baseline directory name (append model if set) ───────────────────────────
-BASELINE_DIR="${BASELINE}_${MODEL}"
+BASELINE_DIR="${BASELINE}_${MODEL//\//-}"
 
 # ─── Logging helpers ──────────────────────────────────────────────────────────
 LOG_DIR="$WORKSPACES_DIR/$BASELINE_DIR/logs"
@@ -202,6 +202,7 @@ run_parallel() {
     local -i done=0
     local -a pids=()
     local -a pid_projects=()
+    local -A project_statuses  # keyed by project name, no .status files needed
 
     log "Starting benchmark: baseline=$BASELINE_DIR, projects=$total, concurrency=$concurrency"
     log "Workspace root: $WORKSPACES_DIR/$BASELINE_DIR"
@@ -217,8 +218,8 @@ run_parallel() {
             run_project "$project" &
             pids+=($!)
             pid_projects+=("$project")
-            (( running++ ))
-            (( idx++ ))
+            (( ++running ))
+            (( ++idx ))
         done
 
         # Wait for any worker to finish
@@ -229,12 +230,12 @@ run_parallel() {
                 wait "$pid" 2>/dev/null || true
                 local status
                 status=$(tail -1 "$LOG_DIR/${project}.log" 2>/dev/null || echo "UNKNOWN")
-                echo "$status" > "$LOG_DIR/${project}.status"
+                project_statuses["$project"]="$status"
                 log_project "$project" "INFO" "done → $status"
                 unset 'pids[$i]'
                 unset 'pid_projects[$i]'
-                (( running-- ))
-                (( done++ ))
+                (( --running )) || true
+                (( ++done ))
                 break
             fi
         done
@@ -252,7 +253,7 @@ run_parallel() {
 
     for project in "${PROJECTS[@]}"; do
         local status
-        status=$(cat "$LOG_DIR/${project}.status" 2>/dev/null || echo "UNKNOWN")
+        status="${project_statuses[$project]:-UNKNOWN}"
         case "$status" in
             SUCCESS) (( success++ )) ;;
             TIMEOUT) (( timeout++ )) ;;
