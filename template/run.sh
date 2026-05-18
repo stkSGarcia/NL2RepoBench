@@ -443,9 +443,18 @@ Rules:
 
     # Verify and (if needed) recover the change name from the filesystem
     if [[ ! -d "openspec/changes/$CHANGE_NAME" ]]; then
-      ACTUAL_NAME=$(find openspec/changes -mindepth 1 -maxdepth 1 -type d \
-        ! -name archive -printf '%T@ %f\n' 2>/dev/null \
-        | sort -rn | head -n1 | awk '{print $2}')
+      # Portable across BSD (macOS) and GNU find: avoid -printf.
+      # Pick the most-recently-modified non-archive change dir via bash's -nt test.
+      ACTUAL_NAME=""
+      for _d in openspec/changes/*/; do
+        [[ -d "$_d" ]] || continue
+        _name=$(basename "$_d")
+        [[ "$_name" == "archive" ]] && continue
+        if [[ -z "$ACTUAL_NAME" || "$_d" -nt "openspec/changes/$ACTUAL_NAME" ]]; then
+          ACTUAL_NAME="$_name"
+        fi
+      done
+      unset _d _name
       if [[ -n "$ACTUAL_NAME" && "$ACTUAL_NAME" != "$CHANGE_NAME" ]]; then
         echo "⚠  Expected 'openspec/changes/$CHANGE_NAME' not found, switching to '$ACTUAL_NAME'."
         CHANGE_NAME="$ACTUAL_NAME"
@@ -457,6 +466,7 @@ Rules:
 
     # ── STEP 2: apply ──
     run_step "2-apply" "/opsx:apply $CHANGE_NAME
+
 Rules:
 - Do NOT ask for confirmation. When something is ambiguous, pick the most reasonable interpretation and continue.
 - Only end the turn after every task is complete."
