@@ -12,10 +12,10 @@ from test_data_service import TestData
 logger = get_logger(__name__)
 
 
-def start_test(workspace_name,test_data : TestData):
+def start_test(workspace_path, pro_name, test_data: TestData):
     try:
-        workspace_path = os.path.join("workspaces", workspace_name, "workspace")
-        post_process_result = post_process_task(workspace_name, workspace_path, test_data, logger)
+        workspace_path = os.path.join("workspaces", workspace_path, pro_name, "workspace")
+        post_process_result = post_process_task(pro_name, workspace_path, test_data, logger)
 
         if post_process_result['status'] == 'success':
             logger.info("Post processing completed successfully")
@@ -27,20 +27,20 @@ def start_test(workspace_name,test_data : TestData):
 
         # Return task result
         return {
-            'task_uuid': workspace_name,
+            'task_uuid': pro_name,
             'workspace_path': workspace_path,
             'test_data': test_data,
             'pro_name': test_data.proName,
             'status': 'completed' if post_process_result['status'] == 'success' else 'failed',
             'post_process_result': post_process_result,
             'test_score': test_score,
-            'score': test_score  
+            'score': test_score
         }
 
     except Exception as e:
         logger.error(f"Error in start_test: {str(e)}")
         return {
-            'task_uuid': workspace_name,
+            'task_uuid': pro_name,
             'pro_name': test_data.proName,
             'status': 'error',
             'error': str(e)
@@ -48,23 +48,39 @@ def start_test(workspace_name,test_data : TestData):
 
 
 if __name__ == '__main__':
-    logger.info("Start Running- (Only Test) ！")
+    logger.info("Start Running- (Only Test) !")
 
     # Obtain test data
     test_data_service.read_all_test_data()
-
     test_data_list = test_data_service.test_data_list
 
-    task_id = "6b4574e2-c164-4846-ae11-b54a42f577bc"
-    pro_name = "math-verify"
+    # workspace_path = "opencode_spec_siliconflow-cn-Pro-MiniMaxAI-MiniMax-M2.5"
+    workspace_path = "claude_spec_haiku"
+    pro_list = [
+        "pyperclip",
+        "pypinyin",
+        "pyquery",
+        "six",
+        "sklearn",
+        "sortedcontainers",
+        "google-images-download",
+        # "aiofiles",
+        # "box",
+        # "cachier",
+        # "cerberus",
+        # "cherry",
+        # "coverage_shield",
+        # "math-verify",
+        # "trimming",
+    ]
 
-    test_data = None
+    for pro_name in pro_list:
+        test_data = None
+        for data in test_data_list:
+            if data.proName == pro_name:
+                test_data = data
+                continue
 
-    for data in test_data_list:
-        if data.proName == pro_name:
-            test_data = data
-            break
+        start_test(workspace_path, pro_name, test_data)
 
-    start_test(task_id, test_data)
-
-    logger.info("Test has been executed successfully！")
+    logger.info("Test has been executed successfully!")
